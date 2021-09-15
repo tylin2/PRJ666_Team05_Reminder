@@ -1,4 +1,4 @@
-## (December 28th, 2020)
+## (December 15th, 2021)
 
 ### Added a proper issue to be used as an example (author - Marcel Jar)
 * An example of a proper issue, with all required sections, was created in [#5](https://github.com/marceljar/Group_00/issues/5)
