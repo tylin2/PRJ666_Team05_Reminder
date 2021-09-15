@@ -7,7 +7,7 @@
 | Kimin Lee      | klee214   | klee214@myseneca.ca | 
 | Tecca Yu       | pyke-dot  | cyu81@myseneca.ca   | 
 | Ting-Yeh Lin   | tylin2    | tylin2@myseneca.ca  | 
-| Yonghwan Song  |   | ysong115@myseneca.ca | 
+| Yonghwan Song  | Yonghwan-Song  | ysong115@myseneca.ca | 
 
 ## Project Description
 In this project, a website tailored for people to manage time and keep track of their projects and tasks. The website will help users to track and manage the projects and schedules by creating task lists and schedules. The two most important parts are the task selection and the project, which will be discussed below:
