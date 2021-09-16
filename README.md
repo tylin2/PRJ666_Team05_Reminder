@@ -3,7 +3,7 @@
 ## Members
 | Name           | Github    | Email                       | 
 | -------------- | --------- | --------------------------- | 
-| Du Luan Trieu  |  | dltrieu@myseneca.ca | 
+| Du Luan Trieu  | LarryTrieuDu | dltrieu@myseneca.ca | 
 | Kimin Lee      | klee214   | klee214@myseneca.ca | 
 | Tecca Yu       | pyke-dot  | cyu81@myseneca.ca   | 
 | Ting-Yeh Lin   | tylin2    | tylin2@myseneca.ca  | 
