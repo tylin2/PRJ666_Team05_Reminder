@@ -1,0 +1,23 @@
+{
+  "name": "prj666_team05_reminder",
+  "version": "1.0.0",
+  "description": "## Members | Name           | Github    | Email                       |  | -------------- | --------- | --------------------------- |  | Du Luan Trieu  | LarryTrieuDu | dltrieu@myseneca.ca |  | Kimin Lee      | klee214   | klee214@myseneca.ca |  | Tecca Yu       | pyke-dot  | cyu81@myseneca.ca   |  | Ting-Yeh Lin   | tylin2    | tylin2@myseneca.ca  |  | Yonghwan Song  | Yonghwan-Song  | ysong115@myseneca.ca |",
+  "main": "index.js",
+  "dependencies": {
+    "mongoose": "^6.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tylin2/PRJ666_Team05_Reminder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tylin2/PRJ666_Team05_Reminder/issues"
+  },
+  "homepage": "https://github.com/tylin2/PRJ666_Team05_Reminder#readme"
+}
