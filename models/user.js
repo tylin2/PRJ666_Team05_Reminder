@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const userSchema = new Schema(
   {
     name: String,
     email: {
@@ -8,17 +8,21 @@ const userSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    role: {
+    password:{
       type: String,
-      default: "subscriber",
+      required: true
     },
-    cart: {
-      type: Array,
-      default: [],
+    userName:{
+      type: String,
+      required: true
     },
-    address: String,
+    projectSet:{
+      type: [{type: Schema.Types.ObjectId, ref: 'Project'}]
+    },
+    taskSet:{
+      type: [{type: Schema.Types.ObjectId, ref: 'Task'}]
+    }
 
-    //   wishlist: [{ type: mongoose.ObjectId, ref: "Product" }],
   },
   { timestamps: true }
 );

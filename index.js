@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
 const Project = require('./models/project');
 const Task = require('./models/task');
 const User = require('./models/user');
@@ -18,15 +20,10 @@ const { createTask, listTask } = require("./controllers/task");
 const app = express();
 
 //db
-// process.env.DATABASE_URL :
-// mongodb+srv://klee214:eu2EIvcJGuJ6g2MW@cluster0.eajz1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+dotenv.config();
+
 mongoose
-  .connect(`${process.env.DATABASE_URL}`, { 
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useCreateIndex: true,
-  })
+  .connect(`${process.env.DATABASE_URL2}`)
   .then((data) => {
     console.log("DB CONNECTED");
   })
@@ -48,7 +45,7 @@ function initialize(){
   });
   
   task1.project = project1;
-  project1.task.push(task1);
+  project1.tasks.push(task1);
   
   task1.save(function(err){
       if(err) return handleError(err);
@@ -60,10 +57,10 @@ function initialize(){
 
 function population(){
   Project.findOne({name: 'Sample project'})
-          .populate('task')
+          .populate('tasks')
           .exec(function (err, project){
-              if(err) return handleError(err);
-              console.log(`The task in the project is ${project.task[0]}`);
+              if(err) console.log(err);
+              console.log(`The task in the project is ${project.tasks[0]}`);
           });
 
   Task.findOne({name: 'Sample task'})
@@ -73,8 +70,8 @@ function population(){
               console.log(`The project this task belongs is ${task.project}`);
           });
 }
-initialize();
-//population();
+//initialize();
+population();
 
 
 
