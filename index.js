@@ -31,7 +31,7 @@ mongoose
     console.log(`DB CONNECTION ERROR: ${err}`);
   });
 
-//check if the task model works correctly.
+//create a task and project document so that the project can include the task created.
 function initialize(){
   const task1 = new Task({
       name: 'Sample task',
@@ -55,6 +55,28 @@ function initialize(){
   });
 }
 
+
+function addUser(){
+  Task.findOne({name: 'Sample task'})
+  .exec()
+  .then((task)=>{
+    const user1 = new User({
+      name: 'user1',
+      email: 'user1@email.com',
+      password: 'password',
+      userName: 'username1'
+    });
+
+    task.user=user1;
+    user1.taskSet.push(task);
+
+    user1.save(function(err){
+      if(err) console.log(err);
+    });
+    task.save().then(savedTask=>console.log(savedTask));
+  });
+}
+
 function population(){
   Project.findOne({name: 'Sample project'})
           .populate('tasks')
@@ -65,13 +87,18 @@ function population(){
 
   Task.findOne({name: 'Sample task'})
           .populate('project')
+          .populate('user')
           .exec(function(err, task){
               if(err) console.log(err);
-              console.log(`The project this task belongs is ${task.project}`);
+              console.log(`The project this task belongs to is ${task.project}`);
+              console.log(`This task is owned by ${task.user}`);
           });
+      
 }
 //initialize();
+//addUser();
 population();
+
 
 
 
