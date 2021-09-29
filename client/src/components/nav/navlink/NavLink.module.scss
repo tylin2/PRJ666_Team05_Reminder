@@ -1,0 +1,78 @@
+@import "../../../base";
+
+.sideNavItem {
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+      margin: 0;
+    }
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+    flex: 1;
+  }
+}
+
+.sideNavItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+    background-color 0.1s;
+}
+
+.sideNavItem:hover::before,
+.sideNavItemActive::before {
+  transform: scaleY(1);
+  width: 100%;
+}
+
+.sideNavItem:active::before {
+  background-color: var(--color-primary-light);
+}
+
+.sideNavLink:link,
+.sideNavLink:visited {
+  color: var(--color-grey-light-1);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  padding: 1.5rem 3rem;
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: $bp-medium) {
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    flex-direction: column;
+    padding: 1.5rem 0.5rem;
+  }
+}
+
+// side-nav__icon {
+//     width: 1.75rem;
+//     height: 1.75rem;
+//     margin-right: 2rem;
+//     fill: currentColor;
+
+//     @media only screen and (max-width: $bp-small) {
+//         margin-right: 0;
+//         margin-bottom: .7rem;
+//         width: 1.5rem;
+//         height: 1.5rem;
+//     }
+// }

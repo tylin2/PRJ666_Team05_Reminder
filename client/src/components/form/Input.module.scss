@@ -1,0 +1,40 @@
+@import "../../base";
+
+.textInput {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: var(--color-grey-light-2);
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  width: 90%;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    width: 100%;
+    background-color: var(--color-grey-light-3);
+  }
+
+  &::-webkit-input-placeholder {
+    font-weight: 100;
+    color: var(--color-grey-light-4);
+  }
+}
+
+.dateInput {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: var(--color-grey-light-2);
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  width: 90%;
+
+  &::-webkit-input-placeholder {
+    font-weight: 100;
+    color: var(--color-grey-light-4);
+  }
+}
