@@ -1,5 +1,20 @@
 # Group_05
 
+## Branch/Commits Management
+I removed the previous all sub-branch since I merged the commits into the main branch. From now on, please use the following branch name on your works...
+AND DON'T LET THE TEAM KNOW BEFORE MERGE YOUR WORK INTO THE MAIN BRANCH.
+
+<hr/>
+
+```Main``` : master branch of this project. <br/>
+
+#### For sub-branch, use the meaningful name indicating what the branch is for
+```sprint2_userUI```, ```sprint2_projectUI```, ```sprint2_projectServer``` ...etc
+
+#### If you want to keep working one branch for your entire work, please indicate who is the owner of the branch on the name.
+```kimin``` ...etc
+
+
 ## Members
 | Name           | Github    | Email                       | 
 | -------------- | --------- | --------------------------- | 
