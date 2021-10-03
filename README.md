@@ -2,7 +2,7 @@
 
 ## Branch/Commits Management
 I removed the previous all sub-branch since I merged the commits into the main branch. From now on, please use the following branch name on your works...
-AND DON'T LET THE TEAM KNOW BEFORE MERGE YOUR WORK INTO THE MAIN BRANCH.
+AND LET THE TEAM KNOW BEFORE MERGE YOUR WORK INTO THE MAIN BRANCH.
 
 <hr/>
 
