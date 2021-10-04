@@ -13,12 +13,7 @@ import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
 
-import {
-
-  Switch,
-  Route,
-  
-} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 
 function App() {
   return (
@@ -41,7 +36,7 @@ function App() {
         <Nav>
           {" "}
           <NavLink href="">Project_test</NavLink>
-          <NavLink href="">Task_test</NavLink>
+          <NavLink href="/task_list">Task_test</NavLink>
           <NavLink href="">User_test</NavLink>
         </Nav>
         <Content>
