@@ -14,7 +14,8 @@ const userSchema = new Schema(
     },
     userName:{
       type: String,
-      required: true
+      required: true,
+      unique: true // Added
     },
     projectSet:{
       type: [{type: Schema.Types.ObjectId, ref: 'Project'}]
