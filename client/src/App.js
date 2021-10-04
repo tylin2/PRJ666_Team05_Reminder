@@ -11,6 +11,15 @@ import Login from "./components/header/login/Login";
 
 import logo from "./assets/img/logo.png";
 
+import TaskList from "./pages/tasks/taskList";
+
+import {
+
+  Switch,
+  Route,
+  
+} from "react-router-dom";
+
 function App() {
   return (
     <Container>
@@ -46,6 +55,12 @@ function App() {
           <h1>Change logo...</h1>
         </Content>
       </Body>
+      <Switch>
+                       
+                        <Route path="/task_list">
+                            <TaskList />
+                        </Route>
+                    </Switch>
     </Container>
   );
 }
