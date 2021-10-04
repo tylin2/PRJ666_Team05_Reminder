@@ -9,10 +9,20 @@ import Content from "./components/content/Content";
 import Header from "./components/header/Header";
 import Login from "./components/header/login/Login";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import TaskForm from "./pages/task/Task";
+
 import logo from "./assets/img/logo.png";
 
 function App() {
   return (
+    <Router>
     <Container>
       <Header>
         {" "}
@@ -31,22 +41,21 @@ function App() {
         {" "}
         <Nav>
           {" "}
-          <NavLink href="">Project_test</NavLink>
-          <NavLink href="">Task_test</NavLink>
-          <NavLink href="">User_test</NavLink>
+          <NavLink to="">Project_test</NavLink>
+          <NavLink to="/task">Task_test</NavLink>
+          <NavLink to="">User_test</NavLink>
         </Nav>
+
         <Content>
-          {/* Your code must be placed here */}
-          <h1>This is where the main contents will be placed</h1>
-          <hr />
-          <h1>Font should be changed as well...</h1>
-          <hr />
-          <h1>Kind of responsive design...</h1>
-          <hr />
-          <h1>Change logo...</h1>
+        <Switch>
+          <Route exact path="/task">
+            <TaskForm />
+          </Route>
+        </Switch>
         </Content>
       </Body>
     </Container>
+    </Router>
   );
 }
 
