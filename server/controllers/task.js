@@ -60,13 +60,9 @@ exports.listTask = async (req, res) => {
 exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
-    if(!task) {
-      res.status(404).send("No item was found");
-    }else{
-      res.send(task + 'has been deleted');
-    }
 
   } catch (error) {
+    // findByIdAndDelete -> cannot create two error code.. just use 500
     res.status(500).send(error);
   }
 };
