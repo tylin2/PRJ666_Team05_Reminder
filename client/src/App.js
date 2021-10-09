@@ -16,7 +16,7 @@ import {
   Link
 } from "react-router-dom";
 
-import TaskForm from "./pages/task/Task";
+import TaskForm from "./pages/tasks/Task";
 
 import logo from "./assets/img/logo.png";
 
@@ -42,7 +42,7 @@ function App() {
         <Nav>
           {" "}
           <NavLink to="">Project_test</NavLink>
-          <NavLink to="/task">Task_test</NavLink>
+          <NavLink to="/tasks">Task_test</NavLink>
           <NavLink to="">User_test</NavLink>
         </Nav>
 
