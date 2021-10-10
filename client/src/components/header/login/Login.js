@@ -9,12 +9,16 @@ const Login = (props) => {
   return (
     <>
       <nav className={styles.userNav}>
-        <div className={styles.userNav__iconBox}>
-          <a href="/signup"><span>Sign Up</span></a>
-        </div>
-        <div className={styles.userNav__iconBox}>
-          <a href="/login"><span>Log In</span></a>
-        </div>
+        <a href="/signup">
+          <div className={styles.userNav__iconBox}>
+            <span>Sign Up</span>
+          </div>
+        </a>
+        <a href="/login">
+          <div className={styles.userNav__iconBox}>
+            <span>Log In</span>
+          </div>
+        </a>
         <div className={styles.userNav__user}>
           <span>Account</span>
         </div>

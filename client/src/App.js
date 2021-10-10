@@ -54,14 +54,6 @@ function App() {
               <TaskList />
             </Route>
           </Switch>
-          {/* Your code must be placed here */}
-          <h1>This is where the main contents will be placed</h1>
-          <hr />
-          <h1>Font should be changed as well...</h1>
-          <hr />
-          <h1>Kind of responsive design...</h1>
-          <hr />
-          <h1>Change logo...</h1>
           
         </Content>
       </Body>
