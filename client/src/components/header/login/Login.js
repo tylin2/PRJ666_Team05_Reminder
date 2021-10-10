@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Login.module.scss";
 import Signup from "../../../pages/user/Signup";
+import Login from "../../../pages/user/Login";
 
 import {Switch, Route} from "react-router-dom";
 
