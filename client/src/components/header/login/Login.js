@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Login.module.scss";
 import Signup from "../../../pages/user/Signup";
-import Login from "../../../pages/user/Login";
+import LoginComp from "../../../pages/user/Login";
 
 import {Switch, Route} from "react-router-dom";
 
@@ -22,6 +22,9 @@ const Login = (props) => {
       <Switch>                       
         <Route path="/signup">
           <Signup />
+        </Route>
+        <Route path="/login">
+          <LoginComp />
         </Route>
       </Switch>
     </>
