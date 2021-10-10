@@ -12,8 +12,12 @@ import Login from "./components/header/login/Login";
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
+import Calendar from './pages/user/Calendar'
+import ProjectForm from "./pages/project/Project";
+import Signup from "./pages/user/Signup";
 
 import {Switch, Route} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   return (
@@ -24,6 +28,7 @@ function App() {
           src={logo}
           alt="logo"
           style={{ height: "3.25rem", marginLeft: "2rem" }}
+          href="/"
         />
         <Form>
           {" "}
@@ -35,27 +40,28 @@ function App() {
         {" "}
         <Nav>
           {" "}
-          <NavLink href="">Project_test</NavLink>
-          <NavLink href="/task_list">Task_test</NavLink>
-          <NavLink href="">User_test</NavLink>
+          <NavLink href="/project">Project</NavLink>
+          <NavLink href="/task_list">Task</NavLink>
+          <NavLink href="/calendar">Calendar</NavLink>
         </Nav>
         <Content>
-          {/* Your code must be placed here */}
-          <h1>This is where the main contents will be placed</h1>
-          <hr />
-          <h1>Font should be changed as well...</h1>
-          <hr />
-          <h1>Kind of responsive design...</h1>
-          <hr />
-          <h1>Change logo...</h1>
+        <Switch>                       
+                       <Route path="/task_list">
+                           <TaskList />
+                       </Route>                               
+                       <Route path="/calendar">
+                           <Calendar />
+                       </Route>
+                              
+                       <Route path="/project">
+                           <ProjectForm />
+                       </Route>
+        </Switch>
+        {/* Your code must be placed here */}
+          
         </Content>
       </Body>
-      <Switch>
-                       
-                        <Route path="/task_list">
-                            <TaskList />
-                        </Route>
-                    </Switch>
+     
     </Container>
   );
 }

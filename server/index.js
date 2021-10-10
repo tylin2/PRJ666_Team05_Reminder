@@ -9,7 +9,7 @@ const {
   currentUser,
   allUser,
 } = require("./controllers/user");
-const { createTask, listTask, deleteTask, updateTask } = require("./controllers/task");
+const { createTask, listTask } = require("./controllers/task");
 dotenv.config();
 
 // app
@@ -49,6 +49,4 @@ app.get(`/api/list-project`, listProject)
 // server for task model
 app.post(`/api/create-task`, createTask)
 app.get(`/api/list-task`, listTask)
-app.delete(`/api/delete-task/:id`, deleteTask)
-app.post(`/api/update-task/:id`, updateTask)
 
