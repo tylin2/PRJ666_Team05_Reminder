@@ -10,23 +10,15 @@ const Login = (props) => {
     <>
       <nav className={styles.userNav}>
         <div className={styles.userNav__iconBox}>
-          <Link to="/signup">Sign Up</Link>
+          <a href="/signup"><span>Sign Up</span></a>
         </div>
         <div className={styles.userNav__iconBox}>
-          <Link to="/login">Log In</Link>
+          <a href="/login"><span>Log In</span></a>
         </div>
         <div className={styles.userNav__user}>
           <span>Account</span>
         </div>
       </nav>
-      <Switch>                       
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/login">
-          <LoginComp />
-        </Route>
-      </Switch>
     </>
   );
 };
