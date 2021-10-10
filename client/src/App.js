@@ -8,11 +8,11 @@ import Body from "./components/body/Body";
 import Content from "./components/content/Content";
 import Header from "./components/header/Header";
 import Login from "./components/header/login/Login";
-import Signup from "./pages/user/Signup";
 
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
+import PrivateRoute form "./pages/user/PrivateRoute"
 
 import {Switch, Route} from "react-router-dom";
 
@@ -53,10 +53,10 @@ function App() {
       </Body>
       <Switch>
                        
-                        <Route path="/task_list">
-                            <TaskList />
-                        </Route>
-                    </Switch>
+        <Route path="/task_list">
+          <TaskList />
+        </Route>
+      </Switch>
     </Container>
   );
 }
