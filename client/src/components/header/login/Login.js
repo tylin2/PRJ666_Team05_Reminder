@@ -3,17 +3,17 @@ import styles from "./Login.module.scss";
 import Signup from "../../../pages/user/Signup";
 import LoginComp from "../../../pages/user/Login";
 
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Link} from "react-router-dom";
 
 const Login = (props) => {
   return (
     <>
       <nav className={styles.userNav}>
         <div className={styles.userNav__iconBox}>
-          <span href="/signup">Signup</span>
+          <Link to="/signup">Sign Up</Link>
         </div>
         <div className={styles.userNav__iconBox}>
-          <span href="/login">Login</span>
+          <Link to="/login">Log In</Link>
         </div>
         <div className={styles.userNav__user}>
           <span>Account</span>
