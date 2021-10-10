@@ -8,6 +8,7 @@ import Body from "./components/body/Body";
 import Content from "./components/content/Content";
 import Header from "./components/header/Header";
 import Login from "./components/header/login/Login";
+import Signup from "./pages/user/Signup";
 
 import logo from "./assets/img/logo.png";
 
