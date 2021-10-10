@@ -12,7 +12,7 @@ import Login from "./components/header/login/Login";
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
-import PrivateRoute form "./pages/user/PrivateRoute"
+import PrivateRoute from "./pages/user/PrivateRoute";
 
 import {Switch, Route} from "react-router-dom";
 
