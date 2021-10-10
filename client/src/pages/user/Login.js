@@ -12,7 +12,7 @@ export default function Login() {
   const history = useHistory()
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    //e.preventDefault()
 
     try {
       setError("")
