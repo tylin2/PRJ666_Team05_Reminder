@@ -1,9 +1,5 @@
 import React from "react";
 import styles from "./Login.module.scss";
-import Signup from "../../../pages/user/Signup";
-import LoginComp from "../../../pages/user/Login";
-
-import {Switch, Route, Link} from "react-router-dom";
 
 const Login = (props) => {
   return (

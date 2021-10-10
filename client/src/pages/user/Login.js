@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext.js"
 import { Link, useHistory } from "react-router-dom"
+import styles from "./Signup.module.scss";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Login() {
   const emailRef = useRef()
@@ -28,9 +30,10 @@ export default function Login() {
 
   return (
     <>
-      <Card>
+      <br />
+      <Card style={{ width: '30rem' }} className={styles.card}>
         <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+          <h2 className="text-center">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
@@ -41,6 +44,7 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
+            <br />
             <Button disabled={loading} className="w-100" type="submit">
               Log In
             </Button>
