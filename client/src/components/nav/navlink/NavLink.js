@@ -8,7 +8,7 @@ const NavLink = (props) => {
   // This should be changed...
   // Instead of checking click, checking the URL history
   const clickHandler = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     setIsActive(true);
   };
 

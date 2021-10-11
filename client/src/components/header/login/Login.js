@@ -1,16 +1,27 @@
 import React from "react";
 import styles from "./Login.module.scss";
+import firebase from "firebase";
 
 const Login = (props) => {
+  const signOut = () => {
+    firebase.auth().signOut()
+  };
   return (
     <>
       <nav className={styles.userNav}>
+        <a href="/signup">
+          <div className={styles.userNav__iconBox}>
+            <span>Sign Up</span>
+          </div>
+        </a>
+        <a href="/login">
+          <div className={styles.userNav__iconBox}>
+            <span>Log In</span>
+          </div>
+        </a>        
         <div className={styles.userNav__iconBox}>
-          <span>Login</span>
-        </div>
-        <div className={styles.userNav__iconBox}>
-          <span>Logout</span>
-        </div>
+          <span onClick={signOut}>Sign Out</span>
+        </div>        
         <div className={styles.userNav__user}>
           <span>Account</span>
         </div>

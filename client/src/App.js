@@ -12,6 +12,9 @@ import Login from "./components/header/login/Login";
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
+import Signup from "./pages/user/Signup";
+import LoginComp from "./pages/user/Login";
+import PrivateRoute from "./pages/user/PrivateRoute";
 
 import {Switch, Route} from "react-router-dom";
 
@@ -40,22 +43,21 @@ function App() {
           <NavLink href="">User_test</NavLink>
         </Nav>
         <Content>
-          {/* Your code must be placed here */}
-          <h1>This is where the main contents will be placed</h1>
-          <hr />
-          <h1>Font should be changed as well...</h1>
-          <hr />
-          <h1>Kind of responsive design...</h1>
-          <hr />
-          <h1>Change logo...</h1>
+          <Switch>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/login">
+              <LoginComp />
+            </Route>                       
+            <Route path="/task_list">
+              <TaskList />
+            </Route>
+          </Switch>
+          
         </Content>
       </Body>
-      <Switch>
-                       
-                        <Route path="/task_list">
-                            <TaskList />
-                        </Route>
-                    </Switch>
+      
     </Container>
   );
 }
