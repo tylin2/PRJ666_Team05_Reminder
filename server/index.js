@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const decodeIDToken = require('./authenticateToken');
 const { createProject, listProject } = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
+  findUser,
   allUser,
 } = require("./controllers/user");
 const { createTask, listTask, deleteTask, updateTask } = require("./controllers/task");
@@ -26,9 +28,10 @@ mongoose
   });
 
 //middlewares
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(decodeIDToken);
 
 //port
 const port = process.env.PORT || 8080;
@@ -41,6 +44,7 @@ app.listen(port, () => {
 app.post(`/api/create-or-update-user`, createOrUpdateUser)
 app.post(`/api/current-user`, currentUser)
 app.post(`/api/all-user`, allUser)
+app.get('/api/user', findUser);
 
 // server for project model
 app.post(`/api/create-project`, createProject)

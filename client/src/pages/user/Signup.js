@@ -1,16 +1,19 @@
 
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../../contexts/AuthContext"
+//import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+
 import styles from "./Signup.module.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { addToUser, foundUser } from "./UserServices"
 
 export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const signup = useAuth()
+  //const signup = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -21,11 +24,20 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
+    
+    
+    console.log(foundUser(emailRef.current.value));
+    
+    if (!foundUser(emailRef.current.value)) {      
+      return setError("Email already exists")
+    }
 
     try {
       setError("")
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
+      //await //signup(emailRef.current.value, passwordRef.current.value)
+      var userName = emailRef.current.value.split("@")[0]
+      addToUser(emailRef.current.value, userName, passwordRef.current.value)
       history.push("/")
     } catch {
       setError("Failed to create an account")

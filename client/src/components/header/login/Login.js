@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./Login.module.scss";
+import firebase from "firebase";
 
 const Login = (props) => {
+  const signOut = () => {
+    firebase.auth().signOut()
+  };
   return (
     <>
       <nav className={styles.userNav}>
@@ -14,7 +18,10 @@ const Login = (props) => {
           <div className={styles.userNav__iconBox}>
             <span>Log In</span>
           </div>
-        </a>
+        </a>        
+        <div className={styles.userNav__iconBox}>
+          <span onClick={signOut}>Sign Out</span>
+        </div>        
         <div className={styles.userNav__user}>
           <span>Account</span>
         </div>

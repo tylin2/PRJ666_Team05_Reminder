@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext.js"
 import { Link, useHistory } from "react-router-dom"
+import firebase from "firebase";
 import styles from "./Signup.module.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,15 +12,21 @@ export default function Login() {
   const login = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const history = useHistory()
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault()    
 
     try {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
+      firebase.auth().signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        console.error('Incorrect username or password');
+      });
       history.push("/")
     } catch {
       setError("Failed to log in")
@@ -38,11 +45,13 @@ export default function Login() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Control type="email" ref={emailRef} onChange={({ target }) =>     
+                      setEmail(target.value)} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <Form.Control type="password" ref={passwordRef} onChange={({ target}) => 
+                      setPassword(target.value)} required />
             </Form.Group>
             <br />
             <Button disabled={loading} className="w-100" type="submit">
