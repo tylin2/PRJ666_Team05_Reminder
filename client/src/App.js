@@ -15,6 +15,7 @@ import TaskList from "./pages/tasks/taskList";
 import Signup from "./pages/user/Signup";
 import LoginComp from "./pages/user/Login";
 import PrivateRoute from "./pages/user/PrivateRoute";
+import AuthProvider from "./contexts/AuthContext";
 
 import {Switch, Route} from "react-router-dom";
 
@@ -43,6 +44,7 @@ function App() {
           <NavLink href="">User_test</NavLink>
         </Nav>
         <Content>
+        <AuthProvider>
           <Switch>
             <Route path="/signup">
               <Signup />
@@ -54,7 +56,7 @@ function App() {
               <TaskList />
             </Route>
           </Switch>
-          
+          </AuthProvider>
         </Content>
       </Body>
       

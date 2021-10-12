@@ -7,12 +7,18 @@ export function useAuth() {
   return useContext(AuthContext)
 }
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+    return auth.createUserWithEmailAndPassword(email, password) 
+    //export declare function createUserWithEmailAndPassword(auth: Auth, email: string, password: string): Promise<UserCredential>;
+    //Creates a new user account associated with the specified email address and password.
+    //On successful creation of the user account, this user will also be signed in to your application.
+    //User account creation can fail if the account already exists or the password is invalid.
+    //https://firebase.google.com/docs/reference/js/auth.md#createuserwithemailandpassword
+    //https://firebase.google.com/docs/reference/js/auth.usercredential.md#usercredentialuser
   }
 
   function login(email, password) {
@@ -36,12 +42,12 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged(user => { //https://firebase.google.com/docs/reference/js/auth.md#onauthstatechanged
       setCurrentUser(user)
       setLoading(false)
     })
 
-    return unsubscribe
+    return unsubscribe 
   }, [])
 
   const value = {
