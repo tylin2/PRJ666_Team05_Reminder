@@ -25,12 +25,12 @@ export default function Signup() {
       return setError("Passwords do not match")
     }
     
-    
+    /*
     console.log(foundUser(emailRef.current.value));
     
     if (!foundUser(emailRef.current.value)) {      
       return setError("Email already exists")
-    }
+    }*/
 
     try {
       setError("")
