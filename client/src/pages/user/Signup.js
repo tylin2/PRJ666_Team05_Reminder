@@ -13,7 +13,7 @@ export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup, currentUser } = useAuth() //retrieve only signup property of value of context. 
+  const { signup } = useAuth() //retrieve only signup property of value of context. 
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -26,21 +26,29 @@ export default function Signup() {
     }
     
     
-    console.log(foundUser(emailRef.current.value));//?
+    //console.log(foundUser(emailRef.current.value));
     
-    if (!foundUser(emailRef.current.value)) {      //?
-      return setError("Email already exists")
-    }
+    // if (!foundUser(emailRef.current.value)) {
+    //   return setError("Email already exists")
+    // }
 
     try {
       setError("")
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential <---21:30부터 https://www.youtube.com/watch?v=PKwu15ldZ7k&list=PLShAZkfuT4n9HX4dXySB6yhD_IZP3jtqr&index=2&t=537s
+      await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
+      // const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
+      //console.log(credential);
       var userName = emailRef.current.value.split("@")[0]
       addToUser(emailRef.current.value, userName, passwordRef.current.value)
-      history.push("/")//??
-    } catch {
-      setError("Failed to create an account")
+      //history.push("/")//??
+    } catch (e) {
+      console.log(e);
+      if(e.code == "auth/email-already-in-use") {
+        setError(e.message)
+      }else{
+        setError("Failed to create an account")
+      }
+      
     }
 
     setLoading(false)
@@ -52,7 +60,6 @@ export default function Signup() {
       <Card style={{ width: '30rem' }} className={styles.card}>
         <Card.Body>
           <h2 className="text-center">Sign Up</h2>
-          {currentUser && currentUser.email}
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit} className="mb-3" controlId="formBasicEmail">
             <Form.Group id="email">

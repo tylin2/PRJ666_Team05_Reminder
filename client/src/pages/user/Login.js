@@ -6,10 +6,11 @@ import firebase from "firebase";
 import styles from "./Signup.module.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function Login() {
+export default function Login() { //로그인 성공하면 token을 windows에 저장?...암튼 그
+  //받은 토큰을 context에 뿌리든 어떻게든 해야함.
   const emailRef = useRef()
   const passwordRef = useRef()
-  const login = useAuth()
+  const { login, setToken } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState();
@@ -22,12 +23,17 @@ export default function Login() {
     try {
       setError("")
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch((error) => {
-        console.error('Incorrect username or password');
-      });
-      history.push("/")
+      const userInfo = await login(emailRef.current.value, passwordRef.current.value)
+      const token = await userInfo.getIdToken()
+      console.log(token);//it worked.
+      await localStorage.setItem('token', token)
+      setToken(token);
+      //console.log(userInfo.metadata)
+      // firebase.auth().signInWithEmailAndPassword(email, password)
+      // .catch((error) => {
+      //   console.error('Incorrect username or password');
+      // });
+      //history.push("/")
     } catch {
       setError("Failed to log in")
     }
