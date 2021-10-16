@@ -3,15 +3,13 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const decodeIDToken = require('./authenticateToken');
 const { createProject, listProject } = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
-  findUser,
   allUser,
 } = require("./controllers/user");
-const { createTask, listTask, deleteTask, updateTask } = require("./controllers/task");
+const { createTask, listTask } = require("./controllers/task");
 dotenv.config();
 
 // app
@@ -28,10 +26,9 @@ mongoose
   });
 
 //middlewares
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
-app.use(decodeIDToken);
 
 //port
 const port = process.env.PORT || 8080;
@@ -41,18 +38,16 @@ app.listen(port, () => {
 });
 
 // server for user model
-app.post(`/api/create-or-update-user`, createOrUpdateUser)
-app.post(`/api/current-user`, currentUser)
-app.post(`/api/all-user`, allUser)
-app.get('/api/user', findUser);
+app.post(`/api/create-or-update-user`, createOrUpdateUser);
+app.get(`/api/current-user`, auth, currentUser);
+app.get(`/api/all-user`, auth, allUser);
 
 // server for project model
-app.post(`/api/create-project`, createProject)
-app.get(`/api/list-project`, listProject)
+app.post(`/api/create-project`, authCheck, createProject);
+app.get(`/api/list-project`, authCheck, listProject);
 
 // server for task model
-app.post(`/api/create-task`, createTask)
-app.get(`/api/list-task`, listTask)
-app.delete(`/api/delete-task/:id`, deleteTask)
-app.post(`/api/update-task/:id`, updateTask)
-
+app.post(`/api/create-task`, authCheck, createTask);
+app.get(`/api/list-task`, authCheck, listTask);
+app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
+app.post(`/api/update-task/:id`, authCheck, updateTask);
