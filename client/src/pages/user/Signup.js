@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "./Signup.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { addToUser, foundUser } from "./UserServices";
+import { addToUser } from "./UserServices";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -32,17 +32,16 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value); //returns UserCredential
+      var userName = emailRef.current.value.split("@")[0];
+      addToUser(emailRef.current.value, userName, passwordRef.current.value);
       const user = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
-
       window.localStorage.setItem("token", user.getIdToken());
 
-      const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
-      console.log(credential);
-      var userName = emailRef.current.value.split("@")[0];
-      addToUser(emailRef.current.value, userName, passwordRef.current.value);
+      //const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
+      //console.log(credential);      
       history.push("/");
     } catch (e) {
       console.log(e);
