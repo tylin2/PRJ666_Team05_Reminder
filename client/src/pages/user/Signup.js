@@ -27,13 +27,7 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-
-    //console.log(foundUser(emailRef.current.value));
-
-    // if (!foundUser(emailRef.current.value)) {
-    //   return setError("Email already exists")
-    // }
-
+    
     try {
       setError("");
       setLoading(true);
@@ -45,8 +39,8 @@ export default function Signup() {
 
       window.localStorage.setItem("token", user.getIdToken());
 
-      // const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
-      //console.log(credential);
+      const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
+      console.log(credential);
       var userName = emailRef.current.value.split("@")[0];
       addToUser(emailRef.current.value, userName, passwordRef.current.value);
       history.push("/");

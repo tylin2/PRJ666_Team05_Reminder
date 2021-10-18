@@ -7,7 +7,7 @@ exports.createOrUpdateUser = async (req, res) => {
     // first find the user in the database if exit update
     const user = await User.findOneAndUpdate(
       { email },
-      { name: email.split("@")[0], picture },
+      { name: email.split("@")[0] },
       { new: true }
     );
 
@@ -18,6 +18,7 @@ exports.createOrUpdateUser = async (req, res) => {
       const newUser = await new User({
         email,
         name: email.split("@")[0],
+        password
       }).save();
       res.json(newUser);
     }
@@ -50,6 +51,13 @@ exports.currentUser = async (req, res) => {
       "****************************************************************"
     );
   }
+};
+
+exports.findUser = async (req, res) => {
+  User.findOne({ email: req.query.email }).exec((err, user) => {
+    if (err) throw new Error(error);
+    res.json(user);
+  });
 };
 
 // get all users

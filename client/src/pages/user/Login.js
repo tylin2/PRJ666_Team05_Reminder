@@ -34,11 +34,11 @@ export default function Login() {
 
       window.localStorage.setItem("token", token);
       setToken(token);
-      //console.log(userInfo.metadata)
-      // firebase.auth().signInWithEmailAndPassword(email, password)
-      // .catch((error) => {
-      //   console.error('Incorrect username or password');
-      // });
+      console.log(userInfo.metadata)
+       firebase.auth().signInWithEmailAndPassword(email, password)
+       .catch((error) => {
+         console.error('Incorrect username or password');
+       });
       history.push("/");
     } catch {
       setError("Failed to log in");
