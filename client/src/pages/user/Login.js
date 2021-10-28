@@ -30,15 +30,14 @@ export default function Login() {
         emailRef.current.value,
         passwordRef.current.value
       );
+       firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch((error) => {
+          console.error('Incorrect username or password');
+        });
       const token = await userInfo.getIdToken();
-
       window.localStorage.setItem("token", token);
       setToken(token);
-      console.log(userInfo.metadata)
-       firebase.auth().signInWithEmailAndPassword(email, password)
-       .catch((error) => {
-         console.error('Incorrect username or password');
-       });
+      console.log(userInfo.metadata)       
       history.push("/");
     } catch {
       setError("Failed to log in");
