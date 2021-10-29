@@ -16,7 +16,7 @@ import {
   Link
 } from "react-router-dom";
 
-import TaskForm from "./pages/tasks/Task";
+import Tasks from "./pages/tasks/Task";
 
 import logo from "./assets/img/logo.png";
 
@@ -49,7 +49,7 @@ function App() {
         <Content>
         <Switch>
           <Route exact path="/task">
-            <TaskForm />
+            <Tasks />
           </Route>
         </Switch>
         </Content>

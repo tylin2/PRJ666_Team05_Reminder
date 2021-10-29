@@ -1,124 +1,151 @@
 import React from "react";
 import TaskList from "./taskList";
-
 import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-class TaskItems extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+import { useState, useRef, useEffect } from 'react'
+import axios from 'axios';
+import CreateTask from './CreateTask'
 
-    createTasks(item) {
-        return <div>
-            <p>{this.props.value.title}</p>
-            <p>Description: {this.props.value.description}</p>
-        </div>
-    }
+function Tasks() {
+    const [tasks, setTasks] = useState([])
+    const [inputs, setInputs] = useState({
+        //_id: null,
+        name: '',
+        user: null,
+        descript:''
+    })
+    const [dueDate, setDueDate] = useState(new Date());
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    render() {
-        let todoEntries = this.props.entries;
-        let listItems = todoEntries.map(task=>
-            <div key={task.index}>
-                <p>{task.title}</p>
-                <p>{task.description}</p>
-            </div>
-        );
-        return <div>{listItems}</div>;
-    }
-}
+    const { name, user, descript } = inputs;
+    const _id = useRef(1);
 
-class TaskForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentObj: {
-                // id: 0,
-                title: '',
-                description: ''
-            },
-            taskArr: []
-        };
-
-        this.handleTitle = this.handleTitle.bind(this);
-        this.handleDescription = this.handleDescription.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const handleDateChange = (date) => {
+        console.log(date);
+        setDueDate(date);
+    };
+    const onChange = e => {
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
     }
 
 
 
-    handleTitle(event) {
-        let dummy=this.state.currentObj;
-        dummy.title=event.target.value;
-        this.setState({currentObj: dummy });
-        console.log(this.state.currentObj);
+
+    /*
+    export const addToUser = (email, userName,password) => {
+    //const header = createToken();
+    //console.log(header);
+    const payload = {
+      email,
+      userName,
+      password
     }
-    handleDescription(event) {
-        let dummy = this.state.currentObj;
-        dummy.description=event.target.value;
-        this.setState({currentObj: dummy });
-        console.log(this.state);
+    try {
+      console.log(payload);    
+      // const res = axios.post(url, payload, header);
+      const res = axios.post(url, payload);
+      console.log(res);
+      return res.data;
+    } catch (e) {
+      console.error(e);
     }
-    handleSubmit(event) {
-        //fetch: add and get id property.
-        alert('A new task was submitted: \n' + this.state.currentObj.title + ': ' + this.state.currentObj.description);
-        
-        //let dummy = this.state.taskArr.push(this.state.currentObj);
-        //this.setState({taskArr: dummy});
-        // this.setState((prevState)=>{
-        //     return {
-        //         taskArr: prevState.taskArr.concat([prevState.currentObj])
-        //     }
-        // });
-        this.setState(
-            // taskArr: this.state.taskArr.concat([this.state.currentObj]) //reference가 copy된건가봐...
-            {
-                currentObj: {
-                    // id: 0,
-                    title: '',
-                    description: ''
-                },
-                taskArr: this.state.taskArr.concat({
-                    title: this.state.currentObj.title,
-                    description: this.state.currentObj.description
-                })
-            }
-            
-        );
-        console.log(this.state.currentObj);
-        console.log(this.state.taskArr);
-        //currentObj를 초기화 해야하나...
-        event.preventDefault();
+    };
+    */
+    const addNewTask = async (task) => {
+        try {
+            console.log('task to be added: '+task.user)
+            const response = await axios.post(
+                'http://localhost:8080/api/create-task',
+                task
+            )
+            console.log(`addNewTask's response: ${response.data._id}`);
+
+            setTasks([...tasks, response.data])
+
+            setInputs({
+                name: '',
+                user: null,
+                descript:''
+            })
+        }catch (e) {
+            console.error(e);
+        }
     }
 
-    render(){
-        return(
+    const onCreate = (e) => {
+        e.preventDefault();
+        const task = {
+            //_id: _id.current,
+            name: inputs.name,
+            user: "61511337c6d22e08280b948c",
+            participants: [user],
+            descript: inputs.descript,
+            dueDate: dueDate
+        }
+
+        addNewTask(task);
+
+        //I think I can just post the new one 
+
+        // setTasks([...tasks, addedTask])
+
+        // setInputs({
+        //     name: '',
+        //     user: null,
+        //     descript:''
+        // })
+
+        //_id.current += 1;
+    }
+
+    const fetchTasks = async () => {
+        try {
+            setError(null);
+            setTasks(null);
+            setLoading(true);
+            const response = await axios.get(
+                'http://localhost:8080/api/list-task'
+            )
+            console.log(response.data);
+            //setTasks([... tasks, response.data])
+            setTasks(tasks.concat(response.data))
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
+    }
+
+    useEffect(()=>{
+        fetchTasks()
+    },[]);
+
+    return (
+        <>
+            <CreateTask  
+                name={name}
+                descript={descript}
+                dueDate={dueDate}
+                onCreate={onCreate}
+                onChange={onChange}
+                handleDateChange={handleDateChange}
+            />
             <div>
-            <h1 style={{fontSize: 28}}>Task List</h1>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" value={this.state.currentObj.title} onChange={this.handleTitle}/>
-                    {/* <input type="text" value={this.state.currentObj.title}/> */}
-                </label>
-                <br/>
-                <label>
-                    Description:<br/>
-                    <textarea value={this.state.currentObj.description} onChange={this.handleDescription}/>
-                    {/* <textarea value={this.state.currentObj.description} /> */}
-                </label>
-                {/* <input type="submit" value="Submit"/> */}
-                <br />
-                <Button type="submit" style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} size="lg">Create New Task</Button>
-            </form>
-            <br/>
-                <TaskList entries={this.state.taskArr}/>
+                {name}: {descript}: {dueDate.toISOString().split('T')[0]}
             </div>
-            
-        )
-    }
+            <TaskList entries={tasks} loading={loading} error={error}/>
+        </>
+    )
+
 }
 
-export default TaskForm;
+
+
+export default Tasks;
