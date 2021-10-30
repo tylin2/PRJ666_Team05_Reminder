@@ -1,5 +1,5 @@
 import React from "react";
-import TaskList from "./taskList";
+import TaskList2 from "./taskList2";
 import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
-import CreateTask from './CreateTask'
+import CreateTask2 from './CreateTask2'
 
 function Tasks() {
     const [tasks, setTasks] = useState([])
@@ -90,8 +90,8 @@ function Tasks() {
             descript: inputs.descript,
             dueDate: dueDate
         }
-
-        addNewTask(task);
+        //todo after fixing axios and token issue, 
+        //addNewTask(task);
 
         //I think I can just post the new one 
 
@@ -124,12 +124,13 @@ function Tasks() {
     }
 
     useEffect(()=>{
-        fetchTasks()
+        //todo: I will not use this until I get token.
+        //fetchTasks()
     },[]);
 
     return (
         <>
-            <CreateTask  
+            <CreateTask2  
                 name={name}
                 descript={descript}
                 dueDate={dueDate}
@@ -140,7 +141,7 @@ function Tasks() {
             <div>
                 {name}: {descript}: {dueDate.toISOString().split('T')[0]}
             </div>
-            <TaskList entries={tasks} loading={loading} error={error}/>
+            <TaskList2 entries={tasks} loading={loading} error={error}/>
         </>
     )
 
