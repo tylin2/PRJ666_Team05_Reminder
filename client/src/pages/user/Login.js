@@ -84,7 +84,7 @@ export default function Login() {
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
+            <Link to="/forgotPass">Forgot Password?</Link>
           </div>
         </Card.Body>
       </Card>

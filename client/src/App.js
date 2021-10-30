@@ -73,26 +73,14 @@ function App() {
           <NavLink href="/calendar">Calendar</NavLink>
         </Nav>
         <Content>
-          <AuthProvider>
+        <AuthProvider>
             <Switch>
-              <Route path="/task_list">
-                <TaskList />
-              </Route>
-              <Route path="/calendar">
-                <Calendar />
-              </Route>
-              <Route path="/project">
-                <ProjectForm />
-              </Route>
-              <Route path="/signup">
-                <Signup />
-              </Route>
-              <Route path="/login">
-                <LoginComp />
-              </Route>
-              <Route path="/forgotPass">
-                <ForgotPassword />
-              </Route>
+              <PrivateRoute exact path='/task_list' component={TaskList} />
+              <PrivateRoute exact path='/project' component={ProjectForm} />
+              <PrivateRoute exact path='/calendar' component={Calendar} />
+              <Route path='/signup' component={Signup} />
+              <Route path='/login' component={LoginComp} />
+              <Route path='/forgotPass' component={ForgotPassword} />
             </Switch>
             {/* Your code must be placed here */}
           </AuthProvider>
