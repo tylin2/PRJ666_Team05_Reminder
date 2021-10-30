@@ -7,13 +7,12 @@ import Container from "./components/container/Container";
 import Body from "./components/body/Body";
 import Content from "./components/content/Content";
 import Header from "./components/header/Header";
-import Login from "./components/header/login/Login";
-import Account from "./components/header/login/Account";
 import AuthNav from "./components/header/login/AuthNav";
 
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
+import Tasks from "./pages/tasks/Task";
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
 import Signup from "./pages/user/Signup";
@@ -21,6 +20,7 @@ import LoginComp from "./pages/user/Login";
 import PrivateRoute from "./pages/user/PrivateRoute";
 import ForgotPassword from "./pages/user/ForgotPassword";
 import AuthProvider from "./contexts/AuthContext";
+
 
 import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
@@ -81,6 +81,7 @@ function App() {
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={LoginComp} />
               <Route path='/forgotPass' component={ForgotPassword} />
+              <Route path='/task' component={Tasks} />
             </Switch>
             {/* Your code must be placed here */}
           </AuthProvider>
