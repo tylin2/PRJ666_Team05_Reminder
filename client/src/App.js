@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./components/nav/Nav";
 import NavLink from "./components/nav/navlink/NavLink";
 import Input from "./components/form/Input";
@@ -9,6 +9,7 @@ import Content from "./components/content/Content";
 import Header from "./components/header/Header";
 import Login from "./components/header/login/Login";
 import Account from "./components/header/login/Account";
+import AuthNav from "./components/header/login/AuthNav";
 
 import logo from "./assets/img/logo.png";
 
@@ -27,6 +28,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import { auth } from "./firebase";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -34,6 +37,13 @@ function App() {
         window.localStorage.setItem("token", idTokenResult);
       }
     });
+
+    console.log("call?");
+    if (window.localStorage.getItem("token")) {
+      setIsAuth(true);
+    }
+    console.log(window.localStorage.getItem("token"));
+    console.log(isAuth);
 
     return () => unsubscribe();
   }, []);
@@ -52,7 +62,7 @@ function App() {
           {" "}
           <Input placeholder="Search by anything..." />
         </Form>
-        {window.localStorage.getItem("token") ? <Account /> : <Login />}
+        <AuthNav/>
       </Header>
       <Body>
         {" "}

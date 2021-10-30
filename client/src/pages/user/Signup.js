@@ -49,7 +49,8 @@ export default function Signup() {
       //console.log(credential);
       var userName = emailRef.current.value.split("@")[0];
       addToUser(emailRef.current.value, userName, passwordRef.current.value);
-      history.push("/");
+      
+      window.location.reload(true);
     } catch (e) {
       console.log(e);
       if (e.code === "auth/email-already-in-use") {

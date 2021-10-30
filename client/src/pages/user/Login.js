@@ -26,21 +26,26 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
+
       const userInfo = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
+
       const token = await userInfo.getIdToken();
 
       window.localStorage.setItem("token", token);
+
       setToken(token);
       //console.log(userInfo.metadata)
       // firebase.auth().signInWithEmailAndPassword(email, password)
       // .catch((error) => {
       //   console.error('Incorrect username or password');
       // });
-      history.push("/");
-    } catch {
+      window.location.reload(true);
+
+    } catch (e) {
+      console.log(e)
       setError("Failed to log in");
     }
 
