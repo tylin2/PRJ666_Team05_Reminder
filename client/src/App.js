@@ -53,12 +53,13 @@ function App() {
     <Container>
       <Header>
         {" "}
-        <img
-          src={logo}
-          alt="logo"
-          style={{ height: "3.25rem", marginLeft: "2rem" }}
-          href="/"
-        />
+        <a href="/">
+          <img
+            src={logo}
+            alt="logo"
+            style={{ height: "3.25rem", marginLeft: "2rem" }}
+          />
+        </a>
         <Form>
           {" "}
           <Input placeholder="Search by anything..." />
@@ -71,14 +72,14 @@ function App() {
           {" "}
           <NavLink href="/project">Project</NavLink>
           <NavLink href="/task_list">Task</NavLink>
-          <NavLink href="/calendar">Calendar</NavLink>
+          {/*<NavLink href='/calendar'>Calendar</NavLink>*/}
         </Nav>
         <Content>
         <AuthProvider>
             <Switch>
               <PrivateRoute exact path='/task_list' component={TaskList} />
               <PrivateRoute exact path='/project' component={ProjectForm} />
-              <PrivateRoute exact path='/calendar' component={Calendar} />
+              <PrivateRoute exact path='/' component={Calendar} />
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={LoginComp} />
               <Route path='/forgotPass' component={ForgotPassword} />
