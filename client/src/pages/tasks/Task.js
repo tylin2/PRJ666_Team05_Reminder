@@ -9,6 +9,8 @@ import { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import CreateTask from './CreateTask'
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function Tasks() {
     const [tasks, setTasks] = useState([])
     const [inputs, setInputs] = useState({

@@ -13,6 +13,8 @@ import {
   } from '@material-ui/pickers';
 import Button from 'react-bootstrap/Button';
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function CreateTask({ name, descript, dueDate, onCreate, onChange, handleDateChange }) {
     return(
         <div>

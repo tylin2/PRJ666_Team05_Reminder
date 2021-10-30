@@ -13,6 +13,7 @@ import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
 import Tasks from "./pages/tasks/Task";
+import CreateTask from "./pages/tasks/CreateTask"
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
 import Signup from "./pages/user/Signup";
@@ -82,6 +83,7 @@ function App() {
               <Route path='/login' component={LoginComp} />
               <Route path='/forgotPass' component={ForgotPassword} />
               <Route path='/task' component={Tasks} />
+              <Route path='/createTask' component={CreateTask} />
             </Switch>
             {/* Your code must be placed here */}
           </AuthProvider>

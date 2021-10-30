@@ -51,4 +51,4 @@ app.get(`/api/list-project`, authCheck, listProject);
 app.post(`/api/create-task`, authCheck, createTask);
 app.get(`/api/list-task`, authCheck, listTask);
 app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
-app.post(`/api/update-task/:id`, authCheck, updateTask);
+app.put(`/api/update-task/:id`, authCheck, updateTask);
