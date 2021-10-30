@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "./Signup.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { addToUser, foundUser } from "./UserServices";
+import { addToUser } from "./UserServices";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -28,12 +28,6 @@ export default function Signup() {
       return setError("Passwords do not match");
     }
 
-    //console.log(foundUser(emailRef.current.value));
-
-    // if (!foundUser(emailRef.current.value)) {
-    //   return setError("Email already exists")
-    // }
-
     try {
       setError("");
       setLoading(true);
@@ -46,9 +40,6 @@ export default function Signup() {
       );
 
       window.localStorage.setItem("token", user.getIdToken());
-
-      // const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
-      //console.log(credential);
       
       window.location.reload(true);
     } catch (e) {

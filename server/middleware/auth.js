@@ -1,3 +1,4 @@
+var adminls = require("firebase-admin");
 const admin = require("../firebase/index");
 const User = require("../models/user");
 

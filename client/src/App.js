@@ -12,7 +12,6 @@ import AuthNav from "./components/header/login/AuthNav";
 import logo from "./assets/img/logo.png";
 
 import TaskList from "./pages/tasks/taskList";
-import Tasks from "./pages/tasks/Task";
 import CreateTask from "./pages/tasks/CreateTask"
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
@@ -77,13 +76,12 @@ function App() {
         <AuthProvider>
             <Switch>
               <PrivateRoute exact path='/task_list' component={TaskList} />
+              <PrivateRoute exact path='/createTask' component={CreateTask} />
               <PrivateRoute exact path='/project' component={ProjectForm} />
               <PrivateRoute exact path='/' component={Calendar} />
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={LoginComp} />
-              <Route path='/forgotPass' component={ForgotPassword} />
-              <Route path='/task' component={Tasks} />
-              <Route path='/createTask' component={CreateTask} />
+              <Route path='/forgotPass' component={ForgotPassword} />    
             </Switch>
             {/* Your code must be placed here */}
           </AuthProvider>

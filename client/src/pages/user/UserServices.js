@@ -34,19 +34,3 @@ export const addToUser = (email, userName,password) => {
     console.error(e);
   }
 };
-
-export const foundUser = (email) => {
-    const header = createToken();
-    console.log(header);
-    try {
-      const requestUrl = `http://localhost:8080/api/user?email=${email}`
-      const res = axios.get(requestUrl, header).then((res) => {
-        const item = res.data
-        console.log(item._id);
-        return item._id;
-      })
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-}

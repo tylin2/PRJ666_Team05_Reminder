@@ -1,6 +1,9 @@
 
  import React, { Component } from 'react'
- import {  ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+ import {  ListGroup, ListGroupItem, Button, Form, Card, Alert } from 'react-bootstrap';
+
+ import styles from "./Task.module.scss";
+ import "bootstrap/dist/css/bootstrap.css";
 
 export default class TaskList extends Component  {    
     render() {
@@ -14,14 +17,22 @@ export default class TaskList extends Component  {
             a.date.split('-').reverse().join().localeCompare(b.date.split('-').reverse().join()));
         return (
             <>
-                <h1 style={{fontSize: 28}}>Task List</h1>
-                <ListGroup>
-                    {sorted.map(task => (
-                        <ListGroupItem  style={{fontSize: 14}} href="task/:id" action>{task.date}   {task.eventName}  </ListGroupItem>
-                    ))}
-                </ListGroup>
+            <br />
+                <Card style={{ width: "90rem" }} className={styles.card}>
+                    <Card.Body>
+                        <h1 className="text-center">Task List</h1>
+                        <ListGroup>
+                            {sorted.map(task => (
+                                <ListGroupItem  style={{fontSize: 14}} href="task/:id" action>{task.date}   {task.eventName}  </ListGroupItem>
+                            ))}
+                        </ListGroup>
+                        <br />
+                        <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createTask" size="lg">Create New Task</Button>
+                    </Card.Body>
+                </Card>                
+                
                 <br />
-                <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/task" size="lg">Create New Task</Button>
+                
             </>
         )
     }
