@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "./Signup.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { addToUser } from "./UserServices";
+import { addToUser, foundUser } from "./UserServices";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -27,22 +27,30 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-    
+
+    //console.log(foundUser(emailRef.current.value));
+
+    // if (!foundUser(emailRef.current.value)) {
+    //   return setError("Email already exists")
+    // }
+
     try {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value); //returns UserCredential
-      var userName = emailRef.current.value.split("@")[0];
-      addToUser(emailRef.current.value, userName, passwordRef.current.value);
       const user = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
+
       window.localStorage.setItem("token", user.getIdToken());
 
-      //const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
-      //console.log(credential);      
-      history.push("/");
+      // const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
+      //console.log(credential);
+      var userName = emailRef.current.value.split("@")[0];
+      addToUser(emailRef.current.value, userName, passwordRef.current.value);
+      
+      window.location.reload(true);
     } catch (e) {
       console.log(e);
       if (e.code === "auth/email-already-in-use") {

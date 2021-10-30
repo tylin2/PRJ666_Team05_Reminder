@@ -10,17 +10,17 @@ const Account =  (props) => {
     e.preventDefault();
     auth.signOut();
     window.localStorage.removeItem("token")
-    history.push("/")
+    window.location.reload(true);
   };
   return (
     <>
       <nav className={styles.userNav}>
-        <Link href="/signout" onClick={signOut}>
+        <Link to="/signout" onClick={signOut}>
           <div className={styles.userNav__iconBox}>
             <span>Sign Out</span>
           </div>
         </Link>
-        <Link href="/account">
+        <Link to="/account">
           <div className={styles.userNav__iconBox}>
             <span>Account</span>
           </div>

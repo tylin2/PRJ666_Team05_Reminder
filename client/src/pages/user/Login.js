@@ -26,20 +26,26 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
+
       const userInfo = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
-       firebase.auth().signInWithEmailAndPassword(email, password)
-        .catch((error) => {
-          console.error('Incorrect username or password');
-        });
+
       const token = await userInfo.getIdToken();
+
       window.localStorage.setItem("token", token);
+
       setToken(token);
-      console.log(userInfo.metadata)       
-      history.push("/");
-    } catch {
+      //console.log(userInfo.metadata)
+      // firebase.auth().signInWithEmailAndPassword(email, password)
+      // .catch((error) => {
+      //   console.error('Incorrect username or password');
+      // });
+      window.location.reload(true);
+
+    } catch (e) {
+      console.log(e)
       setError("Failed to log in");
     }
 
@@ -78,7 +84,7 @@ export default function Login() {
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/forgotPass">Forgot Password?</Link>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
         </Card.Body>
       </Card>

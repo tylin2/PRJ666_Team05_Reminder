@@ -9,7 +9,8 @@ const {
   currentUser,
   allUser,
 } = require("./controllers/user");
-const { createTask, listTask } = require("./controllers/task");
+const { createTask, listTask, deleteTask, updateTask } = require("./controllers/task");
+const { authCheck } = require("./middleware/auth");
 dotenv.config();
 
 // app
@@ -38,15 +39,16 @@ app.listen(port, () => {
 });
 
 // server for user model
-app.post(`/api/create-or-update-user`, createOrUpdateUser)
-app.post(`/api/current-user`, currentUser)
-app.post(`/api/all-user`, allUser)
+app.post(`/api/create-or-update-user`, createOrUpdateUser);
+app.get(`/api/current-user`, authCheck, currentUser);
+app.get(`/api/all-user`, authCheck, allUser);
 
 // server for project model
-app.post(`/api/create-project`, createProject)
-app.get(`/api/list-project`, listProject)
+app.post(`/api/create-project`, authCheck, createProject);
+app.get(`/api/list-project`, authCheck, listProject);
 
 // server for task model
-app.post(`/api/create-task`, createTask)
-app.get(`/api/list-task`, listTask)
-
+app.post(`/api/create-task`, authCheck, createTask);
+app.get(`/api/list-task`, authCheck, listTask);
+app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
+app.post(`/api/update-task/:id`, authCheck, updateTask);

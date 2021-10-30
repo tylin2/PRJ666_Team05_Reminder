@@ -23,7 +23,7 @@ export default function AuthProvider({ children }) {
   }
 
   async function login(email, password) {
-    await auth.signInWithEmailAndPassword(email, password);
+    return await auth.signInWithEmailAndPassword(email, password);
   }
 
   function logout() {
