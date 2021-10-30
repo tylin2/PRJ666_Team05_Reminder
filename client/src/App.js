@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Nav from "./components/nav/Nav";
 import NavLink from "./components/nav/navlink/NavLink";
 import Input from "./components/form/Input";
@@ -8,37 +8,21 @@ import Body from "./components/body/Body";
 import Content from "./components/content/Content";
 import Header from "./components/header/Header";
 import Login from "./components/header/login/Login";
-import Account from "./components/header/login/Account";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Tasks from "./pages/tasks/Task";
 
 import logo from "./assets/img/logo.png";
 
-import TaskList from "./pages/tasks/taskList";
-import Calendar from "./pages/calendar/Calendar";
-import ProjectForm from "./pages/project/Project";
-import Signup from "./pages/user/Signup";
-import LoginComp from "./pages/user/Login";
-import PrivateRoute from "./pages/user/PrivateRoute";
-import ForgotPassword from "./pages/user/ForgotPassword";
-import AuthProvider from "./contexts/AuthContext";
-
-import { Switch, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-
-import { auth } from "./firebase";
-
 function App() {
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const idTokenResult = await user.getIdToken();
-        window.localStorage.setItem("token", idTokenResult);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   return (
+    <Router>
     <Container>
       <Header>
         {" "}
@@ -46,37 +30,32 @@ function App() {
           src={logo}
           alt="logo"
           style={{ height: "3.25rem", marginLeft: "2rem" }}
-          href="/"
         />
         <Form>
           {" "}
           <Input placeholder="Search by anything..." />
         </Form>
-        {window.localStorage.getItem("token") ? <Account /> : <Login />}
+        <Login />
       </Header>
       <Body>
         {" "}
         <Nav>
           {" "}
-          <NavLink href="/project">Project</NavLink>
-          <NavLink href="/task_list">Task</NavLink>
-          <NavLink href="/calendar">Calendar</NavLink>
+          <NavLink to="">Project_test</NavLink>
+          <NavLink to="/tasks">Task_test</NavLink>
+          <NavLink to="">User_test</NavLink>
         </Nav>
+
         <Content>
-          <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path='/task_list' component={TaskList} />
-              <PrivateRoute exact path='/project' component={ProjectForm} />
-              <PrivateRoute exact path='/calendar' component={Calendar} />
-              <Route path='/signup' component={Signup} />
-              <Route path='/login' component={LoginComp} />
-              <Route path='/forgotPass' component={ForgotPassword} />
-            </Switch>
-            {/* Your code must be placed here */}
-          </AuthProvider>
+        <Switch>
+          <Route exact path="/task">
+            <Tasks />
+          </Route>
+        </Switch>
         </Content>
       </Body>
     </Container>
+    </Router>
   );
 }
 
