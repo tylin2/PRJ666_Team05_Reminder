@@ -22,7 +22,6 @@ import PrivateRoute from "./pages/user/PrivateRoute";
 import ForgotPassword from "./pages/user/ForgotPassword";
 import AuthProvider from "./contexts/AuthContext";
 
-
 import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
