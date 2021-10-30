@@ -38,6 +38,8 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value); //returns UserCredential
+      var userName = emailRef.current.value.split("@")[0];
+      addToUser(emailRef.current.value, userName, passwordRef.current.value);
       const user = await login(
         emailRef.current.value,
         passwordRef.current.value
@@ -47,8 +49,6 @@ export default function Signup() {
 
       // const credential = await signup(emailRef.current.value, passwordRef.current. value)//returns UserCredential
       //console.log(credential);
-      var userName = emailRef.current.value.split("@")[0];
-      addToUser(emailRef.current.value, userName, passwordRef.current.value);
       
       window.location.reload(true);
     } catch (e) {
