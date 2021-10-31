@@ -35,9 +35,27 @@ exports.createOrUpdateUser = async (req, res) => {
 };
 
 // find a user by email
+// exports.currentUser = async (req, res) => {
+//   try {
+//     User.findOne({ email: req.user.email }).exec((err, user) => {
+//       if (err) throw new Error(error);
+//       res.json(user);
+//     });
+//   } catch (error) {
+//     res.status(400).send("Fail to get a user -- see the console log");
+//     console.log(
+//       "*************DB errors: controllers.user.currentUser*************"
+//     );
+//     console.log(error.message);
+//     console.log(
+//       "****************************************************************"
+//     );
+//   }
+// };
+
 exports.currentUser = async (req, res) => {
   try {
-    User.findOne({ email: req.user.email }).exec((err, user) => {
+    User.findOne({ email: req.params.email }).exec((err, user) => {
       if (err) throw new Error(error);
       res.json(user);
     });
@@ -52,6 +70,7 @@ exports.currentUser = async (req, res) => {
     );
   }
 };
+
 
 // get all users
 exports.allUser = async (req, res) => {

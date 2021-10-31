@@ -4,9 +4,13 @@ const User = require("../models/user");
 
 exports.authCheck = async (req, res, next) => {
   try {
+    console.log(req.headers)
+    const token = req.headers.authorization.split(' ')[1]
+
     const firebaseUser = await adminls
       .auth()
-      .verifyIdToken(req.headers.authtoken);
+      // .verifyIdToken(req.headers.authtoken);
+      .verifyIdToken(token);
     req.user = firebaseUser;
     next();
   } catch (error) {

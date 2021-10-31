@@ -40,7 +40,8 @@ app.listen(port, () => {
 
 // server for user model
 app.post(`/api/create-or-update-user`, createOrUpdateUser);
-app.get(`/api/current-user`, authCheck, currentUser);
+// app.get(`/api/current-user`, authCheck, currentUser);
+app.get(`/api/current-user/:email`, authCheck, currentUser);
 app.get(`/api/all-user`, authCheck, allUser);
 
 // server for project model

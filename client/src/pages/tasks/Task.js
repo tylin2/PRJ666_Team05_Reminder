@@ -8,8 +8,10 @@ import Button from 'react-bootstrap/Button';
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import CreateTask2 from './CreateTask2'
+import { useAuth } from "../../contexts/AuthContext.js";
 
 function Tasks() {
+    const { currentUser } = useAuth();
     const [tasks, setTasks] = useState([])
     const [inputs, setInputs] = useState({
         //_id: null,
@@ -108,14 +110,19 @@ function Tasks() {
 
     const fetchTasks = async () => {
         try {
+            
             setError(null);
             setTasks(null);
             setLoading(true);
+            const idToken = window.localStorage.getItem("token")
             const response = await axios.get(
-                'http://localhost:8080/api/list-task'
+                'http://localhost:8080/api/list-task', {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
             )
             console.log(response.data);
-            //setTasks([... tasks, response.data])
             setTasks(tasks.concat(response.data))
         }catch(e) {
             setError(e)
@@ -124,8 +131,8 @@ function Tasks() {
     }
 
     useEffect(()=>{
-        //todo: I will not use this until I get token.
-        //fetchTasks()
+        
+        fetchTasks()
     },[]);
 
     return (
@@ -141,6 +148,9 @@ function Tasks() {
             <div>
                 {name}: {descript}: {dueDate.toISOString().split('T')[0]}
             </div>
+            {/* <div>Token: {window.localStorage.getItem("token")}</div>
+            <div>UserEmail: {currentUser.email} </div> */}
+
             <TaskList2 entries={tasks} loading={loading} error={error}/>
         </>
     )

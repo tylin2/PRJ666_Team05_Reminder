@@ -22,6 +22,8 @@ export default function AuthProvider({ children }) {
     //https://firebase.google.com/docs/reference/js/auth.usercredential.md#usercredentialuser
   }
 
+  //https://firebase.google.com/docs/reference/js/auth.md#signinwithemailandpassword
+  //returns: Promise<UserCredential>
   async function login(email, password) {
     return await auth.signInWithEmailAndPassword(email, password);
   }
