@@ -16,7 +16,9 @@ export default function DisplayTask( props ) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
-    
+    const idToken = window.localStorage.getItem("token")
+    const id = props.match.params.id;
+
     useEffect(() => {
         getTask(props); // <-- pass the component props
     },[])   
@@ -25,10 +27,7 @@ export default function DisplayTask( props ) {
         try {
             setError(null);
             setTasks([null]);
-            setLoading(true);                       
-           
-            const idToken = window.localStorage.getItem("token")
-            const id = props.match.params.id;            
+            setLoading(true);
             const taskOfid = await axios.get(
                 'http://localhost:8080/api/display-task/' + id, {
                     headers: {
@@ -47,9 +46,7 @@ export default function DisplayTask( props ) {
     }
     
     const deleteTask = async (props) => {
-        try { 
-            const idToken = window.localStorage.getItem("token")
-            const id = props.match.params.id;            
+        try {           
             const taskOfid = await axios.delete(
                 'http://localhost:8080/api/delete-task/' + id, {
                     headers: {
