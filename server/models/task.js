@@ -22,10 +22,7 @@ const taskSchema = new Schema(
             ref: 'User'
             //type: Schema.Types.ObjectId, ref: 'User'
         },
-        participants:[{
-            type: String,
-            //type: Schema.Types.ObjectId, ref: 'User'
-        }],
+        participants:[{type: Schema.Types.ObjectId, ref: 'User'}],
         descript: {
             type: String
         },

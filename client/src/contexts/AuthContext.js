@@ -22,6 +22,8 @@ export default function AuthProvider({ children }) {
     //https://firebase.google.com/docs/reference/js/auth.usercredential.md#usercredentialuser
   }
 
+  //https://firebase.google.com/docs/reference/js/auth.md#signinwithemailandpassword
+  //returns: Promise<UserCredential>
   async function login(email, password) {
     return await auth.signInWithEmailAndPassword(email, password);
   }
@@ -49,6 +51,7 @@ export default function AuthProvider({ children }) {
       setCurrentUser(user);
       console.log(user); //need to check if react uses this effect after loggin in.
       setLoading(false);
+      
     });
 
     return unsubscribe;
@@ -63,6 +66,7 @@ export default function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     setToken,
+    token
   };
 
   return (

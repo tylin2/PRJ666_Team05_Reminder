@@ -34,6 +34,12 @@ export default function Signup() {
       await signup(emailRef.current.value, passwordRef.current.value); //returns UserCredential
       var userName = emailRef.current.value.split("@")[0];
       addToUser(emailRef.current.value, userName, passwordRef.current.value);
+      
+      //return type of login is Promise<UserCredential>
+      //https://firebase.google.com/docs/reference/js/auth.usercredential.md#usercredential_interface
+      //It has three properties.
+      //One of them is user of Type 'User'
+      
       const user = await login(
         emailRef.current.value,
         passwordRef.current.value

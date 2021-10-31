@@ -1,12 +1,65 @@
 const Task = require("../models/task");
+const User = require("../models/user");
 const mongoose = require("mongoose");
+
+//updateTaskOf_aUser
+// exports.updateTaskOf_aUser = async (req, res) => {
+//   try {
+//     User.findOne({ email: req.params.email })
+//     .populate('taskSet')
+//     .exec((err, user) => {
+//       if (err) throw new Error(error);
+//       res.json(user.taskSet);//!taskSet is an array
+//     });
+//   } catch (error) {
+//     res.status(400).send("Fail to get a user -- see the console log");
+//     console.log(
+//       "*************DB errors: controllers.user.currentUser*************"
+//     );
+//     console.log(error.message);
+//     console.log(
+//       "****************************************************************"
+//     );
+//   }
+// };
+
+//find all task of a particular user
+exports.findTasksOf_aUser = async (req, res) => {
+  try {
+    User.findOne({ email: req.params.email })
+    .populate('taskSet') //todo not sure.
+    .exec((err, user) => {
+      if (err) throw new Error(error);
+      res.json(user.taskSet);//!taskSet is an array
+    });
+  } catch (error) {
+    res.status(400).send("Fail to get a user -- see the console log");
+    console.log(
+      "*************DB errors: controllers.user.currentUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
+
+
+
+
 
 // create task
 exports.createTask = async (req, res) => {
   try {
-    let { name, dueDate, remindDate, user, participants, descript, project } = req.body;
+    const { name, dueDate, remindDate, user, participants, descript } = req.body;
+    let { project } = req.body;
     
     project = mongoose.Types.ObjectId(project);
+
+    //todo: TypeError: Assignment to constant variable.
+    // participants = participants.map((p) => {
+    //   return mongoose.Types.ObjectId(p);
+    // });
 
     const task = await new Task({
       name,
@@ -18,7 +71,12 @@ exports.createTask = async (req, res) => {
       project,
     });
 
-    await task.save();
+    let savedTask = await task.save();
+
+    let currentUser = await User.findOne({email: req.params.email});
+    currentUser.taskSet.push(savedTask);
+
+    currentUser.save();
 
     res.json(task);
   } catch (error) {
@@ -26,7 +84,7 @@ exports.createTask = async (req, res) => {
     console.log(
       "*************DB errors: controllers.task.createTask*************"
     );
-    console.log(error.message);
+    console.log(error);
     console.log(
       "****************************************************************"
     );

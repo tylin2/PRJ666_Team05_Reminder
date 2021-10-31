@@ -35,7 +35,7 @@ export default function Login() {
       const token = await userInfo.getIdToken();
 
       window.localStorage.setItem("token", token);
-
+      
       setToken(token);
       //console.log(userInfo.metadata)
       // firebase.auth().signInWithEmailAndPassword(email, password)

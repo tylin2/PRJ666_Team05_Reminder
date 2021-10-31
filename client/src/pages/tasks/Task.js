@@ -1,11 +1,11 @@
 import React from "react";
+import TaskList2 from "./taskList2";
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
-import CreateTask2 from './CreateTask2'
 import { useAuth } from "../../contexts/AuthContext.js";
 
-export default function CreateTask() {
+function Tasks() {
     const { currentUser } = useAuth();
     const [tasks, setTasks] = useState([])
     const [inputs, setInputs] = useState({
@@ -33,6 +33,10 @@ export default function CreateTask() {
         })
     }
 
+
+
+
+    
     const addNewTask = async (task) => {
         try {
             //console.log('task to be added: '+task.user)
@@ -67,11 +71,10 @@ export default function CreateTask() {
 
     const onCreate = (e) => {
         e.preventDefault();
-        const userEmail = currentUser.email
         const task = {
             //_id: _id.current,
             name: inputs.name,
-            user: userEmail,
+            user: "61511337c6d22e08280b948c",
             //user: null,
             participants: [user],
             descript: inputs.descript,
@@ -79,20 +82,75 @@ export default function CreateTask() {
         }
         //todo after fixing axios and token issue, 
         addNewTask(task);
-        
+
+        //I think I can just post the new one 
+
+        // setTasks([...tasks, addedTask])
+
+        // setInputs({
+        //     name: '',
+        //     user: null,
+        //     descript:''
+        // })
+
+        //_id.current += 1;
     }
+
+    const fetchTasks = async () => {
+        try {
+            setError(null);
+            setTasks(null);
+            setLoading(true);
+            
+            const idToken = window.localStorage.getItem("token")
+            const userEmail = currentUser.email
+            const tasksOfuser = await axios.get(
+                'http://localhost:8080/api/tasks-of-user/' + userEmail, {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            console.log(`from Task useEffect -----------------`)
+            console.log(tasksOfuser.data);
+            setTasks(tasks.concat(tasksOfuser.data))
+            
+            // const userLoggedIn = await axios.get(
+            //     'http://localhost:8080/api/current-user/' + userEmail, {
+            //         headers: {
+            //           Authorization: 'Bearer ' + idToken,
+            //         },
+            //     }
+            // )
+            
+            //todo
+            // const response = await axios.get(
+            //     'http://localhost:8080/api/list-task', {
+            //         headers: {
+            //           Authorization: 'Bearer ' + idToken,
+            //         },
+            //     }
+            // )
+            // console.log(response.data);
+            // setTasks(tasks.concat(response.data))
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
+    }
+
+    useEffect(()=>{        
+        fetchTasks()
+    },[]);
 
     return (
         <>
-            <CreateTask2  
-                name={name}
-                descript={descript}
-                dueDate={dueDate}
-                onCreate={onCreate}
-                onChange={onChange}
-                handleDateChange={handleDateChange}
-            />
-            
+            <TaskList2 entries={tasks} loading={loading} error={error}/>
         </>
-    );
+    )
+
 }
+
+
+
+export default Tasks;

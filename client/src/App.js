@@ -11,8 +11,13 @@ import AuthNav from "./components/header/login/AuthNav";
 
 import logo from "./assets/img/logo.png";
 
-import TaskList from "./pages/tasks/taskList";
 import CreateTask from "./pages/tasks/CreateTask"
+
+//#region added by Yonghwan
+import Tasks from "./pages/tasks/Task";
+//#endregion
+
+
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
 import Signup from "./pages/user/Signup";
@@ -75,7 +80,9 @@ function App() {
         <Content>
         <AuthProvider>
             <Switch>
-              <PrivateRoute exact path='/task_list' component={TaskList} />
+              {/* added by Yonghwan
+               replaced TaskList with Task. Task is the one I created for listing tasks */}
+              <PrivateRoute exact path='/task_list' component={Tasks} />              
               <PrivateRoute exact path='/createTask' component={CreateTask} />
               <PrivateRoute exact path='/project' component={ProjectForm} />
               <PrivateRoute exact path='/' component={Calendar} />
