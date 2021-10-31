@@ -4,14 +4,9 @@ const mongoose = require("mongoose");
 // create task
 exports.createTask = async (req, res) => {
   try {
-    const { name, dueDate, remindDate, user, participants, descript } = req.body;
-    let { project } = req.body;
+    let { name, dueDate, remindDate, user, participants, descript, project } = req.body;
     
     project = mongoose.Types.ObjectId(project);
-
-    participants = participants.map((p) => {
-      return mongoose.Types.ObjectId(p);
-    });
 
     const task = await new Task({
       name,
