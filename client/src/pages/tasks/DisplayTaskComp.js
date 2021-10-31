@@ -19,7 +19,7 @@ export default class DisplayTaskComp extends Component {
                     <div> {task?.descript} </div>
                     <br />
                     <h4>Due date: </h4>
-                    <div> {task?.dueDate} </div>
+                    <div> {task?.dueDate.split('T')[0]} {task?.dueDate.split('T')[1].split(':')[0]}:{task?.dueDate.split('T')[1].split(':')[1]} </div>
                     <br />                 
                
           </>

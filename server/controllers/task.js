@@ -108,7 +108,7 @@ exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
     if(!task) {
-      res.status(404).send("No item was found");
+      res.status(404).send("No item was found");      
     }else{
       res.send(task + 'has been deleted');
     }
