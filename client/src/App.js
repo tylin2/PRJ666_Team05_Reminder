@@ -12,6 +12,7 @@ import AuthNav from "./components/header/login/AuthNav";
 import logo from "./assets/img/logo.png";
 
 import CreateTask from "./pages/tasks/CreateTask"
+import DisplayTask from "./pages/tasks/DisplayTask"
 
 //#region added by Yonghwan
 import Tasks from "./pages/tasks/Task";
@@ -82,7 +83,8 @@ function App() {
             <Switch>
               {/* added by Yonghwan
                replaced TaskList with Task. Task is the one I created for listing tasks */}
-              <PrivateRoute exact path='/task_list' component={Tasks} />              
+              <PrivateRoute exact path='/task_list' component={Tasks} />
+              <PrivateRoute exact path='/task/:id' component={DisplayTask} />              
               <PrivateRoute exact path='/createTask' component={CreateTask} />
               <PrivateRoute exact path='/project' component={ProjectForm} />
               <PrivateRoute exact path='/' component={Calendar} />

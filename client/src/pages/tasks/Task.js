@@ -16,85 +16,7 @@ function Tasks() {
     })
     const [dueDate, setDueDate] = useState(new Date());
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const { name, user, descript } = inputs;
-    const _id = useRef(1);
-
-    const handleDateChange = (date) => {
-        console.log(date);
-        setDueDate(date);
-    };
-    const onChange = e => {
-        const { name, value } = e.target;
-        setInputs({
-            ...inputs,
-            [name]: value
-        })
-    }
-
-
-
-
-    
-    const addNewTask = async (task) => {
-        try {
-            //console.log('task to be added: '+task.user)
-            const idToken = window.localStorage.getItem("token")
-            const userEmail = currentUser.email
-
-            const response = await axios.post(
-                'http://localhost:8080/api/create-task/' + userEmail,
-                task,
-                {
-                 
-                    headers: {
-                      Authorization: 'Bearer ' + idToken,
-                    },
-                }
-            )
-            console.log(`addNewTask's response: ${response.data._id}`);
-
-
-
-            setTasks([...tasks, response.data])
-
-            setInputs({
-                name: '',
-                user: null,
-                descript:''
-            })
-        }catch (e) {
-            console.error(e);
-        }
-    }
-
-    const onCreate = (e) => {
-        e.preventDefault();
-        const task = {
-            //_id: _id.current,
-            name: inputs.name,
-            user: "61511337c6d22e08280b948c",
-            //user: null,
-            participants: [user],
-            descript: inputs.descript,
-            dueDate: dueDate
-        }
-        //todo after fixing axios and token issue, 
-        addNewTask(task);
-
-        //I think I can just post the new one 
-
-        // setTasks([...tasks, addedTask])
-
-        // setInputs({
-        //     name: '',
-        //     user: null,
-        //     descript:''
-        // })
-
-        //_id.current += 1;
-    }
+    const [error, setError] = useState(null);   
 
     const fetchTasks = async () => {
         try {
@@ -115,24 +37,6 @@ function Tasks() {
             console.log(tasksOfuser.data);
             setTasks(tasks.concat(tasksOfuser.data))
             
-            // const userLoggedIn = await axios.get(
-            //     'http://localhost:8080/api/current-user/' + userEmail, {
-            //         headers: {
-            //           Authorization: 'Bearer ' + idToken,
-            //         },
-            //     }
-            // )
-            
-            //todo
-            // const response = await axios.get(
-            //     'http://localhost:8080/api/list-task', {
-            //         headers: {
-            //           Authorization: 'Bearer ' + idToken,
-            //         },
-            //     }
-            // )
-            // console.log(response.data);
-            // setTasks(tasks.concat(response.data))
         }catch(e) {
             setError(e)
         }

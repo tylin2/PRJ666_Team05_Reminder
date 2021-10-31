@@ -2,27 +2,6 @@ const Task = require("../models/task");
 const User = require("../models/user");
 const mongoose = require("mongoose");
 
-//updateTaskOf_aUser
-// exports.updateTaskOf_aUser = async (req, res) => {
-//   try {
-//     User.findOne({ email: req.params.email })
-//     .populate('taskSet')
-//     .exec((err, user) => {
-//       if (err) throw new Error(error);
-//       res.json(user.taskSet);//!taskSet is an array
-//     });
-//   } catch (error) {
-//     res.status(400).send("Fail to get a user -- see the console log");
-//     console.log(
-//       "*************DB errors: controllers.user.currentUser*************"
-//     );
-//     console.log(error.message);
-//     console.log(
-//       "****************************************************************"
-//     );
-//   }
-// };
-
 //find all task of a particular user
 exports.findTasksOf_aUser = async (req, res) => {
   try {
@@ -36,6 +15,22 @@ exports.findTasksOf_aUser = async (req, res) => {
     res.status(400).send("Fail to get a user -- see the console log");
     console.log(
       "*************DB errors: controllers.user.currentUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
+
+exports.findTaskbyId = async (req, res) => {
+  try {
+    Task.findById(req.params.id)
+    .then(task => res.json(task))
+  } catch (error) {
+    res.status(400).send("Fail to find a task -- see the console log");
+    console.log(
+      "*************DB errors: controllers.task.findTaskbyId*************"
     );
     console.log(error.message);
     console.log(

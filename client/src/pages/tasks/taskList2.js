@@ -13,9 +13,9 @@ export default class TaskList2 extends Component  {
             if(typeof a.dueDate !== 'string') a.dueDate.toISOString()
             if(typeof b.dueDate !== 'string') b.dueDate.toISOString()
             return a.dueDate.split('T')[0].split('-').reverse().join().localeCompare(b.dueDate.split('T')[0].split('-').reverse().join())
-        }
+            }
             
-           );
+        );
        return (
            <>
            <br />
@@ -28,7 +28,7 @@ export default class TaskList2 extends Component  {
                                 if(typeof task.dueDate === 'object') task.dueDate.toISOString()
                                 return(
                                     <div>
-                                        <ListGroupItem key={task._id} style={{fontSize: 14}} href="task/:id" action>{typeof task.dueDate === 'undefined' ? '' : task.dueDate.split('T')[0]}     {task.name}</ListGroupItem>
+                                        <ListGroupItem key={task._id} style={{fontSize: 14}} href={`task/${task._id}`} action>{typeof task.dueDate === 'undefined' ? '' : task.dueDate.split('T')[0]}     {task.name}</ListGroupItem>
                                     </div>
                                 )
                             })}

@@ -9,7 +9,14 @@ const {
   currentUser,
   allUser,
 } = require("./controllers/user");
-const { findTasksOf_aUser, createTask, listTask, deleteTask, updateTask } = require("./controllers/task");
+const { 
+  findTasksOf_aUser, 
+  createTask, 
+  listTask, 
+  deleteTask, 
+  updateTask, 
+  findTaskbyId 
+} = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
 dotenv.config();
 
@@ -51,6 +58,7 @@ app.get(`/api/list-project`, authCheck, listProject);
 // server for task model
 app.post(`/api/create-task/:email`, authCheck, createTask);
 app.get(`/api/list-task`, authCheck, listTask);
+app.get(`/api/display-task/:id`, authCheck, findTaskbyId);
 app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
 app.put(`/api/update-task/:id`, authCheck, updateTask);
 app.get(`/api/tasks-of-user/:email`, authCheck, findTasksOf_aUser);
