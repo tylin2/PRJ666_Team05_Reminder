@@ -4,38 +4,23 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import styles from "./Task.module.scss";
 
 export default class DisplayTaskComp extends Component {
-  
-  getTaskId() {
-    return this.props.match.params.id 
-  }
 
     render() {      
       if(this.props.loading) {return <div>on loading..</div>}
       else if(this.props.error) {return <div>error occured</div>}
+      else if(!this.props) {return <div>Cannot find the task.</div>}
       else {
-        console.log(`this.props.entry: ${this.props.entry}`)
-        let task = this.props.entry;        
-        console.log(`task: ${task}`)
+        let task = this.props.entry[0];    
         return (
-          <>              
-            
-              <br />
-              <Card style={{ width: "90rem" }} className={styles.card}>
-                  <Card.Body>
-                    {task.map(task => {
-                      return(
-                        <h1 className="text-center">{task.name}</h1>
-
-                      )
-                    })}
-                      
-                      <span>
-                          <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",paddingRight: 16, paddingLeft: 16,fontSize: 14}} size="lg">Edit Task</Button> 
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;         
-                          <Button  style={{ color:"#00000",background:"#FE6D73", border:"none", fontSize: 14}} size="lg">Delete Task</Button>
-                      </span>
-                  </Card.Body>
-              </Card>
+          <>     
+                    <h1 className="text-center"> {task?.name} </h1>
+                    <br />
+                    <h4>Description: </h4>
+                    <div> {task?.descript} </div>
+                    <br />
+                    <h4>Due date: </h4>
+                    <div> {task?.dueDate} </div>
+                    <br />                 
                
           </>
         )

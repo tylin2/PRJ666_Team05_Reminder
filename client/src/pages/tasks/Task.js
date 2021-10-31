@@ -50,6 +50,7 @@ function Tasks() {
     return (
         <>
             <TaskList2 entries={tasks} loading={loading} error={error}/>
+            
         </>
     )
 
