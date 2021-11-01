@@ -1,20 +1,13 @@
 import React from "react";
 import TaskList2 from "./taskList2";
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useAuth } from "../../contexts/AuthContext.js";
 
 function Tasks() {
     const { currentUser } = useAuth();
-    const [tasks, setTasks] = useState([])
-    const [inputs, setInputs] = useState({
-        //_id: null,
-        name: '',
-        user: null,
-        descript:''
-    })
-    const [dueDate, setDueDate] = useState(new Date());
+    const [tasks, setTasks] = useState([])    
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
 
@@ -49,8 +42,7 @@ function Tasks() {
 
     return (
         <>
-            <TaskList2 entries={tasks} loading={loading} error={error}/>
-            
+            <TaskList2 entries={tasks} loading={loading} error={error}/>            
         </>
     )
 

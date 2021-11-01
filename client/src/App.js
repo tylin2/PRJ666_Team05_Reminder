@@ -76,7 +76,6 @@ function App() {
           {" "}
           <NavLink href="/project">Project</NavLink>
           <NavLink href="/task_list">Task</NavLink>
-          {/*<NavLink href='/calendar'>Calendar</NavLink>*/}
         </Nav>
         <Content>
         <AuthProvider>
