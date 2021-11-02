@@ -1,0 +1,22 @@
+@import "../../base";
+
+.card{
+    margin-left: 5%;      
+    margin-right: 5%;
+    width: auto;
+}
+
+input {
+    width: 75%;
+    margin: 350px 0;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+
+textarea{
+    width: 100%;
+    height: 100px;
+    margin: 350px 0;
+    resize: none;
+    padding: 4px 8px;
+}
