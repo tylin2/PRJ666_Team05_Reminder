@@ -1,28 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavLink.module.scss";
 
 const NavLink = (props) => {
-  const [isActive, setIsActive] = useState(false);
-
   // This should be changed...
   // Instead of checking click, checking the URL history
-  const clickHandler = (e) => {
-    setIsActive(true);
-  };
 
   return (
     <>
       <li
         className={
-          isActive
+          props.isActive
             ? styles.sideNavItem + " " + styles.sideNavItemActive
             : styles.sideNavItem
         }
       >
         {" "}
         <Link
-          onClick={clickHandler}
+          onClick={props.clickPathHandler}
           to={props.href}
           className={styles.sideNavLink}
         >

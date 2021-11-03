@@ -11,13 +11,12 @@ import AuthNav from "./components/header/login/AuthNav";
 
 import logo from "./assets/img/logo.png";
 
-import CreateTask from "./pages/tasks/CreateTask"
-import DisplayTask from "./pages/tasks/DisplayTask"
+import CreateTask from "./pages/tasks/CreateTask";
+import DisplayTask from "./pages/tasks/DisplayTask";
 
 //#region added by Yonghwan
 import Tasks from "./pages/tasks/Task";
 //#endregion
-
 
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
@@ -34,6 +33,24 @@ import { auth } from "./firebase";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [isActive, setIsActive] = useState({
+    project: false,
+    task: false,
+  });
+
+  const clickPathHandler = (e, path) => {
+    if (path === "project") {
+      setIsActive({
+        project: true,
+        task: false,
+      });
+    } else {
+      setIsActive({
+        project: false,
+        task: true,
+      });
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -53,6 +70,57 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  const homeBody = (
+    <div>
+      {" "}
+      <AuthProvider>
+        <Switch>
+          <Route path="/" component={Signup} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={LoginComp} />
+          <Route path="/forgotPass" component={ForgotPassword} />
+        </Switch>
+      </AuthProvider>
+    </div>
+  );
+
+  const authBody = (
+    <>
+      {" "}
+      <Nav>
+        {" "}
+        <NavLink
+          href="/project"
+          isActive={isActive.project}
+          clickPathHandler={(e) => clickPathHandler(e, "project")}
+        >
+          Project
+        </NavLink>
+        <NavLink
+          href="/task_list"
+          isActive={isActive.task}
+          clickPathHandler={(e) => clickPathHandler(e, "task")}
+        >
+          Task
+        </NavLink>
+      </Nav>
+      <Content>
+        <AuthProvider>
+          <Switch>
+            <PrivateRoute exact path="/task_list" component={Tasks} />
+            <PrivateRoute exact path="/task/:id" component={DisplayTask} />
+            <PrivateRoute exact path="/createTask" component={CreateTask} />
+            <PrivateRoute exact path="/project" component={ProjectForm} />
+            <PrivateRoute exact path="/" component={Calendar} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={LoginComp} />
+            <Route path="/forgotPass" component={ForgotPassword} />
+          </Switch>
+        </AuthProvider>
+      </Content>
+    </>
+  );
+
   return (
     <Container>
       <Header>
@@ -68,33 +136,9 @@ function App() {
           {" "}
           <Input placeholder="Search by anything..." />
         </Form>
-        <AuthNav/>
+        <AuthNav />
       </Header>
-      <Body>
-        {" "}
-        <Nav>
-          {" "}
-          <NavLink href="/project">Project</NavLink>
-          <NavLink href="/task_list">Task</NavLink>
-        </Nav>
-        <Content>
-        <AuthProvider>
-            <Switch>
-              {/* added by Yonghwan
-               replaced TaskList with Task. Task is the one I created for listing tasks */}
-              <PrivateRoute exact path='/task_list' component={Tasks} />
-              <PrivateRoute exact path='/task/:id' component={DisplayTask} />              
-              <PrivateRoute exact path='/createTask' component={CreateTask} />
-              <PrivateRoute exact path='/project' component={ProjectForm} />
-              <PrivateRoute exact path='/' component={Calendar} />
-              <Route path='/signup' component={Signup} />
-              <Route path='/login' component={LoginComp} />
-              <Route path='/forgotPass' component={ForgotPassword} />    
-            </Switch>
-            {/* Your code must be placed here */}
-          </AuthProvider>
-        </Content>
-      </Body>
+      <Body>{isAuth ? authBody : homeBody}</Body>
     </Container>
   );
 }
