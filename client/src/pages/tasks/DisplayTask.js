@@ -54,7 +54,7 @@ export default function DisplayTask( props ) {
                     }
                 }
             )
-                        
+            history.push("/");                        
         }catch(e) {
             setError(e)
         }
