@@ -5,27 +5,10 @@ import styles from "./Task.module.scss";
 
 export default class DisplayTaskComp extends Component {
 
-  //todo 
-  //todo 1. onChange
-  //todo 2. onEdit
-  //todo 3. handleDateChange
-  //todo 4. isEditing
-  //todo 5. onClick edit
-  //todo 6. api
     render() {      
       if(this.props.loading) {return <div>on loading..</div>}
       else if(this.props.error) {return <div>error occured</div>}
       else if(!this.props) {return <div>Cannot find the task.</div>}
-      // else if(this.props.isEditing) {
-      //   let task = this.props.entry[0];
-      //   return <EditTask
-      //           name={task?.name}
-      //           descript={task?.descript}
-      //           onEdit={onEdit}
-      //           onChange={onChange}
-      //           handleDateChange={handleDateChange}
-      //           />
-      // }
       else {
         let task = this.props.entry[0];   
         return (

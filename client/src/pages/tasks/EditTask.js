@@ -17,7 +17,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import styles from "./Task.module.scss";
 import "bootstrap/dist/css/bootstrap.css";
 
-function EditTask ({ name, descript, dueDate, onEdit, onChange, onCancel, handleDateChange }) {
+function EditTask ({ existingTask, name, descript, dueDate, onEdit, onChange, onCancel, handleDateChange }) {
     return(
         <>
             <h1 className="text-center">Edit Task</h1>
@@ -27,6 +27,7 @@ function EditTask ({ name, descript, dueDate, onEdit, onChange, onCancel, handle
                         <input placeholder="title"
                         name="name"
                         value={name}
+                        //defaultValue={existingTask.name}
                         onChange={onChange}
                         required
                         />
@@ -37,6 +38,7 @@ function EditTask ({ name, descript, dueDate, onEdit, onChange, onCancel, handle
                         <textarea placeholder="description"
                             name="descript"
                             value={descript}
+                            //defaultValue={existingTask.descript}
                             onChange={onChange}
                         />
                     </Form.Group>
@@ -48,6 +50,7 @@ function EditTask ({ name, descript, dueDate, onEdit, onChange, onCancel, handle
                                 id="time-picker"
                                 //label="Time picker"
                                 value={dueDate}
+                                //defaultValue={existingTask.dueDate}
                                 onChange={handleDateChange}
                         />
                         </MuiPickersUtilsProvider>

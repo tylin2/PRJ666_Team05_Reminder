@@ -14,7 +14,6 @@ import { useAuth } from "../../contexts/AuthContext.js"
 export default function DisplayTask( props ) {
     const { currentUser } = useAuth();
     const [tasks, setTasks] = useState([]);
-    //todo think about how to set input values out of a particular task.
     const [inputs, setInputs] = useState({
         //_id: null,
         name: '',
@@ -29,6 +28,8 @@ export default function DisplayTask( props ) {
     const idToken = window.localStorage.getItem("token")
     const id = props.match.params.id;
     const [isEditing, setIsEditing] = useState(false);
+    // //it is just a dependency.
+    // //const [editCompleted, setEditCompleted] = useState(false);
 
 
     useEffect(() => {
@@ -48,25 +49,57 @@ export default function DisplayTask( props ) {
     }
 
     const onCancel = (e) => {
-        setIsEditing(!isEditing) //? Should I consider using useCallback?
+        setIsEditing(!isEditing)
+        setInputs({
+            ...inputs,
+            name: tasks[0].name,
+            descript: tasks[0].descript
+        })
+        setDueDate(tasks[0].dueDate)
     }
-    //todo
+    
     const onEdit = (e) => {
         e.preventDefault();
-        setIsEditing(!isEditing) //? Should I consider using useCallback?
-        // const userEmail = currentUser.email
-        // const task = {
-        //     //_id: _id.current,
-        //     name: inputs.name,
-        //     user: userEmail,
-        //     //user: null,
-        //     participants: [user],
-        //     descript: inputs.descript,
-        //     dueDate: dueDate
-        // }
-        // //todo after fixing axios and token issue, 
-        // editTask(task);
+        
+        const task = {
+            name: inputs.name,
+            descript: inputs.descript,
+            dueDate: dueDate
+        }
+        
+        editTask(task);
+        console.log("```````````````````in onEdit````````````````````")
+        console.log(tasks);
+        setIsEditing(!isEditing)
+        console.log(tasks);
+        // //setEditCompleted(!editCompleted)
 
+        //? Without this push, data is not rendered inside DisplayTaskComp.js
+        history.push("/task_list");
+    }
+
+     
+    const editTask = async (task) => {
+        try {
+            setError(null);
+            setTasks([null]);
+            setLoading(true);
+            const updatedTask = await axios.put(
+                'http://localhost:8080/api/update-task/' + id, 
+                task,
+                {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            console.log(`from within editTask -----------------`)
+            console.log(updatedTask.data);
+
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
     }
 
     const getTask = async (props) => {        
@@ -84,16 +117,19 @@ export default function DisplayTask( props ) {
             console.log(`from Task useEffect -----------------`)
             console.log(taskOfid.data);
             setTasks(tasks.concat(taskOfid.data))
-            
+            setInputs({
+                ...inputs,
+                name: taskOfid.data.name,
+                descript: taskOfid.data.descript
+            })
+            // console.log(`from Task useEffect --------AGAIN---------`)
+            // console.log(tasks[0])
+            setDueDate(taskOfid.data.dueDate)
         }catch(e) {
             setError(e)
+            console.log(e)
         }
         setLoading(false)
-    }
-    
-    //todo 
-    const editTask = async (task) => {
-
     }
 
     const deleteTask = async (props) => {
@@ -105,7 +141,7 @@ export default function DisplayTask( props ) {
                     }
                 }
             )
-            history.push("/");          //!<-----              
+            history.push("/");
         }catch(e) {
             setError(e)
         }
@@ -118,15 +154,15 @@ export default function DisplayTask( props ) {
             <Card style={{ width: "90rem" }} className={styles.card}>
                   <Card.Body>
                       {isEditing?
-                        // <div>Hi!</div>
                         <EditTask
-                        name={tasks[0].name}
-                        descript={tasks[0].descript}
+                        name={name}
+                        descript={descript}
                         dueDate={dueDate}
                         onEdit={onEdit}
                         onChange={onChange}
                         handleDateChange={handleDateChange}
                         onCancel={onCancel}
+                        existingTask={tasks[0]}
                         />
                         :
                         <DisplayTaskComp entry={tasks} loading={loading} error={error}/>
