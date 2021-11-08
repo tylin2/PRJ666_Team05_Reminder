@@ -20,3 +20,15 @@ textarea{
     resize: none;
     padding: 4px 8px;
 }
+
+.taskLine {
+    display: flex;
+}
+
+.completed {
+    display: flex;
+    font-style: italic; 
+    text-decoration: line-through; 
+    color: #333;
+    background-color: #cccccc;
+  }

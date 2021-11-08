@@ -32,8 +32,11 @@ const projectSchema = new Schema(
 
       //return value of default function of this task type becomes empty array.. I guess
       //default: [] 
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false
     }    
-    
   },
   { timestamps: true }
 );
