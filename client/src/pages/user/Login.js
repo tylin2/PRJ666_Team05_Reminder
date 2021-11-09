@@ -49,6 +49,7 @@ export default function Login() {
       setError("Failed to log in");
     }
 
+    history.push("/");
     setLoading(false);
   }
 

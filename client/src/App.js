@@ -70,40 +70,30 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const homeBody = (
-    <div>
-      {" "}
-      <AuthProvider>
-        <Switch>
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/forgotPass" component={ForgotPassword} />
-          <Route path="/" component={Signup} />
-        </Switch>
-      </AuthProvider>
-    </div>
-  );
-
   const authBody = (
     <>
-      {" "}
-      <Nav>
-        {" "}
-        <NavLink
-          href="/project"
-          isActive={isActive.project}
-          clickPathHandler={(e) => clickPathHandler(e, "project")}
-        >
-          Project
-        </NavLink>
-        <NavLink
-          href="/task_list"
-          isActive={isActive.task}
-          clickPathHandler={(e) => clickPathHandler(e, "task")}
-        >
-          Task
-        </NavLink>
-      </Nav>
+      {isAuth ? (
+        <>
+          {" "}
+          <Nav>
+            {" "}
+            <NavLink
+              href="/project"
+              isActive={isActive.project}
+              clickPathHandler={(e) => clickPathHandler(e, "project")}
+            >
+              Project
+            </NavLink>
+            <NavLink
+              href="/task_list"
+              isActive={isActive.task}
+              clickPathHandler={(e) => clickPathHandler(e, "task")}
+            >
+              Task
+            </NavLink>
+          </Nav>
+        </>
+      ) : null}
       <Content>
         <AuthProvider>
           <Switch>
@@ -138,7 +128,7 @@ function App() {
         </Form>
         <AuthNav />
       </Header>
-      <Body>{isAuth ? authBody : homeBody}</Body>
+      <Body>{authBody}</Body>
     </Container>
   );
 }
