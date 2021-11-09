@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useState, useRef } from 'react'
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import CreateTask2 from './CreateTask2'
 import { useAuth } from "../../contexts/AuthContext.js";
@@ -20,6 +21,8 @@ export default function CreateTask() {
 
     const { name, user, descript } = inputs;
     const _id = useRef(1);
+
+    const history = useHistory();
 
     const handleDateChange = (date) => {
         console.log(date);
@@ -60,6 +63,7 @@ export default function CreateTask() {
                 user: null,
                 descript:''
             })
+            history.push("/");  
         }catch (e) {
             console.error(e);
         }

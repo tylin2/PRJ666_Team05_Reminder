@@ -118,6 +118,7 @@ exports.deleteTask = async (req, res) => {
   }
 };
 
+//todo I am not sure if I have to include userEmail? or any user info in the req.body.
 exports.updateTask = async (req, res) => {
   try {
     //const task = await Task.findByIdAndUpdate(req.params.id, {descript: 'updating'}, {new: true});

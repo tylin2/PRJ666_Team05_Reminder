@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {  ListGroup, ListGroupItem, Button, Card } from 'react-bootstrap';
 import styles from "./Task.module.scss";
+import TaskItem from './taskItem';
 
 export default class TaskList2 extends Component  {    
    render() {
@@ -21,23 +22,34 @@ export default class TaskList2 extends Component  {
            <br />
            <Card style={{ width: "90rem" }} className={styles.card}>
                <Card.Body>
-                    <h1 className="text-center">Task List</h1>
+                    {/* <h1 className="text-center" style={{color: 'black'}}>Task List</h1> */}
+                    <h1 className="text-center" >Task List</h1>
                     <ListGroup>
                        
                         {sorted.map(task => {
+                            if(task.isCompleted === false){
                                 if(typeof task.dueDate === 'object') task.dueDate.toISOString()
                                 return(
-                                    <div>
-                                        <ListGroupItem key={task._id} style={{fontSize: 14}} href={`task/${task._id}`} action>{typeof task.dueDate === 'undefined' ? '' : task.dueDate.split('T')[0]}     {task.name}</ListGroupItem>
-                                    </div>
+                                    <TaskItem key={task._id} task={task} onComplete={this.props.onComplete}/>
                                 )
-                            })}
+                            }                                
+                        })}
+                        
+                        {/* <div>Completed tasks</div> */}
+
+                        {sorted.map(task => {
+                            if(task.isCompleted === true){
+                                if(typeof task.dueDate === 'object') task.dueDate.toISOString()
+                                return(
+                                    <TaskItem key={task._id} task={task} onComplete={this.props.onComplete}/>
+                                )
+                            }                                
+                        })}
                     </ListGroup>
                     <br />
                     <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createTask" size="lg">Create New Task</Button>
                </Card.Body>
            </Card>
-
            </>
        )
       }

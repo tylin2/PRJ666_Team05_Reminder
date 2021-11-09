@@ -28,6 +28,10 @@ const taskSchema = new Schema(
         },
         project: {
             type: Schema.Types.ObjectId, ref: 'Project'
+        },
+        isCompleted: {
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true }
