@@ -21,7 +21,7 @@ import Tasks from "./pages/tasks/Task";
 import Calendar from "./pages/calendar/Calendar";
 import ProjectForm from "./pages/project/Project";
 import Signup from "./pages/user/Signup";
-import LoginComp from "./pages/user/Login";
+import Login from "./pages/user/Login";
 import PrivateRoute from "./pages/user/PrivateRoute";
 import ForgotPassword from "./pages/user/ForgotPassword";
 import AuthProvider from "./contexts/AuthContext";
@@ -75,10 +75,10 @@ function App() {
       {" "}
       <AuthProvider>
         <Switch>
-          <Route path="/" component={Signup} />
           <Route path="/signup" component={Signup} />
-          <Route path="/login" component={LoginComp} />
+          <Route path="/login" component={Login} />
           <Route path="/forgotPass" component={ForgotPassword} />
+          <Route path="/" component={Signup} />
         </Switch>
       </AuthProvider>
     </div>
@@ -113,7 +113,7 @@ function App() {
             <PrivateRoute exact path="/project" component={ProjectForm} />
             <PrivateRoute exact path="/" component={Calendar} />
             <Route path="/signup" component={Signup} />
-            <Route path="/login" component={LoginComp} />
+            <Route path="/login" component={Login} />
             <Route path="/forgotPass" component={ForgotPassword} />
           </Switch>
         </AuthProvider>
