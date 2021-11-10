@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { createProject, listProject } = require("./controllers/project");
+const { 
+  createProject,
+  findProjectsOf_aUser, 
+  listProject } = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
@@ -56,7 +59,8 @@ app.get(`/api/current-user/:email`, authCheck, currentUser);
 app.get(`/api/all-user`, authCheck, allUser);
 
 // server for project model
-app.post(`/api/create-project`, authCheck, createProject);
+app.post(`/api/create-project/:email`, authCheck, createProject);
+app.get(`/api/projects-of-user/:email`, authCheck, findProjectsOf_aUser);
 app.get(`/api/list-project`, authCheck, listProject);
 
 // server for task model

@@ -23,8 +23,9 @@ const projectSchema = new Schema(
       type: String
     },
     createBy:{
-      //type:String
-      type: Schema.Types.ObjectId, ref: 'user'
+      type:String,
+      //type: Schema.Types.ObjectId, 
+      ref: 'user'
     },
     tasks:{
       type: [{type: Schema.Types.ObjectId, ref: 'Task'}],

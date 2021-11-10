@@ -7,9 +7,20 @@ export default class Project extends Component  {
       if(this.props.loading) {return <div>on loading..</div>}
       else if(this.props.error) {return <div>error occured</div>}
       else if(!this.props) {return (
-          <>           
-            <div>No Project Now</div> 
-            <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button> 
+          <>
+            <br />
+            <Card style={{ width: "90rem" }} className={styles.card}>
+                <Card.Body>
+                    <h1 className="text-center" >Project List</h1>
+                    <ListGroup>
+                       There is no project now...
+                    </ListGroup>
+                    <br />
+                    <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
+                </Card.Body>
+                                 
+            </Card>           
+            
           </>
         )}
       else {
@@ -21,6 +32,7 @@ export default class Project extends Component  {
                <Card.Body>                    
                     <h1 className="text-center" >Project List</h1>
                     <ListGroup>
+                        
                        
                     </ListGroup>
                     <br />

@@ -5,28 +5,22 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { useAuth } from "../../contexts/AuthContext.js";
 
-export default function CreateTask() {
-    const { currentUser } = useAuth();
-    const [tasks, setTasks] = useState([])
-    const [inputs, setInputs] = useState({
-        //_id: null,
-        name: '',
-        user: null,
-        descript:''
-    })
-    const [dueDate, setDueDate] = useState(new Date());
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+import CreateProjectFrom from "./CreateProjectForm.js";
 
-    const { name, user, descript } = inputs;
+export default function CreateProject() {
+    const { currentUser } = useAuth();
+    const [projects, setProjects] = useState([])
+    const [inputs, setInputs] = useState({        
+        name: '',
+        manager: null,
+        descript:''
+    })    
+
+    const { name, manager, descript } = inputs;
     const _id = useRef(1);
 
     const history = useHistory();
-
-    const handleDateChange = (date) => {
-        console.log(date);
-        setDueDate(date);
-    };
+    
     const onChange = e => {
         const { name, value } = e.target;
         setInputs({
@@ -35,15 +29,14 @@ export default function CreateTask() {
         })
     }
 
-    const addNewTask = async (task) => {
-        try {
-            //console.log('task to be added: '+task.user)
+    const addNewProject = async (project) => {
+        try {            
             const idToken = window.localStorage.getItem("token")
             const userEmail = currentUser.email
 
             const response = await axios.post(
-                'http://localhost:8080/api/create-task/' + userEmail,
-                task,
+                'http://localhost:8080/api/create-project/' + userEmail,
+                project,
                 {
                  
                     headers: {
@@ -51,16 +44,17 @@ export default function CreateTask() {
                     },
                 }
             )
-            console.log(`addNewTask's response: ${response.data._id}`);
+            console.log(`addNewProject's response: ${response.data._id}`);
 
 
 
-            setTasks([...tasks, response.data])
+            setProjects([...projects, response.data])
 
             setInputs({
                 name: '',
-                user: null,
-                descript:''
+                manager: null,
+                descript:'',
+                createBy:''
             })
             history.push("/");  
         }catch (e) {
@@ -71,22 +65,27 @@ export default function CreateTask() {
     const onCreate = (e) => {
         e.preventDefault();
         const userEmail = currentUser.email
-        const task = {
-            //_id: _id.current,
+        const project = {            
             name: inputs.name,
-            user: userEmail,
-            //user: null,
-            participants: [user],
+            manager: inputs.manager,
             descript: inputs.descript,
-            dueDate: dueDate
+            createBy: userEmail            
         }
         //todo after fixing axios and token issue, 
-        addNewTask(task);
+        addNewProject(project);
         
     }
 
     return (
         <>
+            <br />
+             <CreateProjectFrom  
+                name={name}
+                manager={manager}
+                descript={descript}
+                onCreate={onCreate}
+                onChange={onChange}               
+            />
             
             
         </>
