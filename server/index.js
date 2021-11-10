@@ -9,15 +9,17 @@ const {
   currentUser,
   allUser,
 } = require("./controllers/user");
-const { 
-  findTasksOf_aUser, 
-  createTask, 
-  listTask, 
-  deleteTask, 
-  updateTask, 
-  findTaskbyId 
+const {
+  findTasksOf_aUser,
+  createTask,
+  listTask,
+  deleteTask,
+  updateTask,
+  findTaskbyId,
 } = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
+
+const time_set_function = require("./functions/sendgrid/timer");
 dotenv.config();
 
 // app
@@ -28,6 +30,8 @@ mongoose
   .connect(`${process.env.DATABASE_URL}`)
   .then((data) => {
     console.log("DB CONNECTED");
+    // sending emails
+    time_set_function();
   })
   .catch((err) => {
     console.log(`DB CONNECTION ERROR: ${err}`);
