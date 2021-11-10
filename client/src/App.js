@@ -13,6 +13,7 @@ import logo from "./assets/img/logo.png";
 
 import CreateTask from "./pages/tasks/CreateTask";
 import DisplayTask from "./pages/tasks/DisplayTask";
+import CreateProject from "./pages/project/CreateProject";
 
 //#region added by Yonghwan
 import Tasks from "./pages/tasks/Task";
@@ -101,6 +102,7 @@ function App() {
             <PrivateRoute exact path="/task/:id" component={DisplayTask} />
             <PrivateRoute exact path="/createTask" component={CreateTask} />
             <PrivateRoute exact path="/project" component={ProjectForm} />
+            <PrivateRoute exact path="/createProject" component={CreateProject} />
             <PrivateRoute exact path="/" component={Calendar} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
