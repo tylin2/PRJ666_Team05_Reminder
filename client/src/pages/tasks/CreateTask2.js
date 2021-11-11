@@ -17,7 +17,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import styles from "./Task.module.scss";
 import "bootstrap/dist/css/bootstrap.css";
 
-function CreateTask2({ name, descript, dueDate, onCreate, onChange, handleDateChange }) {
+function CreateTask2({ name, descript, dueDate, priority, onCreate, onChange, handleDateChange, handlePriorityChange }) {
     return(
         
         <Card style={{ width: "90rem" }} className={styles.card}>
@@ -55,6 +55,17 @@ function CreateTask2({ name, descript, dueDate, onCreate, onChange, handleDateCh
                         </MuiPickersUtilsProvider>
                     </Form.Group> 
                     
+                    <Form.Group id="priority">
+                        <Form.Label class="col-sm-2 col-form-label col-form-label-lg">Priority</Form.Label>                        
+                        <select name="priority" value={priority} onChange={handlePriorityChange}>
+                            <option value="P1">Priority 1</option>
+                            <option value="P2">Priority 2</option>
+                            <option value="P3">Priority 3</option>
+                            <option value="P4">Priority 4</option>
+                        </select>
+                    </Form.Group>                    
+
+
                     <br />
                     <Button type="submit" style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} size="lg">Create New Task</Button>
             </form>

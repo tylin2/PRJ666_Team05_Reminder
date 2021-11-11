@@ -3,6 +3,13 @@ import {  ListGroup, ListGroupItem, Button, Card } from 'react-bootstrap';
 import styles from "./Task.module.scss";
 import TaskItem from './taskItem';
 
+
+/**
+ * Todo: 
+ * 1. put different colors on each priority 
+ * 2. Sort by priority
+ * ! how? each task is distinguished by its priority. --> conditional render. 
+ */
 export default class TaskList2 extends Component  {    
    render() {
       if(this.props.loading) {return <div>on loading..</div>}

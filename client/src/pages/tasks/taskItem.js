@@ -15,7 +15,7 @@ function TaskItem ({ task, onComplete, checked }) {
         // <div className={!check?styles.taskLine:''} >            
         // <div className={check?styles.completed:styles.taskLine} >   
         <div className={styles.taskLine} >   
-            <CheckBox onChange={onChange} checked={check}/>
+            <CheckBox onChange={onChange} checked={check} priority={task.priority}/>
             <ListGroupItem   style={{fontSize: 14}} href={`task/${task._id}`} action>
                 <span className={check?styles.completed:''}>                
                 {typeof task.dueDate === 'undefined' ? '' : task.dueDate.split('T')[0]}     {task.name}

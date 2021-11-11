@@ -77,7 +77,7 @@ exports.findTaskbyId = async (req, res) => {
 // create task
 exports.createTask = async (req, res) => {
   try {
-    const { name, dueDate, remindDate, user, participants, descript } =
+    const { name, dueDate, remindDate, user, participants, descript, priority } =
       req.body;
     let { project } = req.body;
 
@@ -96,6 +96,7 @@ exports.createTask = async (req, res) => {
       participants,
       descript,
       project,
+      priority
     });
 
     let savedTask = await task.save();

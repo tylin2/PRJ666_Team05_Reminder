@@ -13,17 +13,25 @@ export default function CreateTask() {
         //_id: null,
         name: '',
         user: null,
-        descript:''
+        descript:'',
+        //priority:'P4'
     })
     const [dueDate, setDueDate] = useState(new Date());
+    const [priority, setPriority] = useState('P4');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const { name, user, descript } = inputs;
-    const _id = useRef(1);
+    //const _id = useRef(1);
+    //const priority = useRef('P4')
 
     const history = useHistory();
 
+
+    const handlePriorityChange = (e) => {
+        setPriority(e.target.value)
+        console.log('Priority: ' + e.target.value)
+    }
     const handleDateChange = (date) => {
         console.log(date);
         setDueDate(date);
@@ -34,6 +42,8 @@ export default function CreateTask() {
             ...inputs,
             [name]: value
         })
+        console.log(inputs)
+        //console.log(priority.current)
     }
 
     const addNewTask = async (task) => {
@@ -58,12 +68,14 @@ export default function CreateTask() {
 
             setTasks([...tasks, response.data])
 
-            setInputs({
-                name: '',
-                user: null,
-                descript:''
-            })
-            history.push("/");  
+            // setInputs({
+            //     name: '',
+            //     user: null,
+            //     descript:'',
+            //     priority:'P4'
+            // })
+            //history.push("/");  
+            history.push("/task_list")
         }catch (e) {
             console.error(e);
         }
@@ -72,14 +84,15 @@ export default function CreateTask() {
     const onCreate = (e) => {
         e.preventDefault();
         const userEmail = currentUser.email
-        const task = {
-            //_id: _id.current,
+        const task = {            
             name: inputs.name,
-            user: userEmail,
-            //user: null,
+            user: userEmail,            
             participants: [user],
             descript: inputs.descript,
-            dueDate: dueDate
+            dueDate: dueDate,
+            //priority: inputs.priority
+            //priority: priority.current
+            priority: priority
         }
         //todo after fixing axios and token issue, 
         addNewTask(task);
@@ -92,9 +105,11 @@ export default function CreateTask() {
                 name={name}
                 descript={descript}
                 dueDate={dueDate}
+                priority={priority}
                 onCreate={onCreate}
                 onChange={onChange}
                 handleDateChange={handleDateChange}
+                handlePriorityChange={handlePriorityChange}
             />
             
         </>
