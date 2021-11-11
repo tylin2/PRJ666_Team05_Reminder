@@ -6,7 +6,10 @@ const dotenv = require("dotenv");
 const { 
   createProject,
   findProjectsOf_aUser, 
-  listProject } = require("./controllers/project");
+  listProject,
+  findProjectbyId,
+  deleteProject
+} = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
@@ -62,6 +65,8 @@ app.get(`/api/all-user`, authCheck, allUser);
 app.post(`/api/create-project/:email`, authCheck, createProject);
 app.get(`/api/projects-of-user/:email`, authCheck, findProjectsOf_aUser);
 app.get(`/api/list-project`, authCheck, listProject);
+app.get(`/api/display-project/:id`, authCheck, findProjectbyId);
+app.delete(`/api/delete-project/:id`, authCheck, deleteProject);
 
 // server for task model
 app.post(`/api/create-task/:email`, authCheck, createTask);

@@ -67,3 +67,32 @@ exports.listProject = async (req, res) => {
     );
   }
 };
+
+
+exports.findProjectbyId = async (req, res) => {
+  try {
+    Project.findById(req.params.id).then((project) => res.json(project));
+  } catch (error) {
+    res.status(400).send("Fail to find a project -- see the console log");
+    console.log(
+      "*************DB errors: controllers.project.findProjectbyId*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
+
+exports.deleteProject = async (req, res) => {
+  try {
+    const project = await Project.findByIdAndDelete(req.params.id);
+    if (!project) {
+      res.status(404).send("No project was found");
+    } else {
+      res.send(project + "has been deleted");
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

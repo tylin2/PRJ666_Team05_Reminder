@@ -1,46 +1,61 @@
-import React, { Component } from 'react'
-import {  ListGroup, ListGroupItem, Button, Card } from 'react-bootstrap';
-import styles from "./Project.module.scss";
+import React from "react";
+import ProjectList from "./ProjectList";
 
-export default class Project extends Component  {    
-   render() {
-      if(this.props.loading) {return <div>on loading..</div>}
-      else if(this.props.error) {return <div>error occured</div>}
-      else if(!this.props) {return (
-          <>
-            <br />
-            <Card style={{ width: "90rem" }} className={styles.card}>
-                <Card.Body>
-                    <h1 className="text-center" >Project List</h1>
-                    <ListGroup>
-                       There is no project now...
-                    </ListGroup>
-                    <br />
-                    <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
-                </Card.Body>
-                                 
-            </Card>           
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useAuth } from "../../contexts/AuthContext.js";
+
+
+export default function Projects() {
+    const { currentUser } = useAuth();
+    const [projects, setProjects] = useState([])   
+    const idToken = window.localStorage.getItem("token") 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);   
+    
+
+    const fetchProjects = async () => {
+        try {
+            setError(null);
+            setProjects(null);
+            setLoading(true);
             
-          </>
-        )}
-      else {
-        let project = this.props.entries;        
-       return (
-           <>
-           <br />
-           <Card style={{ width: "90rem" }} className={styles.card}>
-               <Card.Body>                    
-                    <h1 className="text-center" >Project List</h1>
-                    <ListGroup>
-                        
-                       
-                    </ListGroup>
-                    <br />
-                    <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
-               </Card.Body>
-           </Card>
-           </>
-       )
-      }
-   }
+            const idToken = window.localStorage.getItem("token")
+            const userEmail = currentUser.email
+            const projectsOfuser = await axios.get(
+                'http://localhost:8080/api/projects-of-user/' + userEmail, {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            console.log(`from Project useEffect -----------------`)
+            console.log(projectsOfuser.data);
+            setProjects(projects.concat(projectsOfuser.data))
+            
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
+    }
+
+    useEffect(()=>{        
+        fetchProjects()
+    },[]);
+
+    return (
+        <>
+            <ProjectList 
+            entries={projects} 
+            loading={loading} 
+            error={error}
+            //onChange={onChange} 
+            //onComplete={onComplete}
+            //checked={check}
+            />            
+        </>
+    )
+
 }
+
+

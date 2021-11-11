@@ -20,7 +20,9 @@ import Tasks from "./pages/tasks/Task";
 //#endregion
 
 import Calendar from "./pages/calendar/Calendar";
-import ProjectForm from "./pages/project/Project";
+import Projects from "./pages/project/Project";
+import DisplayProject from "./pages/project/DisplayProject";
+
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import PrivateRoute from "./pages/user/PrivateRoute";
@@ -79,7 +81,7 @@ function App() {
           <Nav>
             {" "}
             <NavLink
-              href="/project"
+              href="/project_list"
               isActive={isActive.project}
               clickPathHandler={(e) => clickPathHandler(e, "project")}
             >
@@ -101,8 +103,9 @@ function App() {
             <PrivateRoute exact path="/task_list" component={Tasks} />
             <PrivateRoute exact path="/task/:id" component={DisplayTask} />
             <PrivateRoute exact path="/createTask" component={CreateTask} />
-            <PrivateRoute exact path="/project" component={ProjectForm} />
+            <PrivateRoute exact path="/project_list" component={Projects} />
             <PrivateRoute exact path="/createProject" component={CreateProject} />
+            <PrivateRoute exact path="/project/:id" component={DisplayProject} />
             <PrivateRoute exact path="/" component={Calendar} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />

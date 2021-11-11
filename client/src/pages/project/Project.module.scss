@@ -5,3 +5,13 @@
     margin-right: 5%;
     width: auto;
 }
+
+.projectLine {
+    display: flex;
+}
+
+.completed {
+    font-style: italic; 
+    text-decoration: line-through; 
+    color: #868e96;
+  }
