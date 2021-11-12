@@ -75,4 +75,5 @@ app.get(`/api/display-task/:id`, authCheck, findTaskbyId);
 app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
 app.put(`/api/update-task/:id`, authCheck, updateTask);
 app.get(`/api/tasks-of-user/:email`, authCheck, findTasksOf_aUser);
+//app.get(`/api/tasks-of-project/:project`, authCheck, );
 //app.put(`/api/update-task-of-user/:email`, authCheck, updateTaskOf_aUser);

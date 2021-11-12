@@ -1,5 +1,6 @@
 const Task = require("../models/task");
 const User = require("../models/user");
+const Project = require("../models/project");
 const mongoose = require("mongoose");
 
 exports.call_api_to_check_due_date = async (end_of_week) => {
@@ -102,8 +103,14 @@ exports.createTask = async (req, res) => {
 
     let currentUser = await User.findOne({ email: req.params.email });
     currentUser.taskSet.push(savedTask);
-
     currentUser.save();
+
+    if(!project[0]){
+      console.log("----")
+      let currentProject = await Project.findOne({ project : req.params.project }); 
+      currentProject.taskSet.push(savedTask);
+      currentProject.save();
+    }
 
     res.json(task);
   } catch (error) {

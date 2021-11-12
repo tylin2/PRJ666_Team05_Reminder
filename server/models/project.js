@@ -27,13 +27,11 @@ const projectSchema = new Schema(
       //type: Schema.Types.ObjectId, 
       ref: 'user'
     },
-    tasks:{
-      type: [{type: Schema.Types.ObjectId, ref: 'Task'}],
-      //default: {}
-
-      //return value of default function of this task type becomes empty array.. I guess
-      //default: [] 
+    
+    taskSet:{
+      type: [{type: Schema.Types.ObjectId, ref: 'Task'}]
     },
+
     isCompleted: {
       type: Boolean,
       default: false
