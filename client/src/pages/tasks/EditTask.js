@@ -17,7 +17,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import styles from "./Task.module.scss";
 import "bootstrap/dist/css/bootstrap.css";
 
-function EditTask ({ existingTask, name, descript, dueDate, onEdit, onChange, onCancel, handleDateChange }) {
+function EditTask ({ priority, name, descript, dueDate, onEdit, onChange, onCancel, handleDateChange, handlePriorityChange }) {
     return(
         <>
             <h1 className="text-center">Edit Task</h1>
@@ -54,6 +54,16 @@ function EditTask ({ existingTask, name, descript, dueDate, onEdit, onChange, on
                                 onChange={handleDateChange}
                         />
                         </MuiPickersUtilsProvider>
+                    </Form.Group> 
+
+                    <Form.Group id="priority">
+                        <Form.Label class="col-sm-2 col-form-label col-form-label-lg">Priority</Form.Label>                        
+                        <select name="priority" value={priority} onChange={handlePriorityChange}>
+                            <option value="P1">Priority 1</option>
+                            <option value="P2">Priority 2</option>
+                            <option value="P3">Priority 3</option>
+                            <option value="P4">Priority 4</option>
+                        </select>
                     </Form.Group> 
                     
                     <br />
