@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {  ListGroup, ListGroupItem, Button, Card } from 'react-bootstrap';
 import styles from "./Task.module.scss";
 import TaskItem from './taskItem';
-
+import { BiSortDown } from 'react-icons/bi';
 
 /**
  * Todo: 
@@ -16,14 +16,31 @@ export default class TaskList2 extends Component  {
       else if(this.props.error) {return <div>error occured</div>}
       else {
         let tasks = this.props.entries;
-        let sorted = tasks.sort((a, b) =>{
-            //if(typeof a.dueDate === 'Date')
-            if(typeof a.dueDate !== 'string') a.dueDate.toISOString()
-            if(typeof b.dueDate !== 'string') b.dueDate.toISOString()
-            return a.dueDate.split('T')[0].split('-').reverse().join().localeCompare(b.dueDate.split('T')[0].split('-').reverse().join())
-            }
-            
-        );
+        //? sort by selected rule <--- can be implemented by if else statements so that we can avoid duplicating sorting process.
+        //priority sort
+        if(this.props.isPrioritySorted){
+            let sortedByPriority = tasks.sort((a,b)=>{
+                let retVal=0;
+                if(a.priority > b.priority) {
+                    retVal = 1;
+                }else if(a.priority < b.priority){
+                    retVal = -1;
+                }else { //a.priority == b.priority
+                    retVal = 0;
+                }
+                return retVal;
+            })
+        }else {
+            //default sort rule: sort by dueDate.
+            let sorted = tasks.sort((a, b) =>{
+                //if(typeof a.dueDate === 'Date')
+                if(typeof a.dueDate !== 'string') a.dueDate.toISOString()
+                if(typeof b.dueDate !== 'string') b.dueDate.toISOString()
+                return a.dueDate.split('T')[0].split('-').reverse().join().localeCompare(b.dueDate.split('T')[0].split('-').reverse().join())
+                }
+            );
+        }
+        
        return (
            <>
            <br />
@@ -31,9 +48,10 @@ export default class TaskList2 extends Component  {
                <Card.Body>
                     {/* <h1 className="text-center" style={{color: 'black'}}>Task List</h1> */}
                     <h1 className="text-center" >Task List</h1>
+                    <BiSortDown style = {{}}className={styles.sortIcon} onClick={this.props.onPrioritySorted} />
                     <ListGroup>
                        
-                        {sorted.map(task => {
+                        {tasks.map(task => {
                             if(task.isCompleted === false){
                                 if(typeof task.dueDate === 'object') task.dueDate.toISOString()
                                 return(
@@ -41,10 +59,18 @@ export default class TaskList2 extends Component  {
                                 )
                             }                                
                         })}
+                        {/* {sorted.map(task => {
+                            if(task.isCompleted === false){
+                                if(typeof task.dueDate === 'object') task.dueDate.toISOString()
+                                return(
+                                    <TaskItem key={task._id} task={task} onComplete={this.props.onComplete}/>
+                                )
+                            }                                
+                        })} */}
                         
                         {/* <div>Completed tasks</div> */}
 
-                        {sorted.map(task => {
+                        {tasks.map(task => {
                             if(task.isCompleted === true){
                                 if(typeof task.dueDate === 'object') task.dueDate.toISOString()
                                 return(

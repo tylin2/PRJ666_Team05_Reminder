@@ -30,3 +30,16 @@ textarea{
     text-decoration: line-through; 
     color: #868e96;
   }
+
+.sortIcon {
+    position: absolute;
+    right: 14px;
+    font-size: 250%;
+    top: 11px;
+    cursor: pointer;
+}
+.sortIcon:hover {
+     //color: #ad2f9c;
+    color: #f17fd5;
+    //border-radius: 10%;
+  }
