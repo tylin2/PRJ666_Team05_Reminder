@@ -1,26 +1,23 @@
 import React from "react";
 import axios from 'axios';
-import firebase from 'firebase';
 import DisplayProjectComp from "./DisplayProjectComp";
+import TaskItem from "../tasks/taskItem";
 
 import { useState, useEffect } from 'react'
-import { Button, Card } from "react-bootstrap"
+import { Button, Card, ListGroup } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 import styles from "./Project.module.scss";
 
-import { useAuth } from "../../contexts/AuthContext.js"
-
 export default function DisplayProject( props ) {
-    const { currentUser } = useAuth();
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState([]);   
     const [inputs, setInputs] = useState({
         //_id: null,
         name: '',
         manager: '',
-        descript:''
+        descript:'',
+        
     })
     
-    const { name, manager, descript } = inputs;
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
@@ -29,7 +26,7 @@ export default function DisplayProject( props ) {
 
 
     useEffect(() => {
-        getProject(props); 
+        getProject(props);        
     },[])       
 
     const getProject = async (props) => {        
@@ -51,7 +48,7 @@ export default function DisplayProject( props ) {
                 ...inputs,
                 name: projectOfid.data.name,
                 manager: projectOfid.data.manager,
-                descript: projectOfid.data.descript
+                descript: projectOfid.data.descript                
             })
             
             
@@ -83,12 +80,26 @@ export default function DisplayProject( props ) {
         <br />
             <Card style={{ width: "90rem" }} className={styles.card}>
                   <Card.Body>
-                    <DisplayProjectComp entry={projects} loading={loading} error={error}/>
-                    <span>
+                        <DisplayProjectComp entry={projects} loading={loading} error={error}/>
+                        <span>
                           <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",paddingRight: 16, paddingLeft: 16,fontSize: 14}} size="lg" href={`/createProjectTask/${id}`}>Add Task</Button> 
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;         
+                          <Button  style={{ color:"#00000",background:"#74c69d", border:"none", fontSize: 14}} size="lg" onClick={"editProject"}>Edit Project</Button>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;         
                           <Button  style={{ color:"#00000",background:"#FE6D73", border:"none", fontSize: 14}} size="lg" onClick={deleteProject}>Delete Project</Button>
-                        </span>
+                          <br />
+                          <br />
+                        </span>           
+
+                        <Card>
+                            <Card.Body>
+                                <h2 className="text-center" >Task List</h2>
+                                <ListGroup>                                
+                                                                 
+                                </ListGroup>
+
+                            </Card.Body>
+                        </Card>
                   </Card.Body>
               </Card>              
             

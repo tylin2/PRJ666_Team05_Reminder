@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const Task = require("../models/task");
 const User = require("../models/user");
 
 exports.findProjectsOf_aUser = async (req, res) => {
@@ -85,8 +86,8 @@ exports.findProjectbyId = async (req, res) => {
 };
 
 exports.deleteProject = async (req, res) => {
-  try {
-    const project = await Project.findByIdAndDelete(req.params.id);
+  try {   
+    const project = await Project.findByIdAndDelete(req.params.id);    
     if (!project) {
       res.status(404).send("No project was found");
     } else {

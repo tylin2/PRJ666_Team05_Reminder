@@ -105,9 +105,11 @@ exports.createTask = async (req, res) => {
     currentUser.taskSet.push(savedTask);
     currentUser.save();
 
-    if(!project[0]){
-      console.log("----")
-      let currentProject = await Project.findOne({ project : req.params.project }); 
+    
+    
+    let currentProject = await Project.findOne({ project : req.body.project });
+    if(currentProject) {
+      console.log(currentProject)
       currentProject.taskSet.push(savedTask);
       currentProject.save();
     }
