@@ -97,3 +97,25 @@ exports.deleteProject = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+exports.updateProject = async (req, res) => {
+  try {
+    //const task = await Task.findByIdAndUpdate(req.params.id, {descript: 'updating'}, {new: true});
+    const project = await Project.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.send(`Updated Project: ${project}`);
+  } catch (error) {
+    res.status(404).send("The project was not found -- see the console log");
+    console.log(
+      "*************DB errors: controllers.task.listProject*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};

@@ -8,7 +8,8 @@ const {
   findProjectsOf_aUser, 
   listProject,
   findProjectbyId,
-  deleteProject
+  deleteProject,
+  updateProject
 } = require("./controllers/project");
 const {
   createOrUpdateUser,
@@ -67,6 +68,7 @@ app.get(`/api/projects-of-user/:email`, authCheck, findProjectsOf_aUser);
 app.get(`/api/list-project`, authCheck, listProject);
 app.get(`/api/display-project/:id`, authCheck, findProjectbyId);
 app.delete(`/api/delete-project/:id`, authCheck, deleteProject);
+app.put(`/api/update-project/:id`, authCheck, updateProject);
 
 // server for task model
 app.post(`/api/create-task/:email`, authCheck, createTask);

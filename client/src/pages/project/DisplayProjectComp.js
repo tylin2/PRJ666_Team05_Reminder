@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+import EditProject from './EditProject'
+
 export default class DisplayProjectComp extends Component {
 
     render() {      

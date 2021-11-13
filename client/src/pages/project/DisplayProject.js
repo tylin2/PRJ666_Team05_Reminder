@@ -3,10 +3,15 @@ import axios from 'axios';
 import DisplayProjectComp from "./DisplayProjectComp";
 import TaskItem from "../tasks/taskItem";
 
+import EditProject from './EditProject'
 import { useState, useEffect } from 'react'
 import { Button, Card, ListGroup } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 import styles from "./Project.module.scss";
+
+
+import { useAuth } from "../../contexts/AuthContext.js"
+
 
 export default function DisplayProject( props ) {
     const [projects, setProjects] = useState([]);   
@@ -23,7 +28,8 @@ export default function DisplayProject( props ) {
     const history = useHistory();
     const idToken = window.localStorage.getItem("token")
     const id = props.match.params.id;
-
+    const [isEditing, setIsEditing] = useState(false);
+    const { name, descript } = inputs;
 
     useEffect(() => {
         getProject(props);        
@@ -74,32 +80,90 @@ export default function DisplayProject( props ) {
         }
         setLoading(false)
     }
+
+    const onChange = e => {
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
+    }
+
+    const onCancel = (e) => {
+        setIsEditing(!isEditing)
+        setInputs({
+            ...inputs,
+            name: projects[0].name,
+            descript: projects[0].descript
+        })
+    }
+
+    const onEdit = (e) => {
+        e.preventDefault();
+        const project = {
+            name: inputs.name,
+            descript: inputs.descript,
+            
+        }
+        editProject(project);
+        console.log(project);
+        setIsEditing(!isEditing)
+        console.log(project);
+        //? Without this push, data is not rendered inside DisplayProjectComp.js
+        history.push("/project_list");
+    }
+
+
+    const editProject = async (props) => {
+        try {
+            
+            const updatedProject = await axios.put(
+                'http://localhost:8080/api/update-project/' + id,
+                props,
+                {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    }
+                }
+            )
+            console.log(`from within editProject -----------------`)
+            console.log(updatedProject.data);
+
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
+    }
     
     return (        
         <>
         <br />
             <Card style={{ width: "90rem" }} className={styles.card}>
                   <Card.Body>
-                        <DisplayProjectComp entry={projects} loading={loading} error={error}/>
-                        <span>
+                  {isEditing?
+                        <EditProject
+                        name={name}
+                        descript={descript}
+                        onEdit={onEdit}
+                        onChange={onChange}
+                        onCancel={onCancel}
+                        existProject={projects[0]}
+                        />
+                        :
+                    <DisplayProjectComp entry={projects} loading={loading} error={error}/>
+                  } 
+                    {!isEditing?
+                    <span>
                           <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",paddingRight: 16, paddingLeft: 16,fontSize: 14}} size="lg" href={`/createProjectTask/${id}`}>Add Task</Button> 
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;         
-                          <Button  style={{ color:"#00000",background:"#74c69d", border:"none", fontSize: 14}} size="lg" onClick={"editProject"}>Edit Project</Button>
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;         
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   
+                          <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",paddingRight: 16, paddingLeft: 16,fontSize: 14}} size="lg" onClick={()=>setIsEditing(!isEditing)}>Edit Project</Button> 
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;       
                           <Button  style={{ color:"#00000",background:"#FE6D73", border:"none", fontSize: 14}} size="lg" onClick={deleteProject}>Delete Project</Button>
-                          <br />
-                          <br />
-                        </span>           
-
-                        <Card>
-                            <Card.Body>
-                                <h2 className="text-center" >Task List</h2>
-                                <ListGroup>                                
-                                                                 
-                                </ListGroup>
-
-                            </Card.Body>
-                        </Card>
+                        </span>
+                        :
+                            <span>
+                            </span>
+                            }
                   </Card.Body>
               </Card>              
             
