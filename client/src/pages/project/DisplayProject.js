@@ -1,22 +1,18 @@
 import React from "react";
 import axios from 'axios';
 import DisplayProjectComp from "./DisplayProjectComp";
-import TaskItem from "../tasks/taskItem";
+import Task from "../tasks/Task"
 
 import EditProject from './EditProject'
 import { useState, useEffect } from 'react'
-import { Button, Card, ListGroup } from "react-bootstrap"
+import { Button, Card } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 import styles from "./Project.module.scss";
 
 
-import { useAuth } from "../../contexts/AuthContext.js"
-
-
 export default function DisplayProject( props ) {
-    const [projects, setProjects] = useState([]);   
+    const [project, setProject] = useState();      
     const [inputs, setInputs] = useState({
-        //_id: null,
         name: '',
         manager: '',
         descript:'',
@@ -32,13 +28,15 @@ export default function DisplayProject( props ) {
     const { name, descript } = inputs;
 
     useEffect(() => {
-        getProject(props);        
+        //fetchTasks();    
+        getProject(props);
+            
     },[])       
 
     const getProject = async (props) => {        
         try {
             setError(null);
-            setProjects([null]);
+            setProject(null);
             setLoading(true);
             const projectOfid = await axios.get(
                 'http://localhost:8080/api/display-project/' + id, {
@@ -49,7 +47,7 @@ export default function DisplayProject( props ) {
             )
             console.log(`from Project useEffect -----------------`)
             console.log(projectOfid.data);
-            setProjects(projects.concat(projectOfid.data))
+            setProject(projectOfid.data)
             setInputs({
                 ...inputs,
                 name: projectOfid.data.name,
@@ -57,13 +55,39 @@ export default function DisplayProject( props ) {
                 descript: projectOfid.data.descript                
             })
             
-            
         }catch(e) {
             setError(e)
             console.log(e)
         }
         setLoading(false)
     }
+
+    /*const fetchTasks = async () => {
+        try {
+            setError(null);
+            setTasks(null);
+            setLoading(true);
+            
+            const idToken = window.localStorage.getItem("token")
+            const tasksOfproject = await axios.get(
+                'http://localhost:8080/api/tasks-of-project/' + id, {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            console.log(`from Tasks useEffect in Project -----------------`)
+            console.log(tasksOfproject.data);
+            setTasks(tasks.concat(tasksOfproject.data))
+            console.log("*********************")
+            console.log(tasks);
+            console.log("*********************")
+            
+        }catch(e) {
+            setError(e)
+        }
+        setLoading(false)
+    }*/
 
     const deleteProject = async (props) => {
         try {           
@@ -93,8 +117,8 @@ export default function DisplayProject( props ) {
         setIsEditing(!isEditing)
         setInputs({
             ...inputs,
-            name: projects[0].name,
-            descript: projects[0].descript
+            name: project.name,
+            descript: project.descript
         })
     }
 
@@ -147,10 +171,14 @@ export default function DisplayProject( props ) {
                         onEdit={onEdit}
                         onChange={onChange}
                         onCancel={onCancel}
-                        existProject={projects[0]}
+                        existProject={project}
                         />
                         :
-                    <DisplayProjectComp entry={projects} loading={loading} error={error}/>
+                        <>
+                            <DisplayProjectComp entry={project} loading={loading} error={error} />
+                            <Task />                            
+                        </>  
+
                   } 
                     {!isEditing?
                     <span>

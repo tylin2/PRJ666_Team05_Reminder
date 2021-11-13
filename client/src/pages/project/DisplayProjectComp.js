@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-
-import EditProject from './EditProject'
-
 export default class DisplayProjectComp extends Component {
 
     render() {      
@@ -10,7 +7,7 @@ export default class DisplayProjectComp extends Component {
       else if(this.props.error) {return <div>error occured</div>}
       else if(!this.props) {return <div>Cannot find the project.</div>}
       else {
-        let project = this.props.entry[0];   
+        let project = this.props.entry;   
         return (
             <>     
                     <h1 className="text-center"> {project?.name} </h1>

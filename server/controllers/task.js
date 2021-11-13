@@ -179,3 +179,24 @@ exports.updateTask = async (req, res) => {
     );
   }
 };
+
+//find all task of a particular user
+exports.findTasksOf_aProject = async (req, res) => {
+  try {
+    Project.findById(req.params.project)
+      .populate("taskSet") //todo not sure.
+      .exec((err, project) => {
+        if (err) throw new Error(error);
+        res.json(project.taskSet); //!taskSet is an array
+      });
+  } catch (error) {
+    res.status(400).send("Fail to get a task -- see the console log");
+    console.log(
+      "*************DB errors: controllers.task.currentUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
