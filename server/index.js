@@ -32,7 +32,7 @@ mongoose
   .then((data) => {
     console.log("DB CONNECTED");
     // sending emails
-    time_set_function();
+    // time_set_function();
   })
   .catch((err) => {
     console.log(`DB CONNECTION ERROR: ${err}`);

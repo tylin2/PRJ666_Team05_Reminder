@@ -89,7 +89,7 @@ const send_email_function = async (tasks) => {
                                             <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="../../client/src/assets/img/twitter.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
                                     </td>
                                     <td style="padding:0 0 0 10px;width:38px;">
-                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="../../client/src/assets/img/facebook.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="http://localhost:8080/images/facebook.jpg" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
                                     </td>
                                   </tr>
                                 </table>
