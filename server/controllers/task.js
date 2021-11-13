@@ -88,7 +88,7 @@ exports.createTask = async (req, res) => {
     // participants = participants.map((p) => {
     //   return mongoose.Types.ObjectId(p);
     // });
-
+    console.log(project)
     const task = await new Task({
       name,
       dueDate,
@@ -105,10 +105,11 @@ exports.createTask = async (req, res) => {
     currentUser.taskSet.push(savedTask);
     currentUser.save();
 
-    if(!project[0]){
-      console.log("----")
-      let currentProject = await Project.findOne({ project : req.params.project }); 
+    console.log(project)
+    if(project){
+      let currentProject = await Project.findOne({ _id: project }); 
       currentProject.taskSet.push(savedTask);
+      console.log(currentProject)
       currentProject.save();
     }
 
