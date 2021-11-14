@@ -10,6 +10,7 @@ import { Button, Card } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 import styles from "./Project.module.scss";
 
+import EditTask from "../tasks/EditTask";
 
 export default function DisplayProject( props ) {
     const [project, setProject] = useState();
@@ -81,6 +82,7 @@ export default function DisplayProject( props ) {
                     }
                 }
             )
+            
             history.push("/");
         }catch(e) {
             setError(e)
@@ -94,6 +96,39 @@ export default function DisplayProject( props ) {
             ...inputs,
             [name]: value
         })
+    }
+    const onComplete = (e, id) => {
+        //setCheck(e.target.checked);
+        const task = {
+            isCompleted: e.target.checked
+        }
+        editTask(task, id)
+        setTasks(tasks.map(task => 
+            task._id === id ? { ... task, isCompleted: e.target.checked} : task
+            )
+        )
+    }
+    const editTask = async (task, id) => {
+        try {
+            setError(null);
+            //setTasks([null]);
+            //setLoading(true);
+            const updatedTask = await axios.put(
+                'http://localhost:8080/api/update-task/' + id, 
+                task,
+                {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            console.log(`from within editTask -----------------`)
+            console.log(updatedTask.data);
+
+        }catch(e) {
+            setError(e)
+        }
+        //setLoading(false)
     }
 
     const onCancel = (e) => {
@@ -159,9 +194,10 @@ export default function DisplayProject( props ) {
                         :
                         <>
                             <DisplayProjectComp entry={project} loading={loading} error={error} />
+                            
                             {tasks?.map(task => {
                                 return(
-                                    <TaskItem key={task._id} task={task} onComplete={task.onComplete}/>
+                                    <TaskItem key={task._id} task={task} onComplete={onComplete}/>
                                 )
                             })}
                             <br />

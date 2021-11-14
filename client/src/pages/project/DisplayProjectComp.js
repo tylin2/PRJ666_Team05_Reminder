@@ -17,8 +17,10 @@ export default class DisplayProjectComp extends Component {
                     <br />
                     <h4>Description: </h4>
                     <div> {project?.descript} </div>                    
-                    <br />                 
-               
+                    <br />
+                    <card>                 
+                    <h1 className="text-center" >Tasks for this project</h1>
+                    </card>
             </>
         )
       }                  
