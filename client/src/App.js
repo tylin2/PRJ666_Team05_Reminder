@@ -103,6 +103,7 @@ function App() {
           <Switch>
             <PrivateRoute exact path="/task_list" component={Tasks} />
             <PrivateRoute exact path="/task/:id" component={DisplayTask} />
+            <PrivateRoute exact path="/project/task/:id" component={DisplayTask} />
             <PrivateRoute exact path="/createTask" component={CreateTask} />
             <PrivateRoute exact path="/project_list" component={Projects} />
             <PrivateRoute exact path="/createProject" component={CreateProject} />
