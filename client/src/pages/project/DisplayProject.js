@@ -1,7 +1,8 @@
 import React from "react";
 import axios from 'axios';
 import DisplayProjectComp from "./DisplayProjectComp";
-import Task from "../tasks/Task"
+//import Task from "../tasks/Task"
+import TaskItem from "../tasks/taskItem"
 
 import EditProject from './EditProject'
 import { useState, useEffect } from 'react'
@@ -11,7 +12,8 @@ import styles from "./Project.module.scss";
 
 
 export default function DisplayProject( props ) {
-    const [project, setProject] = useState();      
+    const [project, setProject] = useState();
+    const [tasks, setTasks] = useState([]);       
     const [inputs, setInputs] = useState({
         name: '',
         manager: '',
@@ -27,8 +29,7 @@ export default function DisplayProject( props ) {
     const [isEditing, setIsEditing] = useState(false);
     const { name, descript } = inputs;
 
-    useEffect(() => {
-        //fetchTasks();    
+    useEffect(() => {            
         getProject(props);
             
     },[])       
@@ -54,21 +55,6 @@ export default function DisplayProject( props ) {
                 manager: projectOfid.data.manager,
                 descript: projectOfid.data.descript                
             })
-            
-        }catch(e) {
-            setError(e)
-            console.log(e)
-        }
-        setLoading(false)
-    }
-
-    /*const fetchTasks = async () => {
-        try {
-            setError(null);
-            setTasks(null);
-            setLoading(true);
-            
-            const idToken = window.localStorage.getItem("token")
             const tasksOfproject = await axios.get(
                 'http://localhost:8080/api/tasks-of-project/' + id, {
                     headers: {
@@ -79,15 +65,12 @@ export default function DisplayProject( props ) {
             console.log(`from Tasks useEffect in Project -----------------`)
             console.log(tasksOfproject.data);
             setTasks(tasks.concat(tasksOfproject.data))
-            console.log("*********************")
-            console.log(tasks);
-            console.log("*********************")
-            
         }catch(e) {
             setError(e)
+            console.log(e)
         }
         setLoading(false)
-    }*/
+    }
 
     const deleteProject = async (props) => {
         try {           
@@ -176,7 +159,13 @@ export default function DisplayProject( props ) {
                         :
                         <>
                             <DisplayProjectComp entry={project} loading={loading} error={error} />
-                            <Task />                            
+                            {tasks?.map(task => {
+                                return(
+                                    <TaskItem key={task._id} task={task} onComplete={task.onComplete}/>
+                                )
+                            })}
+                            <br />
+                                                        
                         </>  
 
                   } 

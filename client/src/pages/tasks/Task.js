@@ -59,7 +59,7 @@ function Tasks() {
     }
 
     const fetchTasks = async () => {
-        try {
+        try {            
             setError(null);
             setTasks(null);
             setLoading(true);
@@ -74,6 +74,8 @@ function Tasks() {
                 }
             )
             console.log(`from Task useEffect -----------------`)
+            console.log("=======");
+            //console.log(project);
             console.log(tasksOfuser.data);
             setTasks(tasks.concat(tasksOfuser.data))
             
