@@ -1,7 +1,6 @@
 import React from "react";
 import axios from 'axios';
 import DisplayProjectComp from "./DisplayProjectComp";
-//import Task from "../tasks/Task"
 import TaskItem from "../tasks/taskItem"
 
 import EditProject from './EditProject'
@@ -10,11 +9,12 @@ import { Button, Card } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 import styles from "./Project.module.scss";
 
-import EditTask from "../tasks/EditTask";
 
 export default function DisplayProject( props ) {
     const [project, setProject] = useState();
-    const [tasks, setTasks] = useState([]);       
+    const [tasks, setTasks] = useState([]); 
+    const [totalTasks, setTotalTasks] = useState(0);
+    const [completedTasks, setCompletedTasks] = useState(0);     
     const [inputs, setInputs] = useState({
         name: '',
         manager: '',
@@ -29,10 +29,9 @@ export default function DisplayProject( props ) {
     const id = props.match.params.id;
     const [isEditing, setIsEditing] = useState(false);
     const { name, descript } = inputs;
-
+   
     useEffect(() => {            
-        getProject(props);
-            
+        getProject(props);            
     },[])       
 
     const getProject = async (props) => {        
@@ -40,6 +39,8 @@ export default function DisplayProject( props ) {
             setError(null);
             setProject(null);
             setLoading(true);
+            setTotalTasks(0);
+            setCompletedTasks(0);
             const projectOfid = await axios.get(
                 'http://localhost:8080/api/display-project/' + id, {
                     headers: {
@@ -65,7 +66,16 @@ export default function DisplayProject( props ) {
             )
             console.log(`from Tasks useEffect in Project -----------------`)
             console.log(tasksOfproject.data);
-            setTasks(tasks.concat(tasksOfproject.data))
+            setTasks(tasks.concat(tasksOfproject.data))            
+            setTotalTasks(Number(tasksOfproject.data.length))
+            tasksOfproject.data.map(task => {
+                if(task.isCompleted){
+                    setCompletedTasks(completedTasks + 1)                                      
+                }
+                
+            })
+            
+                        
         }catch(e) {
             setError(e)
             console.log(e)
@@ -107,6 +117,12 @@ export default function DisplayProject( props ) {
             task._id === id ? { ... task, isCompleted: e.target.checked} : task
             )
         )
+        if(e.target.checked){
+            setCompletedTasks(completedTasks + 1)
+        } else {
+            setCompletedTasks(completedTasks - 1)
+        }
+        
     }
     const editTask = async (task, id) => {
         try {
@@ -192,9 +208,8 @@ export default function DisplayProject( props ) {
                         existProject={project}
                         />
                         :
-                        <>
-                            <DisplayProjectComp entry={project} loading={loading} error={error} />
-                            
+                        <>                                                        
+                            <DisplayProjectComp entry={project} comp={Math.round(completedTasks/totalTasks*100)} loading={loading} error={error} />                           
                             {tasks?.map(task => {
                                 return(
                                     <TaskItem key={task._id} task={task} onComplete={onComplete}/>
