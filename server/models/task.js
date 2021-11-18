@@ -32,6 +32,10 @@ const taskSchema = new Schema(
         isCompleted: {
             type: Boolean,
             default: false
+        },
+        priority: {
+            type: String,
+            enum: ['P1', 'P2', 'P3', 'P4']
         }
     },
     { timestamps: true }

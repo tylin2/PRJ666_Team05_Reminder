@@ -1,6 +1,5 @@
 import React from "react";
 import TaskList2 from "./taskList2";
-
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useAuth } from "../../contexts/AuthContext.js";
@@ -13,6 +12,7 @@ function Tasks() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
     const [numOfCompleted, setNumOfCompleted] = useState(false)
+    const [isPrioritySorted, setIsPrioritySorted] = useState(false)
 
    
     /**
@@ -33,6 +33,10 @@ function Tasks() {
             task._id === id ? { ... task, isCompleted: e.target.checked} : task
             )
         )
+    }
+
+    const onPrioritySorted = () => {
+        setIsPrioritySorted(!isPrioritySorted)
     }
 
     const editTask = async (task, id) => {
@@ -59,7 +63,7 @@ function Tasks() {
     }
 
     const fetchTasks = async () => {
-        try {
+        try {            
             setError(null);
             setTasks(null);
             setLoading(true);
@@ -74,6 +78,8 @@ function Tasks() {
                 }
             )
             console.log(`from Task useEffect -----------------`)
+            console.log("=======");
+            //console.log(project);
             console.log(tasksOfuser.data);
             setTasks(tasks.concat(tasksOfuser.data))
             
@@ -96,6 +102,8 @@ function Tasks() {
             //onChange={onChange} 
             onComplete={onComplete}
             //checked={check}
+            isPrioritySorted={isPrioritySorted}
+            onPrioritySorted={onPrioritySorted}
             />            
         </>
     )

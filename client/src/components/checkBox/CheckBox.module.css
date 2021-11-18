@@ -36,7 +36,29 @@
   }
   
   .checked {
-    /* color: #a81f96; */
-    color: #ff3366
+    /* color: #212529; */
+    color: #333;
+    /* color: #1d1b1d; */
+    /* color: #ff3366 */
+  }
+
+  .differentColor {
+    color: #2a3de6
+  }
+
+  .p1 {
+    color:#FF0000
+  }
+
+  .p2 {
+    color:#FFA500
+  }
+
+  .p3 {
+    color:#0000FF
+  }
+
+  .p4 {
+    color:#808080
   }
 
