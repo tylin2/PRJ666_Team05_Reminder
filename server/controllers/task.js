@@ -82,13 +82,17 @@ exports.createTask = async (req, res) => {
       req.body;
     let { project } = req.body;
 
-    project = mongoose.Types.ObjectId(project);
+    if(project != null){
+      project = mongoose.Types.ObjectId(project);
+    }
+
+    
 
     //todo: TypeError: Assignment to constant variable.
     // participants = participants.map((p) => {
     //   return mongoose.Types.ObjectId(p);
     // });
-    console.log(project)
+  
     const task = await new Task({
       name,
       dueDate,
@@ -99,10 +103,14 @@ exports.createTask = async (req, res) => {
       project,
       priority
     });
+    task.dueDate = new Date(task.dueDate)
+    console.log(task.dueDate)
 
     let savedTask = await task.save();
+    console.log(user)
 
-    let currentUser = await User.findOne({ email: req.params.email });
+    let currentUser = await User.findOne({ email: user });
+    console.log(currentUser)
     currentUser.taskSet.push(savedTask);
     currentUser.save();
 

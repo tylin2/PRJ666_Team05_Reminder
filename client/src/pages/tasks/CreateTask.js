@@ -1,4 +1,6 @@
 import React from "react";
+import moment from "moment";
+import "moment-timezone";
 
 import { useState, useRef } from 'react'
 import { useHistory } from "react-router-dom";
@@ -83,18 +85,21 @@ export default function CreateTask() {
 
     const onCreate = (e) => {
         e.preventDefault();
+        console.log(dueDate)
         const userEmail = currentUser.email
         const task = {            
             name: inputs.name,
             user: userEmail,            
             participants: [user],
             descript: inputs.descript,
-            dueDate: dueDate,
+            dueDate: (moment(dueDate)
+                .tz("America/Toronto")).toString(),
             //priority: inputs.priority
             //priority: priority.current
             priority: priority
         }
         //todo after fixing axios and token issue, 
+        console.log(task.dueDate)
         addNewTask(task);
         
     }
