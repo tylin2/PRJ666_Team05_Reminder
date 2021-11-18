@@ -1,0 +1,24 @@
+@import "../../base";
+
+.card{
+    margin-left: 5%;      
+    margin-right: 5%;
+    width: auto;
+}
+
+.projectLine {
+    display: flex;
+}
+
+.completed {
+    font-style: italic; 
+    text-decoration: line-through; 
+    color: #868e96;
+}
+
+.taskList {
+    margin-left: 0%;      
+    margin-right: 0%;
+    width: "50rem";
+
+}

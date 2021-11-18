@@ -49,6 +49,7 @@ export default class TaskList2 extends Component  {
                     {/* <h1 className="text-center" style={{color: 'black'}}>Task List</h1> */}
                     <h1 className="text-center" >Task List</h1>
                     <BiSortDown style = {{}}className={styles.sortIcon} onClick={this.props.onPrioritySorted} />
+                    <h4>Check for finishing</h4>
                     <ListGroup>
                        
                         {tasks.map(task => {

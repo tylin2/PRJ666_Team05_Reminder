@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {  ListGroup, ListGroupItem, Button, Card } from 'react-bootstrap';
+import {  ListGroupItem } from 'react-bootstrap';
 import styles from "./Task.module.scss";
 import CheckBox from '../../components/checkBox/CheckBox';
 import { dark } from '@material-ui/core/styles/createPalette';
