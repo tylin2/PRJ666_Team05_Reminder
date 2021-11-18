@@ -24,6 +24,7 @@ export default class TaskList2 extends Component  {
                <Card.Body>
                     {/* <h1 className="text-center" style={{color: 'black'}}>Task List</h1> */}
                     <h1 className="text-center" >Task List</h1>
+                    <h4>Check for finishing</h4>
                     <ListGroup>
                        
                         {sorted.map(task => {
