@@ -77,18 +77,22 @@ textarea {
 
 .p1 {
   color: #ff0000;
+  text-align: center;
 }
 
 .p2 {
   color: #ffa500;
+  text-align: center;
 }
 
 .p3 {
   color: #0000ff;
+  text-align: center;
 }
 
 .p4 {
   color: #808080;
+  text-align: center;
 }
 
 .taskNameThick {
@@ -99,4 +103,33 @@ textarea {
   // not work
   background-color: currentColor;
   color: currentColorl;
+}
+
+.isCompletedHeader {
+  margin-top: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.p1Header {
+  color: #ff0000;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.p2Header {
+  color: #ffa500;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.p3Header {
+  color: #0000ff;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.p4Header {
+  color: #808080;
+  text-align: center;
+  margin-top: 1.5rem;
 }
