@@ -4,26 +4,7 @@ import styles from "./Task.module.scss";
 import TaskItem from "./taskItem";
 import { BiSortDown } from "react-icons/bi";
 
-/**
- * Todo:
- * 1. put different colors on each priority
- * 2. Sort by priority
- * ! how? each task is distinguished by its priority. --> conditional render.
- */
 export default class TaskList2 extends Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      taskCounter: {
-        priority1: 0,
-        priority2: 0,
-        priority3: 0,
-        priority4: 0,
-        completed: 0,
-      },
-    };
-  }*/
-
   render() {
     let p1Count = 0;
     let p2Count = 0;
@@ -34,7 +15,7 @@ export default class TaskList2 extends Component {
     if (this.props.loading) {
       return <div>on loading..</div>;
     } else if (this.props.error) {
-      return <div>error occured</div>;
+      return <div>error occurred</div>;
     } else {
       let tasks = this.props.entries;
 
@@ -76,38 +57,6 @@ export default class TaskList2 extends Component {
           .join()
           .localeCompare(b.dueDate.split("T")[0].split("-").reverse().join());
       });
-      //priority sort --> filter four times so that I can get four new arrays of each priority.
-      // if (this.props.isPrioritySorted) {
-      //   /*let sortedByPriority = tasks.sort((a, b) => {
-      //     let retVal = 0;
-      //     if (a.priority > b.priority) {
-      //       retVal = 1;
-      //     } else if (a.priority < b.priority) {
-      //       retVal = -1;
-      //     } else {
-      //       //a.priority == b.priority
-      //       retVal = 0;
-      //     }
-      //     return retVal;
-      //   });*/
-      //   // let p1Tasks = tasks.filter((task) => task.priority === "P1");
-      //   // let p2Tasks = tasks.filter((task) => task.priority === "P2");
-      //   // let p3Tasks = tasks.filter((task) => task.priority === "P3");
-      //   // let p4Tasks = tasks.filter((task) => task.priority === "P4");
-      // } else {
-      //   //default sort rule: sort by dueDate.
-      //   let sorted = tasks.sort((a, b) => {
-      //     //if(typeof a.dueDate === 'Date')
-      //     if (typeof a.dueDate !== "string") a.dueDate.toISOString();
-      //     if (typeof b.dueDate !== "string") b.dueDate.toISOString();
-      //     return a.dueDate
-      //       .split("T")[0]
-      //       .split("-")
-      //       .reverse()
-      //       .join()
-      //       .localeCompare(b.dueDate.split("T")[0].split("-").reverse().join());
-      //   });
-      // }
 
       return (
         <>
@@ -116,6 +65,10 @@ export default class TaskList2 extends Component {
             <Card.Body>
               {/* <h1 className="text-center" style={{color: 'black'}}>Task List</h1> */}
               <h1 className="text-center">Task List</h1>
+              <h4 className={styles.sortRule}>
+                Sorted by{" "}
+                {this.props.isPrioritySorted ? "Priority" : "Due date"}
+              </h4>
               <BiSortDown
                 style={{}}
                 className={styles.sortIcon}
