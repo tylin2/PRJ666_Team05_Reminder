@@ -26,7 +26,7 @@ export default class DisplayProjectComp extends Component {
                     <div> {project?.descript} </div>                    
                     <br />
                     <h4>Completion:  </h4>                    
-                    <ProgressBar now={comp} label={`${comp}%`} />
+                    <ProgressBar now={comp} label={`${comp}%`} striped variant="info" />
                     <br />                                     
                     <h1 className="text-center" >Tasks for this project</h1>
                     

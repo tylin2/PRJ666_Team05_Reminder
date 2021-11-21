@@ -8,6 +8,7 @@
 
 .projectLine {
     display: flex;
+    white-space:nowrap;
 }
 
 .completed {
@@ -21,4 +22,14 @@
     margin-right: 0%;
     width: "50rem";
 
+}
+
+.projectNameThick {
+    font-weight: bold;
+    float:left; 
+    width:87%;
+}
+
+.completion{
+    float:right;
 }
