@@ -1,79 +1,102 @@
 @import "../../base";
 
-.card{
-    margin-left: 5%;      
-    margin-right: 5%;
-    width: auto;
+.card {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: auto;
 }
 
 input {
-    width: 75%;
-    margin: 350px 0;
-    padding: 4px 8px;
-    box-sizing: border-box;
+  width: 75%;
+  margin: 350px 0;
+  padding: 4px 8px;
+  box-sizing: border-box;
 }
 
-textarea{
-    width: 100%;
-    height: 100px;
-    margin: 350px 0;
-    resize: none;
-    padding: 4px 8px;
+textarea {
+  width: 100%;
+  height: 100px;
+  margin: 350px 0;
+  resize: none;
+  padding: 4px 8px;
 }
 
 .taskLine {
-    display: flex;
+  display: flex;
 }
 
 .completed {
-    // hardcoding...
-    font-size: 14px;
-    font-style: italic; 
-    text-decoration: line-through; 
-    color: #868e96;
-    //background-color: #4e5153;
-    display: flex;
-    justify-content: space-between;
-    margin-right: 1em;
-    margin-left: 0.5em;
-  }
-.uncompleted {
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    margin-right: 1em;
-    margin-left: 0.5em;
+  // hardcoding...
+  font-size: 14px;
+  font-style: italic;
+  text-decoration: line-through;
+  color: #868e96;
+  //background-color: #4e5153;
+  display: flex;
+  width: 100%;
+  //justify-content: space-between;
 }
-
+.completed * {
+  margin-right: 15px;
+}
+.completed :first-child {
+  margin-right: auto;
+}
+.completed :last-child {
+  margin-right: 1.7px;
+  margin-top: 3.5px;
+}
+.uncompleted {
+  font-size: 14px;
+  display: flex;
+  width: 100%;
+  //justify-content: space-between;
+}
+.uncompleted * {
+  margin-right: 15px;
+}
+.uncompleted :first-child {
+  margin-right: auto;
+}
+.uncompleted :last-child {
+  margin-right: 1.7px;
+  margin-top: 3.5px;
+}
 .sortIcon {
-    position: absolute;
-    right: 14px;
-    font-size: 250%;
-    top: 11px;
-    cursor: pointer;
+  position: absolute;
+  right: 14px;
+  font-size: 250%;
+  top: 11px;
+  cursor: pointer;
 }
 .sortIcon:hover {
-     //color: #ad2f9c;
-    color: #f17fd5;
-    //border-radius: 10%;
-  }
+  //color: #ad2f9c;
+  color: #f17fd5;
+  //border-radius: 10%;
+}
 
-  .p1 {
-    color:#FF0000
-  }
+.p1 {
+  color: #ff0000;
+}
 
-  .p2 {
-    color:#FFA500
-  }
+.p2 {
+  color: #ffa500;
+}
 
-  .p3 {
-    color:#0000FF
-  }
+.p3 {
+  color: #0000ff;
+}
 
-  .p4 {
-    color:#808080
-  }
+.p4 {
+  color: #808080;
+}
 
 .taskNameThick {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.disabled {
+  // not work
+  background-color: currentColor;
+  color: currentColorl;
 }
