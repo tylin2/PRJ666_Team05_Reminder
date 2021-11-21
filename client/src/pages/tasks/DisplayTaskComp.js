@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import EditTask from './EditTask'
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import styles from "./Task.module.scss";
+import moment from "moment";
+import "moment-timezone";
+
 
 export default class DisplayTaskComp extends Component {
 
@@ -41,7 +44,7 @@ export default class DisplayTaskComp extends Component {
                     <div> {task?.descript} </div>
                     <br />
                     <h4>Due date: </h4>
-                    <div> {task?.dueDate.split('T')[0]} {task?.dueDate.split('T')[1].split(':')[0]}:{task?.dueDate.split('T')[1].split(':')[1]} </div>
+                    <div> {moment(task?.dueDate).tz("America/Toronto").format("YYYY-MM-DD HH:mm")} </div>
                     <br />              
                     <h4 className={classByPriority}>{priorityString}</h4>
                     <br />                 
