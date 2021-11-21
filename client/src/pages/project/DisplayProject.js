@@ -68,9 +68,12 @@ export default function DisplayProject( props ) {
             console.log(tasksOfproject.data);
             setTasks(tasks.concat(tasksOfproject.data))            
             setTotalTasks(Number(tasksOfproject.data.length))
+            var count = 0;
             tasksOfproject.data.map(task => {
-                if(task.isCompleted){
-                    setCompletedTasks(completedTasks + 1)                                      
+                if(task.isCompleted == true){
+                    count = count+1;
+                    console.log(task.name)
+                    setCompletedTasks(count)                                      
                 }
                 
             })
@@ -209,7 +212,8 @@ export default function DisplayProject( props ) {
                         />
                         :
                         <>                                                        
-                            <DisplayProjectComp entry={project} comp={Math.round(completedTasks/totalTasks*100)} loading={loading} error={error} />                           
+                            <DisplayProjectComp entry={project} comp={Math.round(completedTasks/totalTasks*100)} loading={loading} error={error} />
+                                                       
                             {tasks?.map(task => {
                                 return(
                                     <TaskItem key={task._id} task={task} onComplete={onComplete}/>
