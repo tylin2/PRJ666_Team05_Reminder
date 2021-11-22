@@ -50,12 +50,17 @@ export default class TaskList2 extends Component {
         //if(typeof a.dueDate === 'Date')
         if (typeof a.dueDate !== "string") a.dueDate.toISOString();
         if (typeof b.dueDate !== "string") b.dueDate.toISOString();
-        return a.dueDate
-          .split("T")[0]
-          .split("-")
-          .reverse()
+        /*return a.dueDate //2021-11-27T23:47:00.000Z
+          .split("T")[0] //2021-11-27
+          .split("-") // [2021, 11, 27]
+          .reverse()// [27, 11, 2021]
           .join()
-          .localeCompare(b.dueDate.split("T")[0].split("-").reverse().join());
+          .localeCompare(b.dueDate.split("T")[0].split("-").reverse().join());*/
+        return a.dueDate //2021-11-27T23:47:00.000Z
+          .split("T")[0] //2021-11-27
+          .split("-") // [2021, 11, 27]
+          .join()
+          .localeCompare(b.dueDate.split("T")[0].split("-").join());
       });
 
       return (
@@ -210,6 +215,7 @@ export default class TaskList2 extends Component {
                         key={task._id}
                         task={task}
                         onComplete={this.props.onComplete}
+                        onDelete={this.props.onDelete}
                       />
                     );
                   }

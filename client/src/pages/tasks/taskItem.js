@@ -42,6 +42,7 @@ function TaskItem({ task, onComplete, onDelete, checked }) {
             {typeof task.dueDate === "undefined"
               ? ""
               : task.dueDate.split("T")[0]}
+            {/* {typeof task.dueDate === "undefined" ? "" : task.dueDate} */}
           </div>
           <RiDeleteBin6Line onClick={onClick} className={styles.disalbed} />
         </div>
