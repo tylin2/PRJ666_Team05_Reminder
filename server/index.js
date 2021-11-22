@@ -18,13 +18,14 @@ const {
   findTaskbyId,
 } = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
+const path = require('path')
 
 const time_set_function = require("./functions/sendgrid/timer");
 dotenv.config();
 
 // app
 const app = express();
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
 
 //db
 mongoose
@@ -32,7 +33,7 @@ mongoose
   .then((data) => {
     console.log("DB CONNECTED");
     // sending emails
-    // time_set_function();
+    time_set_function();
   })
   .catch((err) => {
     console.log(`DB CONNECTION ERROR: ${err}`);
