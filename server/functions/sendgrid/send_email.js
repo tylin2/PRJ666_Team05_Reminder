@@ -2,16 +2,39 @@ const sgMail = require("@sendgrid/mail");
 
 require("dotenv").config({ path: "../../.env" });
 
+const URL_IMG = `http://172.29.241.134:8080/images`;
+
 const send_email_function = async (tasks) => {
-  console.log(tasks);
+  const task_array = tasks.map((task) => {
+    return `<tr>
+    <td style="padding:0;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+            <tr>
+                <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
+                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">${task.name}</p>
+                </td>
+                <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
+                <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
+                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">${task.descript}</p>
+                </td>
+                <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
+                <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
+                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">${task.dueDate}</p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>`;
+  });
+  const tasks_string = task_array.join("");
   sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`);
   const msg = {
     to: "dlrlals05050@gmail.com", // Change to your recipient
     from: "klee214@myseneca.ca", // Change to your verified sender
     subject: "DEMO",
     // I guess you can use bootstrap as well
-    // Please save image files into the public->images folder. 
-    // Once you start the server, the image file will be hosted : 
+    // Please save image files into the public->images folder.
+    // Once you start the server, the image file will be hosted :
     // http://localhost:8080/images/img.jpg like that and you can use the image...
     // I just used external image file in google for now.
     // Once you make it pretty html file, I will make this portion as a function and move it to another script file
@@ -46,7 +69,9 @@ const send_email_function = async (tasks) => {
                         <!-- Header -->
                         <tr>
                             <td align="center" style="padding:40px 0 30px 0;background:#70bbd9;">
-                                <a href="http://localhost:8080"><img src="../../../client/src/assets/img/logo.png" alt="" width="300" style="height:auto;display:block;" />
+
+                                <a href="http://localhost:8080"><img src="${URL_IMG}/logo.png" alt="" width="300" style="height:auto;display:block;" />
+
                             </td>
                         </tr>
                         <!-- Body -->
@@ -80,110 +105,15 @@ const send_email_function = async (tasks) => {
                                         </td>
                                     </tr>
                                     <!-- Task 1 -->
-                                    <tr>
-                                        <td style="padding:0;">
-                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                <tr>
-                                                    <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Group Meeting</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">A meeting to discuss the how to impelement upcoming features.</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">17 November 2021</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <!-- Task 2 -->
-                                    <tr>
-                                        <td style="padding:0;">
-                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                <tr>
-                                                    <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Midterm Test</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Midterm test of Customer Buying Behavior course CBB233</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">22 November 2021</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <!-- Task 3 -->
-                                    <tr>
-                                        <td style="padding:0;">
-                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                <tr>
-                                                    <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Mom Birthday</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Buy gift and cake for mom</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">06 December 2021</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <!-- Task 4 -->
-                                    <tr>
-                                        <td style="padding:0;">
-                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                <tr>
-                                                    <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Piano Contest</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Toronto Winter festifal Piano contest at Phoenix Concert Theatre</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">20 December 2021</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <!-- Task 5 -->
-                                    <tr>
-                                        <td style="padding:0;">
-                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
-                                                <tr>
-                                                    <td style="padding:0;width:25%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">New Year dinner</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:43%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Family dinner at uncle Willie house</p>
-                                                    </td>
-                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
-                                                    <td style="padding:0;width:28%;vertical-align:top;color:#153643;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">31 December 2021</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+
+                                    ${tasks_string}
+
                                     <tr>
                                         <td style="padding:0;">
                                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;"><a href="http://localhost:8080">Go back to The Reminder App</a></p>
                                         </td>
                                     </tr>
+
                                 </table>
                             </td>
                         </tr>
@@ -202,13 +132,13 @@ const send_email_function = async (tasks) => {
                                                 <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
                                                     <tr>
                                                         <td style="padding:0 0 0 10px;width:38px;">
-                                                            <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="../../../client/src/assets/img/twitter.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                                            <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="${URL_IMG}/twitter.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
                                                         </td>
                                                         <td style="padding:0 0 0 10px;width:38px;">
-                                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="../../../client/src/assets/img/facebook.jpg" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="${URL_IMG}/facebook.jpg" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
                                                         </td>
                                                         <td style="padding:0 0 0 10px;width:38px;">
-                                                            <a href="http://www.instagram.com/" style="color:#ffffff;"><img src="../../../client/src/assets/img/instagram.jpg" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                                            <a href="http://www.instagram.com/" style="color:#ffffff;"><img src="${URL_IMG}/instagram.jpg" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -217,6 +147,7 @@ const send_email_function = async (tasks) => {
                                     </tr>
                                 </table>
                             </td>
+
                         </tr>                    
                     </table>
           </td>
@@ -236,4 +167,4 @@ const send_email_function = async (tasks) => {
     });
 };
 
-module.exports = send_email_function
+module.exports = send_email_function;

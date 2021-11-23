@@ -26,13 +26,14 @@ const {
   findTasksOf_aProject
 } = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
+const path = require('path')
 
 const time_set_function = require("./functions/sendgrid/timer");
 dotenv.config();
 
 // app
 const app = express();
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
 
 //db
 mongoose

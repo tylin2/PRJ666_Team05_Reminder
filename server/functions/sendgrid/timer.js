@@ -21,7 +21,6 @@ const time_set_function = () => {
 
     // make sure this will run tomorrow morning, not right now
     const run_email_send_timer = setTimeout(() => {
-      // call every morning
       const send_email = setInterval(() => {
         const now = new Date();
         const end = new Date();
