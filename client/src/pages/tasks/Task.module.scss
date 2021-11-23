@@ -26,7 +26,54 @@ textarea{
 }
 
 .completed {
+    // hardcoding...
+    font-size: 14px;
     font-style: italic; 
     text-decoration: line-through; 
     color: #868e96;
+    //background-color: #4e5153;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1em;
+    margin-left: 0.5em;
   }
+.uncompleted {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1em;
+    margin-left: 0.5em;
+}
+
+.sortIcon {
+    position: absolute;
+    right: 14px;
+    font-size: 250%;
+    top: 11px;
+    cursor: pointer;
+}
+.sortIcon:hover {
+     //color: #ad2f9c;
+    color: #f17fd5;
+    //border-radius: 10%;
+  }
+
+  .p1 {
+    color:#FF0000
+  }
+
+  .p2 {
+    color:#FFA500
+  }
+
+  .p3 {
+    color:#0000FF
+  }
+
+  .p4 {
+    color:#808080
+  }
+
+.taskNameThick {
+    font-weight: bold;
+}

@@ -3,7 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { createProject, listProject } = require("./controllers/project");
+const { 
+  createProject,
+  findProjectsOf_aUser, 
+  listProject,
+  findProjectbyId,
+  deleteProject,
+  updateProject
+} = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
@@ -16,6 +23,7 @@ const {
   deleteTask,
   updateTask,
   findTaskbyId,
+  findTasksOf_aProject
 } = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
 const path = require('path')
@@ -58,8 +66,12 @@ app.get(`/api/current-user/:email`, authCheck, currentUser);
 app.get(`/api/all-user`, authCheck, allUser);
 
 // server for project model
-app.post(`/api/create-project`, authCheck, createProject);
+app.post(`/api/create-project/:email`, authCheck, createProject);
+app.get(`/api/projects-of-user/:email`, authCheck, findProjectsOf_aUser);
 app.get(`/api/list-project`, authCheck, listProject);
+app.get(`/api/display-project/:id`, authCheck, findProjectbyId);
+app.delete(`/api/delete-project/:id`, authCheck, deleteProject);
+app.put(`/api/update-project/:id`, authCheck, updateProject);
 
 // server for task model
 app.post(`/api/create-task/:email`, authCheck, createTask);
@@ -68,4 +80,6 @@ app.get(`/api/display-task/:id`, authCheck, findTaskbyId);
 app.delete(`/api/delete-task/:id`, authCheck, deleteTask);
 app.put(`/api/update-task/:id`, authCheck, updateTask);
 app.get(`/api/tasks-of-user/:email`, authCheck, findTasksOf_aUser);
+app.get(`/api/tasks-of-project/:project`, authCheck, findTasksOf_aProject);
+
 //app.put(`/api/update-task-of-user/:email`, authCheck, updateTaskOf_aUser);

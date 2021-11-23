@@ -36,7 +36,7 @@ export default function Calendar() {
             )
             console.log(`from Task useEffect -----------------`)
             console.log(tasksOfuser.data);
-            const tasks = tasksOfuser.data.map((task) => ({title: task.name, date:new Date(task.dueDate.split('T')[0]), url: `task/${task._id}`}))
+            const tasks = tasksOfuser.data.map((task) => ({title: task.name, date:new Date(task.dueDate.split('T')), url: `task/${task._id}`}))
             //setEvents(events.push({title:tasksOfuser.data.name, date:tasksOfuser.data.dueDate }));           
             console.log(tasks);
             setEvents(events.concat(tasks));

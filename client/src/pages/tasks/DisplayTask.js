@@ -20,6 +20,7 @@ export default function DisplayTask( props ) {
         user: null,
         descript:''
     })
+    const [priority, setPriority] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
     const { name, user, descript } = inputs;
     const [loading, setLoading] = useState(false);
@@ -29,13 +30,17 @@ export default function DisplayTask( props ) {
     const id = props.match.params.id;
     const [isEditing, setIsEditing] = useState(false);
     // //it is just a dependency.
-    // //const [editCompleted, setEditCompleted] = useState(false);
+    //const [editCompleted, setEditCompleted] = useState(false);
 
 
     useEffect(() => {
         getTask(props); // <-- pass the component props
     },[])   
 
+    const handlePriorityChange = (e) => {
+        setPriority(e.target.value)
+        console.log('Priority: ' + e.target.value)
+    }
     const handleDateChange = (date) => {
         console.log(date);
         setDueDate(date);
@@ -64,15 +69,17 @@ export default function DisplayTask( props ) {
         const task = {
             name: inputs.name,
             descript: inputs.descript,
-            dueDate: dueDate
+            dueDate: dueDate,
+            priority: priority
         }
         
         editTask(task);
         console.log("```````````````````in onEdit````````````````````")
         console.log(tasks);
+        
         setIsEditing(!isEditing)
         console.log(tasks);
-        // //setEditCompleted(!editCompleted)
+        //setEditCompleted(!editCompleted)
 
         //? Without this push, data is not rendered inside DisplayTaskComp.js
         history.push("/task_list");
@@ -125,6 +132,7 @@ export default function DisplayTask( props ) {
             // console.log(`from Task useEffect --------AGAIN---------`)
             // console.log(tasks[0])
             setDueDate(taskOfid.data.dueDate)
+            setPriority(taskOfid.data.priority)
         }catch(e) {
             setError(e)
             console.log(e)
@@ -158,9 +166,11 @@ export default function DisplayTask( props ) {
                         name={name}
                         descript={descript}
                         dueDate={dueDate}
+                        priority={priority}
                         onEdit={onEdit}
                         onChange={onChange}
                         handleDateChange={handleDateChange}
+                        handlePriorityChange={handlePriorityChange}
                         onCancel={onCancel}
                         existingTask={tasks[0]}
                         />

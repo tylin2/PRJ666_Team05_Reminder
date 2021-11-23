@@ -69,7 +69,9 @@ const send_email_function = async (tasks) => {
                         <!-- Header -->
                         <tr>
                             <td align="center" style="padding:40px 0 30px 0;background:#70bbd9;">
+
                                 <a href="http://localhost:8080"><img src="${URL_IMG}/logo.png" alt="" width="300" style="height:auto;display:block;" />
+
                             </td>
                         </tr>
                         <!-- Body -->
@@ -103,12 +105,15 @@ const send_email_function = async (tasks) => {
                                         </td>
                                     </tr>
                                     <!-- Task 1 -->
+
                                     ${tasks_string}
+
                                     <tr>
                                         <td style="padding:0;">
                                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;"><a href="http://localhost:8080">Go back to The Reminder App</a></p>
                                         </td>
                                     </tr>
+
                                 </table>
                             </td>
                         </tr>
@@ -142,6 +147,7 @@ const send_email_function = async (tasks) => {
                                     </tr>
                                 </table>
                             </td>
+
                         </tr>                    
                     </table>
           </td>
