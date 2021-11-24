@@ -8,8 +8,7 @@ const taskSchema = new Schema(
             required: "Name is required",
             minlength: [3, "Too short"],
             maxlength: [32, "Too long"],
-            uppercase: true,
-            unique:true
+            uppercase: true
         },
         dueDate:{
             type: Date

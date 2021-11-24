@@ -49,8 +49,8 @@ export default function ProjectItem ( {project} ) {
         <div className={styles.projectLine} >
             <ListGroupItem   style={{fontSize: 14}} href={`project/${project._id}`} action>
                 <div className={styles.projectNameThick} > {project.name} </div>
-                <div>
-                    Completion: {Math.round(completedTasks/totalTasks*100)}%
+                <div className={styles.completion}>
+                    Completion: {Math.round(completedTasks/totalTasks*100) ?? 0}%
                 </div>               
             </ListGroupItem>
         </div>

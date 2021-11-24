@@ -19,8 +19,7 @@ import styles from "./Task.module.scss";
 import "bootstrap/dist/css/bootstrap.css";
 
 function CreateTask2({ name, descript, dueDate, priority, onCreate, onChange, handleDateChange, handlePriorityChange }) {
-    return(
-        
+    return(        
         <Card style={{ width: "90rem" }} className={styles.card}>
             <Card.Body>
             <h1 className="text-center">Create Task</h1>
