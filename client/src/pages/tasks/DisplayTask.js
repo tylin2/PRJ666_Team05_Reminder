@@ -2,7 +2,6 @@ import React from "react";
 import axios from 'axios';
 import firebase from 'firebase';
 import DisplayTaskComp from "./DisplayTaskComp";
-
 import EditTask from './EditTask'
 import { useState, useEffect } from 'react'
 import { Form, Button, Card, Alert } from "react-bootstrap"
@@ -22,6 +21,7 @@ export default function DisplayTask( props ) {
     })
     const [priority, setPriority] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
+    const [notification, setNotification] = useState(true);
     const { name, user, descript } = inputs;
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -37,6 +37,10 @@ export default function DisplayTask( props ) {
         getTask(props); // <-- pass the component props
     },[])   
 
+    const handleNotification = (e) => {
+        console.log(notification);
+        setNotification(e.target.checked);
+      };
     const handlePriorityChange = (e) => {
         setPriority(e.target.value)
         console.log('Priority: ' + e.target.value)
@@ -70,7 +74,8 @@ export default function DisplayTask( props ) {
             name: inputs.name,
             descript: inputs.descript,
             dueDate: dueDate,
-            priority: priority
+            priority: priority,
+            notification: notification
         }
         
         editTask(task);
@@ -133,6 +138,7 @@ export default function DisplayTask( props ) {
             // console.log(tasks[0])
             setDueDate(taskOfid.data.dueDate)
             setPriority(taskOfid.data.priority)
+            setNotification(taskOfid.data.notification)
         }catch(e) {
             setError(e)
             console.log(e)
@@ -167,12 +173,14 @@ export default function DisplayTask( props ) {
                         descript={descript}
                         dueDate={dueDate}
                         priority={priority}
+                        notification={notification}
                         onEdit={onEdit}
                         onChange={onChange}
                         handleDateChange={handleDateChange}
                         handlePriorityChange={handlePriorityChange}
                         onCancel={onCancel}
                         existingTask={tasks[0]}
+                        handleNotification={handleNotification}
                         />
                         :
                         <DisplayTaskComp entry={tasks} loading={loading} error={error}/>

@@ -31,7 +31,7 @@ function CreateTask2({
   const [check, setCheck] = useState(true);
   const onChangeNotification = (e) => {
     handleNotification(e);
-    //handleNotification(e, task._id); //todo: use this line when it comes to editing notification.
+    //handleNotification(e, task._id);
     setCheck(!check);
   };
   return (

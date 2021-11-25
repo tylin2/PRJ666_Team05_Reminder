@@ -4,6 +4,7 @@ import styles from "./Task.module.scss";
 import CheckBox from "../../components/checkBox/CheckBox";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { dark } from "@material-ui/core/styles/createPalette";
+import { BsAlarm } from "react-icons/bs";
 
 function TaskItem({ task, onComplete, onDelete, checked }) {
   const [check, setCheck] = useState(task.isCompleted);
@@ -38,6 +39,7 @@ function TaskItem({ task, onComplete, onDelete, checked }) {
       <ListGroupItem style={{ fontSize: 14 }} href={`task/${task._id}`} action>
         <div className={check ? styles.completed : styles.uncompleted}>
           <div className={styles.taskNameThick}> {task.name} </div>
+          {task.notification&&<BsAlarm className={styles.alarmIcon}/>}          
           <div>
             {typeof task.dueDate === "undefined"
               ? ""

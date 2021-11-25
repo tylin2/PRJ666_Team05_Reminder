@@ -36,6 +36,8 @@ export default class DisplayTaskComp extends Component {
           classByPriority=styles.p4;
         }
 
+        
+
         return (
             <>     
                     <h1 className="text-center"> {task?.name} </h1>
@@ -48,7 +50,7 @@ export default class DisplayTaskComp extends Component {
                     <br />              
                     <h4 className={classByPriority}>{priorityString}</h4>
                     <br />                 
-               
+                    <h4>Notification on/off: {task?.notification?'On':'Off'}</h4>            
             </>
         )
       }                  
