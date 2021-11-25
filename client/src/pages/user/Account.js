@@ -9,54 +9,20 @@ import { useAuth } from "../../contexts/AuthContext.js"
 import styles from "./Signup.module.scss";
 
 export default function Account() {
-    const { currentUser } = useAuth();
-    const [tasks, setTasks] = useState([]);
-    const [headers, setHeaders] = useState([]);
-    const idToken = window.localStorage.getItem("token");
-    const [error, setError] = useState(null);    
+    
+    const onComplete = (e, id) => {
+        //setCheck(e.target.checked);
+        const task = {
+          isCompleted: e.target.checked,
+        };
+        editTask(task, id);
+        setTasks(
+          tasks.map((task) =>
+            task._id === id ? { ...task, isCompleted: e.target.checked } : task
+          )
+        );
+      };
 
-    /*const download = () => {
-        try{
-            setError(null);
-            setTasks(null);
-            setHeaders(null);
-            const idToken = window.localStorage.getItem("token");
-            const userEmail = currentUser.email;
-            const tasksOfuser = axios.get(
-            "http://localhost:8080/api/tasks-of-user/" + userEmail,
-            {
-                headers: {
-                Authorization: "Bearer " + idToken,
-                },
-            }
-            );
-            console.log(tasksOfuser.data);
-            const headers = [
-                { label: "Subject", key: "name" },
-                { label: "Start date", key: "dueDate" },
-                { label: "Start time", key: "dueDate" },
-                { label: "Descript", key: "descript" }
-            ];
-            setTasks(tasks.concat(tasksOfuser.data));
-            setHeaders(headers.concat())
-
-                
-        }
-        catch (e){
-            setError(e);
-        }
-    };
-
-    const csvReport = {
-        data: tasks,
-        headers: headers,
-        filename: 'The_Reminder_Report.csv'
-    };
-
-    useEffect(() => {
-        download();
-      }, []);
-    */
 
     return (
         <>
