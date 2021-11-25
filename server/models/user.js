@@ -21,6 +21,10 @@ const userSchema = new Schema(
     },
     taskSet:{
       type: [{type: Schema.Types.ObjectId, ref: 'Task'}]
+    },
+    notificationTime:{
+      type: String,
+      required: true
     }
 
   },

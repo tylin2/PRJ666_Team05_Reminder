@@ -15,13 +15,14 @@ export default function Account() {
             <h2 className="text-center mb-4">Account</h2>
             <Card.Body>
                 <h5>Account Service</h5>                
-                <ListGroup.Item action href= "/forgotPass">Change Password</ListGroup.Item>
+                <ListGroup.Item action href= "/forgotPass">Reset Password</ListGroup.Item>
                 <ListGroup.Item>
                     Set Notification Time                    
                     <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">06:00</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">12:00</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">21:00</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">00:00</Dropdown.Item>
                     </DropdownButton>                                                       
                    
                 </ListGroup.Item>
