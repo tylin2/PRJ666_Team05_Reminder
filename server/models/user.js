@@ -24,7 +24,8 @@ const userSchema = new Schema(
     },
     notificationTime:{
       type: String,
-      required: true
+      required: true,
+      default: "00:00"
     }
 
   },
