@@ -10,18 +10,18 @@ import styles from "./Signup.module.scss";
 
 export default function Account() {
     
-    const onComplete = (e, id) => {
-        //setCheck(e.target.checked);
-        const task = {
-          isCompleted: e.target.checked,
-        };
-        editTask(task, id);
-        setTasks(
-          tasks.map((task) =>
-            task._id === id ? { ...task, isCompleted: e.target.checked } : task
-          )
-        );
-      };
+    // const onComplete = (e, id) => {
+    //     //setCheck(e.target.checked);
+    //     const task = {
+    //       isCompleted: e.target.checked,
+    //     };
+    //     editTask(task, id);
+    //     setTasks(
+    //       tasks.map((task) =>
+    //         task._id === id ? { ...task, isCompleted: e.target.checked } : task
+    //       )
+    //     );
+    //   };
 
 
     return (
