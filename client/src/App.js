@@ -24,6 +24,7 @@ import Projects from "./pages/project/Project";
 import DisplayProject from "./pages/project/DisplayProject";
 import CreateProTask from "./pages/project/CreateProTask";
 
+import Account from "./pages/user/Account";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import PrivateRoute from "./pages/user/PrivateRoute";
@@ -108,6 +109,7 @@ function App() {
             <PrivateRoute exact path="/project_list" component={Projects} />
             <PrivateRoute exact path="/createProject" component={CreateProject} />
             <PrivateRoute exact path="/project/:id" component={DisplayProject} />
+            <PrivateRoute exact path="/account" component={Account} />
             <PrivateRoute exact path="/createProjectTask/:id" component={CreateProTask} />            
             <PrivateRoute exact path="/" component={Calendar} />
             <Route path="/signup" component={Signup} />

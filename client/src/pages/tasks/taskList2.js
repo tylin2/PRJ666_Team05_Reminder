@@ -224,6 +224,7 @@ export default class TaskList2 extends Component {
               </Button>
             </Card.Body>
           </Card>
+          <br />
         </>
       );
     }

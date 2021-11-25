@@ -1,6 +1,5 @@
 import React from "react";
 import axios from 'axios';
-import firebase from 'firebase';
 import DisplayTaskComp from "./DisplayTaskComp";
 import EditTask from './EditTask'
 import { useState, useEffect } from 'react'

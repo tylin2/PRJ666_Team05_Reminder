@@ -20,8 +20,8 @@ export default class ProjectList extends Component  {
                     <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
                 </Card.Body>
                                  
-            </Card>           
-            
+            </Card>
+            <br />         
           </>
         )}
       else {
