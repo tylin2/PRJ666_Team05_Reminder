@@ -78,7 +78,7 @@ exports.findTaskbyId = async (req, res) => {
 // create task
 exports.createTask = async (req, res) => {
   try {
-    const { name, dueDate, remindDate, user, participants, descript, priority } =
+    const { name, dueDate, remindDate, user, participants, descript, priority, notification } =
       req.body;
     let { project } = req.body;
 
@@ -101,7 +101,8 @@ exports.createTask = async (req, res) => {
       participants,
       descript,
       project,
-      priority
+      priority,
+      notification
     });
     task.dueDate = new Date(task.dueDate)
     console.log(task.dueDate)

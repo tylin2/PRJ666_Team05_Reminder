@@ -101,14 +101,11 @@ export default class TaskList2 extends Component {
                     }
                   })}
 
-                {/* {this.props.isPrioritySorted && p1Count > 0 && (
-                    <h5 className={styles.p1}>
-                      Priority 1-{" "}
-                      <span style={{ color: "black" }}>({p1Count})</span>
-                    </h5>
-                  )} */}
                 {this.props.isPrioritySorted && p1Count > 0 && (
-                  <h5 className={styles.p1Header}>Priority 1</h5>
+                  <div className={styles.textBox}>
+                    <h5 className={styles.alignLeft}>{p1Count}</h5>
+                    <h5 className={styles.P1_alignCenter}>Priority 1</h5>
+                  </div>
                 )}
                 {this.props.isPrioritySorted &&
                   p1Tasks.map((task) => {
@@ -126,14 +123,11 @@ export default class TaskList2 extends Component {
                     }
                   })}
 
-                {/* {this.props.isPrioritySorted && p2Count > 0 && (
-                    <h5 className={styles.p2}>
-                      Priority 2-{" "}
-                      <span style={{ color: "black" }}>({p2Count})</span>
-                    </h5>
-                  )} */}
                 {this.props.isPrioritySorted && p2Count > 0 && (
-                  <h5 className={styles.p2Header}>Priority 2</h5>
+                  <div className={styles.textBox}>
+                    <h5 className={styles.alignLeft}>{p2Count}</h5>
+                    <h5 className={styles.P2_alignCenter}>Priority 2</h5>
+                  </div>
                 )}
                 {this.props.isPrioritySorted &&
                   p2Tasks.map((task) => {
@@ -151,14 +145,11 @@ export default class TaskList2 extends Component {
                     }
                   })}
 
-                {/* {this.props.isPrioritySorted && p3Count > 0 && (
-                    <h5 className={styles.p3}>
-                      Priority 3 -{" "}
-                      <span style={{ color: "black" }}>({p3Count})</span>
-                    </h5>
-                  )} */}
                 {this.props.isPrioritySorted && p3Count > 0 && (
-                  <h5 className={styles.p3Header}>Priority 3</h5>
+                  <div className={styles.textBox}>
+                    <h5 className={styles.alignLeft}>{p3Count}</h5>
+                    <h5 className={styles.P3_alignCenter}>Priority 3</h5>
+                  </div>
                 )}
                 {this.props.isPrioritySorted &&
                   p3Tasks.map((task) => {
@@ -176,14 +167,11 @@ export default class TaskList2 extends Component {
                     }
                   })}
 
-                {/* {this.props.isPrioritySorted && p4Count > 0 && (
-                    <h5 className={styles.p4}>
-                      Priority 4-{" "}
-                      <span style={{ color: "black" }}>({p4Count})</span>
-                    </h5>
-                  )} */}
                 {this.props.isPrioritySorted && p4Count > 0 && (
-                  <h5 className={styles.p4Header}>Priority 4</h5>
+                  <div className={styles.textBox}>
+                    <h5 className={styles.alignLeft}>{p4Count}</h5>
+                    <h5 className={styles.P4_alignCenter}>Priority 4</h5>
+                  </div>
                 )}
                 {this.props.isPrioritySorted &&
                   p4Tasks.map((task) => {

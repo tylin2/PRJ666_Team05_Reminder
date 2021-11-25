@@ -115,26 +115,36 @@ textarea {
   margin-left: 0.5rem;
 }
 
-.p1Header {
+.textBox {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 1.5rem;
+}
+.alignLeft {
+  width: 33.33333%;
+  text-align: left;
+  margin-left: 3rem;
+}
+.P1_alignCenter {
   color: #ff0000;
+  width: 33.33333%;
   text-align: center;
-  margin-top: 1.5rem;
 }
 
-.p2Header {
+.P2_alignCenter {
   color: #ffa500;
+  width: 33.33333%;
   text-align: center;
-  margin-top: 1.5rem;
 }
 
-.p3Header {
+.P3_alignCenter {
   color: #0000ff;
+  width: 33.33333%;
   text-align: center;
-  margin-top: 1.5rem;
 }
 
-.p4Header {
+.P4_alignCenter {
   color: #808080;
+  width: 33.33333%;
   text-align: center;
-  margin-top: 1.5rem;
 }
