@@ -9,6 +9,7 @@ exports.call_api_to_check_due_date = async (end_of_week) => {
       $and: [
         { dueDate: { $gte: new Date() } },
         { dueDate: { $lte: end_of_week } },
+        { notification: true },
       ],
     }).exec();
     if (!tasks) {
@@ -78,21 +79,27 @@ exports.findTaskbyId = async (req, res) => {
 // create task
 exports.createTask = async (req, res) => {
   try {
-    const { name, dueDate, remindDate, user, participants, descript, priority, notification } =
-      req.body;
+    const {
+      name,
+      dueDate,
+      remindDate,
+      user,
+      participants,
+      descript,
+      priority,
+      notification,
+    } = req.body;
     let { project } = req.body;
 
-    if(project != null){
+    if (project != null) {
       project = mongoose.Types.ObjectId(project);
     }
-
-    
 
     //todo: TypeError: Assignment to constant variable.
     // participants = participants.map((p) => {
     //   return mongoose.Types.ObjectId(p);
     // });
-  
+
     const task = await new Task({
       name,
       dueDate,
@@ -102,24 +109,24 @@ exports.createTask = async (req, res) => {
       descript,
       project,
       priority,
-      notification
+      notification,
     });
-    task.dueDate = new Date(task.dueDate)
-    console.log(task.dueDate)
+    task.dueDate = new Date(task.dueDate);
+    console.log(task.dueDate);
 
     let savedTask = await task.save();
-    console.log(user)
+    console.log(user);
 
     let currentUser = await User.findOne({ email: user });
-    console.log(currentUser)
+    console.log(currentUser);
     currentUser.taskSet.push(savedTask);
     currentUser.save();
 
-    console.log(project)
-    if(project){
-      let currentProject = await Project.findOne({ _id: project }); 
+    console.log(project);
+    if (project) {
+      let currentProject = await Project.findOne({ _id: project });
       currentProject.taskSet.push(savedTask);
-      console.log(currentProject)
+      console.log(currentProject);
       currentProject.save();
     }
 
