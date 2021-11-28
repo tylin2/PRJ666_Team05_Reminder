@@ -15,6 +15,7 @@ const {
   createOrUpdateUser,
   currentUser,
   allUser,
+  updateUser,
 } = require("./controllers/user");
 const {
   findTasksOf_aUser,
@@ -64,6 +65,7 @@ app.post(`/api/create-or-update-user`, createOrUpdateUser);
 // app.get(`/api/current-user`, authCheck, currentUser);
 app.get(`/api/current-user/:email`, authCheck, currentUser);
 app.get(`/api/all-user`, authCheck, allUser);
+app.put(`/api/update-user/:email`, authCheck, updateUser);
 
 // server for project model
 app.post(`/api/create-project/:email`, authCheck, createProject);

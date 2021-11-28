@@ -35,6 +35,7 @@ import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
 import { auth } from "./firebase";
+import EditUser from "./pages/user/EditUser";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -109,12 +110,13 @@ function App() {
             <PrivateRoute exact path="/project_list" component={Projects} />
             <PrivateRoute exact path="/createProject" component={CreateProject} />
             <PrivateRoute exact path="/project/:id" component={DisplayProject} />
-            <PrivateRoute exact path="/account" component={Account} />
+            <PrivateRoute exact path="/account/" component={Account} />
             <PrivateRoute exact path="/createProjectTask/:id" component={CreateProTask} />            
             <PrivateRoute exact path="/" component={Calendar} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <Route path="/forgotPass" component={ForgotPassword} />
+            <Route path="/editUser" component={EditUser} />
           </Switch>
         </AuthProvider>
       </Content>

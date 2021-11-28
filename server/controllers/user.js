@@ -53,6 +53,7 @@ exports.createOrUpdateUser = async (req, res) => {
 //   }
 // };
 
+
 exports.currentUser = async (req, res) => {
   try {
     User.findOne({ email: req.params.email }).exec((err, user) => {
@@ -83,6 +84,30 @@ exports.allUser = async (req, res) => {
     res.status(400).send("Fail to get users -- see the console log");
     console.log(
       "*************DB errors: controllers.user.allUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
+
+exports.updateUser = async (req, res) => {
+
+  try {
+    const { email, userName } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { email: req.params.email },
+      { email: email, userName: userName },
+      { new: true }
+    );
+
+    res.send(`Updated Project: ${user}`);
+  } catch (error) {
+    res.status(404).send("The user was not found -- see the console log");
+    console.log(
+      "*************DB errors: controllers.user.updateUser*************"
     );
     console.log(error.message);
     console.log(
