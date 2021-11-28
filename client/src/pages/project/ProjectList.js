@@ -17,7 +17,7 @@ export default class ProjectList extends Component  {
                        There is no project now...
                     </ListGroup>
                     <br />
-                    <Button  style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
+                    <Button style={{ color:"#00000",background:"#0A7BC2", border:"none",fontSize: 14}} href="/createProject" size="lg">Create New Project</Button>
                 </Card.Body>
                                  
             </Card>
