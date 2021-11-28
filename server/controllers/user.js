@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Project = require("../models/project");
+const Task = require("../models/task");
 
 exports.createOrUpdateUser = async (req, res) => {
   const { email, userName, password } = req.body;
@@ -90,3 +92,25 @@ exports.allUser = async (req, res) => {
     );
   }
 };
+
+exports.deleteUser = async (req, res) => {
+  try{
+    const tasks = await Task.deleteMany({user: req.params.email});
+    const projects = await Project.deleteMany({createBy:req.params.email});
+    const userDeleted = await User.deleteOne({email:req.params.email});
+    res.send({
+      "deleted projects count": projects, 
+      "deleted tasks count": tasks,
+      "deleted users count": userDeleted
+    });
+  }catch (error) {
+    res.status(400).send("Fail to get users -- see the console log");
+    console.log(
+      "*************DB errors: controllers.user.deleteUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  } 
+}

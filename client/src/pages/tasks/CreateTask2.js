@@ -1,8 +1,3 @@
-//Todo:
-////      1. input들 만들기
-////      2.props 받아오기 (destructured values, methods(onChange, onCreate))
-////       put onCreate on onSubmit property.
-
 import React, { useState } from "react";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";

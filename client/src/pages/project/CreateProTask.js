@@ -15,6 +15,8 @@ export default function CreateProTask( props ) {
         descript:''
     })
     const [dueDate, setDueDate] = useState(new Date());
+    const [priority, setPriority] = useState("P4");
+    const [notification, setNotification] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -23,6 +25,14 @@ export default function CreateProTask( props ) {
 
     const history = useHistory();
 
+    const handlePriorityChange = (e) => {
+        setPriority(e.target.value);
+        console.log("Priority: " + e.target.value);
+    };
+      const handleNotification = (e) => {
+        console.log(notification);
+        setNotification(e.target.checked);
+    };
     const handleDateChange = (date) => {
         console.log(date);
         setDueDate(date);
@@ -77,7 +87,9 @@ export default function CreateProTask( props ) {
             participants: [user],
             descript: inputs.descript,
             dueDate: dueDate,
-            project: props.match.params.id
+            project: props.match.params.id,
+            priority: priority,
+            notification: notification,
         }
         //todo after fixing axios and token issue, 
         addNewTask(task);
@@ -90,9 +102,12 @@ export default function CreateProTask( props ) {
                 name={name}
                 descript={descript}
                 dueDate={dueDate}
+                priority={priority}
                 onCreate={onCreate}
                 onChange={onChange}
                 handleDateChange={handleDateChange}
+                handlePriorityChange={handlePriorityChange}
+                handleNotification={handleNotification}
             />
             
         </>
