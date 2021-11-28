@@ -24,8 +24,7 @@ export default function CreateTask() {
   const [error, setError] = useState(null);
 
   const { name, user, descript } = inputs;
-  //const _id = useRef(1);
-  //const priority = useRef('P4')
+
 
   const history = useHistory();
 
@@ -85,11 +84,11 @@ export default function CreateTask() {
       user: userEmail,
       participants: [user],
       descript: inputs.descript,
-      dueDate: moment(dueDate).tz("America/Toronto").toString(),
+      dueDate: moment(dueDate).tz("America/Toronto").toString(),//???
       priority: priority,
       notification: notification,
     };
-    //todo after fixing axios and token issue,
+    
     console.log(task.dueDate);
     addNewTask(task);
   };
@@ -100,8 +99,7 @@ export default function CreateTask() {
         name={name}
         descript={descript}
         dueDate={dueDate}
-        priority={priority}
-        //notification={notification}
+        priority={priority}        
         onCreate={onCreate}
         onChange={onChange}
         handleDateChange={handleDateChange}
