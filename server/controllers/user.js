@@ -55,6 +55,7 @@ exports.createOrUpdateUser = async (req, res) => {
 //   }
 // };
 
+
 exports.currentUser = async (req, res) => {
   try {
     User.findOne({ email: req.params.email }).exec((err, user) => {
@@ -93,24 +94,26 @@ exports.allUser = async (req, res) => {
   }
 };
 
-exports.deleteUser = async (req, res) => {
-  try{
-    const tasks = await Task.deleteMany({user: req.params.email});
-    const projects = await Project.deleteMany({createBy:req.params.email});
-    const userDeleted = await User.deleteOne({email:req.params.email});
-    res.send({
-      "deleted projects count": projects, 
-      "deleted tasks count": tasks,
-      "deleted users count": userDeleted
-    });
-  }catch (error) {
-    res.status(400).send("Fail to get users -- see the console log");
+exports.updateUser = async (req, res) => {
+
+  try {
+    const { email, userName } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { email: req.params.email },
+      { email: email, userName: userName },
+      { new: true }
+    );
+
+    res.send(`Updated Project: ${user}`);
+  } catch (error) {
+    res.status(404).send("The user was not found -- see the console log");
     console.log(
-      "*************DB errors: controllers.user.deleteUser*************"
+      "*************DB errors: controllers.user.updateUser*************"
     );
     console.log(error.message);
     console.log(
       "****************************************************************"
     );
-  } 
-}
+  }
+};

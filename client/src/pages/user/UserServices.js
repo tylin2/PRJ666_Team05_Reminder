@@ -34,3 +34,21 @@ export const addToUser = (email, userName,password) => {
     console.error(e);
   }
 };
+
+export const updateUser = (email, userName) => {
+  //const header = createToken();
+  //console.log(header);
+  const payload = {
+    email,
+    userName
+  }
+  try {
+    console.log(payload);    
+    // const res = axios.post(url, payload, header);
+    const res = axios.put(url, payload);
+    console.log(res);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
