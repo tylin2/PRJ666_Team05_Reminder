@@ -51,7 +51,6 @@ export default function AuthProvider({ children }) {
       setCurrentUser(user);
       console.log(user); //need to check if react uses this effect after loggin in.
       setLoading(false);
-      
     });
 
     return unsubscribe;
@@ -66,7 +65,7 @@ export default function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     setToken,
-    token
+    token,
   };
 
   return (

@@ -29,7 +29,8 @@ const send_email_function = async (tasks) => {
   const tasks_string = task_array.join("");
   sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`);
   const msg = {
-    to: "dlrlals05050@gmail.com", // Change to your recipient
+    //to: "dlrlals05050@gmail.com", // Change to your recipient
+    to: "shwanpg@naver.com", // Change to your recipient
     from: "klee214@myseneca.ca", // Change to your verified sender
     subject: "DEMO",
     // I guess you can use bootstrap as well
