@@ -13,19 +13,6 @@ import EditUser from "./EditUser.js";
 import { constrainPoint } from "@fullcalendar/common";
 
 export default function Account( props ) {
-    
-    // const onComplete = (e, id) => {
-    //     //setCheck(e.target.checked);
-    //     const task = {
-    //       isCompleted: e.target.checked,
-    //     };
-    //     editTask(task, id);
-    //     setTasks(
-    //       tasks.map((task) =>
-    //         task._id === id ? { ...task, isCompleted: e.target.checked } : task
-    //       )
-    //     );
-    //   };
 
     const idToken = window.localStorage.getItem("token")
     const [loading, setLoading] = useState(false);
