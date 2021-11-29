@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios from 'axios';
 import firebase from 'firebase';
 import { CSVLink } from "react-csv";
@@ -26,7 +26,8 @@ export default function Account( props ) {
 
     const { currentUser } = useAuth();
     const [isEditing, setIsEditing] = useState(true);
-    const { name, email, password } = inputs;
+    const { name, email } = inputs;
+    const [notificationTime, setNotificationTime] = useState('');
 
     useEffect(() => {            
         getUser(props);            
@@ -44,14 +45,14 @@ export default function Account( props ) {
                     },
                 }
             )
-            
+            console.log(userOfEmail.data)
             setUser(userOfEmail.data)
             setInputs({
                 ...inputs,
                 name: user.userName,
-                email: user.email,
-                password: user.password
+                email: user.email
             })
+            setNotificationTime(userOfEmail.data.notificationTime)
             
         }catch(e) {
             setError(e)
@@ -64,7 +65,8 @@ export default function Account( props ) {
         e.preventDefault();
         
         const user = {
-            userName: inputs.name
+            userName: inputs.name,
+            notificationTime: notificationTime
         }
 
         editUser(user);
@@ -73,6 +75,11 @@ export default function Account( props ) {
         console.log(user);
         
         history.push("/");
+    }
+
+    const handleNotificationTimeChange = (e) => {
+        setNotificationTime(e.target.value)
+        console.log('notificationTime: ' + e.target.value)
     }
 
     const onCancel = (e) => {
@@ -90,7 +97,7 @@ export default function Account( props ) {
             [name]: value
         })
         
-    }
+    }    
     
     const editUser = async (props) => {
         try {
@@ -129,11 +136,13 @@ export default function Account( props ) {
                     <EditUser
                         name={name}
                         email={email}
+                        notificationTime={notificationTime}
                         onEdit={onEdit}
                         onChange={onChange}
                         onCancel={onCancel}
                         existUser={user}
-                        />
+                        handleNotificationTimeChange={handleNotificationTimeChange}
+                    />
             :   
             
             <>
@@ -143,15 +152,7 @@ export default function Account( props ) {
             <p >Email: {user.email}</p> 
                     
             <ListGroup.Item action href= "/forgotPass">Reset Password</ListGroup.Item>
-                <ListGroup.Item>
-                    Set Notification Time                    
-                    <DropdownButton id="dropdown-basic-button" title="Dropdown button" onSelect={"6"}>
-                        <Dropdown.Item eventKey="6">06:00</Dropdown.Item>
-                        <Dropdown.Item eventKey="12">12:00</Dropdown.Item>
-                        <Dropdown.Item eventKey="21">21:00</Dropdown.Item>
-                        <Dropdown.Item eventKey="0">00:00</Dropdown.Item>
-                    </DropdownButton>
-                </ListGroup.Item>
+                
                 <ListGroup.Item>
                     Export Tasks to CSV
                 </ListGroup.Item>
@@ -164,7 +165,7 @@ export default function Account( props ) {
             </Card.Body>
         </Card>
         
-        }
+        
         </>
     )
 

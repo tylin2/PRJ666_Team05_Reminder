@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { auth } from "../../firebase";
 
 
-function EditUser ({ existUser, userName, onEdit, onChange, onCancel }) {
+function EditUser ({ existUser, userName, notificationTime, onEdit, onChange, onCancel,handleNotificationTimeChange }) {
     
     return(
         <>
@@ -25,6 +25,17 @@ function EditUser ({ existUser, userName, onEdit, onChange, onCancel }) {
                         value={userName}
                         onChange={onChange}
                         />
+                    </Form.Group>
+                    <br/>
+
+                    <Form.Group id="notificationTime">
+                        Notification Time: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <select name="notificationTime" value={notificationTime} onChange={handleNotificationTimeChange}>
+                            <option value="09:00">09:00</option>
+                            <option value="00:00">00:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="21:00">21:00</option>
+                        </select>
                     </Form.Group>
 
                     <br/>
