@@ -5,8 +5,9 @@
     
     display: flex;
     align-items: center;
-
     & > * {
+        transition: all 0.5s;
+        color:  var(--color-primary-dark);
         padding: 0 2rem;
         cursor: pointer;
         height: 100%;
@@ -15,6 +16,7 @@
     }
 
     & > *:hover {
+        color:  var(--color-primary);
         background-color: var(--color-grey-light-2);
     }
 
