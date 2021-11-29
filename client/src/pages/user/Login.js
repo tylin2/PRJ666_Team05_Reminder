@@ -16,9 +16,17 @@ export default function Login() {
   const [password, setPassword] = useState();
   const history = useHistory();
 
-  if (window.localStorage.getItem("token")) {
-    history.push("/");
-  }
+  //! edited by Yonghwan: to get around the Maximum update state issue.
+  // if (window.localStorage.getItem("token")) {
+  //   history.push("/");
+  // }
+  useEffect(() => {
+    if (window.localStorage.getItem("token")) {
+      history.push("/");
+    }
+  }, []);
+  //!------------------------------------------------------------------
+
 
   async function handleSubmit(e) {
     e.preventDefault();

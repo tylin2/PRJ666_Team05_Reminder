@@ -44,17 +44,18 @@ export default function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
-  //Todo: I guess we need to define auth.onAuthStateChanged outside UseEffect.
+  //! edited by Yonghwan: to get around the Maximum update state issue.
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       //https://firebase.google.com/docs/reference/js/auth.auth.md#authonauthstatechanged
       setCurrentUser(user);
       console.log(user); //need to check if react uses this effect after loggin in.
-      setLoading(false);
+      //setLoading(false);//!<--      
     });
-    //setLoading(false);
+    setLoading(false); //!<--
     return unsubscribe;
   }, []);
+//!------------------------------------------------------------------
 
   const value = {
     currentUser,

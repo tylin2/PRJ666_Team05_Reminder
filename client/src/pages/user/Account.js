@@ -125,21 +125,18 @@ export default function Account(props) {
         console.log(`error during re-auth: ${error}`);
       });*/
 
-    //currentUser.reload();
-    //currentUser.reauthenticateWithCredential
     currentUser
       .delete()
       .then(() => {
         deleteUser();
         console.log("user is deleted");
+        localStorage.removeItem("token");
         window.location.reload(true);
       })
       .catch((error) => {
         console.log("Error occurred while deleting user: " + error);
-        //todo
       });
-    //localStorage.removeItem("token");
-    //window.location.reload(true);
+
   };
 
   const deleteUser = async () => {
