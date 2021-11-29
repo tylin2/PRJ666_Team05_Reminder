@@ -44,7 +44,7 @@ export default function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
-  //?? Should I consider removing token from local storage within useEffect?
+  //Todo: I guess we need to define auth.onAuthStateChanged outside UseEffect.
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       //https://firebase.google.com/docs/reference/js/auth.auth.md#authonauthstatechanged

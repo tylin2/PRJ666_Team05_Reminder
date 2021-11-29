@@ -235,7 +235,7 @@ export default function Account(props) {
                   className={styles.deleteMessage}
                 >
                   Deleting account will permanently remove your data. If you
-                  want, <span style={{ font: "red" }}>Re-login and</span>click
+                  want to, &nbsp;  <span className={styles.reLoginMessage}>Re-login </span>and click
                   confirm.
                 </ListGroup.Item>
               )}
