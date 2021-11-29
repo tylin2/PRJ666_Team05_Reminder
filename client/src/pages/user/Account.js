@@ -12,13 +12,15 @@ import styles from "./Signup.module.scss";
 import EditUser from "./EditUser.js";
 import { constrainPoint } from "@fullcalendar/common";
 
+import "bootstrap/dist/css/bootstrap.css";
+
 export default function Account( props ) {
 
     const idToken = window.localStorage.getItem("token")
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
-    const [user, setUser] = useState([]); 
+    const [user, setUser] = useState([]);    
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -28,9 +30,16 @@ export default function Account( props ) {
     const [isEditing, setIsEditing] = useState(true);
     const { name, email } = inputs;
     const [notificationTime, setNotificationTime] = useState('');
+    const headers = [
+        { label: "Subject", key: "name" },
+        { label: "Start date", key: "dueDate" },
+        { label: "Descript", key: "descript" }
+    ];
+    const [taskData, setTaskData] = useState([]);
+
 
     useEffect(() => {            
-        getUser(props);            
+        getUser(props);                                
     },[])   
     
     const getUser = async (props) => {        
@@ -38,6 +47,7 @@ export default function Account( props ) {
         try {
             setError(null);
             setLoading(true);
+            setTaskData([]);       
             const userOfEmail = await axios.get(
                 'http://localhost:8080/api/current-user/' + currentUser.email, {
                     headers: {
@@ -45,7 +55,6 @@ export default function Account( props ) {
                     },
                 }
             )
-            console.log(userOfEmail.data)
             setUser(userOfEmail.data)
             setInputs({
                 ...inputs,
@@ -53,11 +62,26 @@ export default function Account( props ) {
                 email: user.email
             })
             setNotificationTime(userOfEmail.data.notificationTime)
+
+            const tasksOfuser = await axios.get(
+                "http://localhost:8080/api/tasks-of-user/" + currentUser.email,
+                {
+                  headers: {
+                    Authorization: "Bearer " + idToken,
+                  },
+                }
+            );            
+            var tasklist = []
+            tasksOfuser.data.map(task => {
+                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,Descript: task.Descript})
+            })
+            console.log(tasklist)            
+            setTaskData(taskData.concat(tasklist)) 
             
         }catch(e) {
             setError(e)
             console.log(e)
-        }
+        }        
         setLoading(false)
     }
 
@@ -121,7 +145,7 @@ export default function Account( props ) {
         setLoading(false)
     }
 
-    return (
+    return (       
         <>
         
 
@@ -153,8 +177,14 @@ export default function Account( props ) {
                     
             <ListGroup.Item action href= "/forgotPass">Reset Password</ListGroup.Item>
                 
-                <ListGroup.Item>
-                    Export Tasks to CSV
+                <ListGroup.Item>                   
+                <CSVLink
+                        headers={headers}
+                        data={taskData}
+                        filename="The_Reminder_Tasks.csv" 
+                        className={styles.csvlink}                       
+                    >Export Tasks to CSV for importing into Google Calendar
+                </CSVLink>                    
                 </ListGroup.Item>
                 <ListGroup.Item onClick={()=>setIsEditing(!isEditing)}>Edit User Information</ListGroup.Item>
                 <ListGroup.Item action href= "">Delete Account</ListGroup.Item>
