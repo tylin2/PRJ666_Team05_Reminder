@@ -30,9 +30,9 @@ function EditUser ({ existUser, userName, notificationTime, onEdit, onChange, on
 
                     <Form.Group id="notificationTime">
                         Notification Time: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <select name="notificationTime" value={notificationTime} onChange={handleNotificationTimeChange}>
-                            <option value="09:00">09:00</option>
+                        <select name="notificationTime" value={notificationTime} onChange={handleNotificationTimeChange}>                            
                             <option value="00:00">00:00</option>
+                            <option value="09:00">09:00</option>
                             <option value="12:00">12:00</option>
                             <option value="21:00">21:00</option>
                         </select>
