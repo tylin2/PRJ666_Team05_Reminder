@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import firebase from "firebase";
 import { CSVLink } from "react-csv";
-
+import { getAuth, reauthenticateWithCredential } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -43,7 +43,7 @@ export default function Account(props) {
     email: "",
   });
 
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, getCredential } = useAuth();
   const [isEditing, setIsEditing] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
   const { name, email, password } = inputs;
@@ -111,21 +111,35 @@ export default function Account(props) {
   };
 
   const onDelete = () => {
-    deleteUser();
+    //error: TypeError: Object(...) is not a function
+    /*const auth = getAuth();
+    const user = auth.currentUser;
+    reauthenticateWithCredential(user, "Password")
+      .then(() => {
+        // User re-authenticated.
+        console.log(`user has been re-authenticated`);
+      })
+      .catch((error) => {
+        // An error ocurred
+        // ...
+        console.log(`error during re-auth: ${error}`);
+      });*/
 
-    //logout(); //It is not logically... right to delete the current user after loging out.
-    //But it works.
-    //todo(optional): Instead of reloading, get the isAuth state to be passed from the App.js through PrivateRoute and use it.
+    //currentUser.reload();
+    //currentUser.reauthenticateWithCredential
     currentUser
       .delete()
       .then(() => {
+        deleteUser();
         console.log("user is deleted");
+        window.location.reload(true);
       })
       .catch((error) => {
         console.log("Error occurred while deleting user: " + error);
+        //todo
       });
-    localStorage.removeItem("token");
-    window.location.reload(true);
+    //localStorage.removeItem("token");
+    //window.location.reload(true);
   };
 
   const deleteUser = async () => {
@@ -221,7 +235,8 @@ export default function Account(props) {
                   className={styles.deleteMessage}
                 >
                   Deleting account will permanently remove your data. If you
-                  want, click confirm.
+                  want, <span style={{ font: "red" }}>Re-login and</span>click
+                  confirm.
                 </ListGroup.Item>
               )}
               {showConfirm && (

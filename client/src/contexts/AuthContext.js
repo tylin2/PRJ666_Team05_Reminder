@@ -52,7 +52,7 @@ export default function AuthProvider({ children }) {
       console.log(user); //need to check if react uses this effect after loggin in.
       setLoading(false);
     });
-
+    //setLoading(false);
     return unsubscribe;
   }, []);
 
