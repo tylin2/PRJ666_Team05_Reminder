@@ -35,15 +35,26 @@ export default function DisplayProject(props) {
   const [p3Count, setP3Count] = useState(0);
   const [p4Count, setP4Count] = useState(0);
 
+  const [editDeleteToggle, setEditDeleteToggle] = useState(0);
+
+  // useEffect(() => {
+  //   if(tasks.length == 0){
+  //     getProject(props);
+  //   }else{
+  //     console.log(`in the useEffect else block`)
+  //     calculateTaskCounts(tasks);//I should not change tasks in this function.
+  //   }
+  // }, [tasks]);
 
   useEffect(() => {
-    if(tasks.length == 0){
+    if(editDeleteToggle == 0){
       getProject(props);
     }else{
-      console.log(`in the useEffect else block`)
+      console.log(`in the useEffect else block---->editDeleteToggle: ${editDeleteToggle}`)
+
       calculateTaskCounts(tasks);//I should not change tasks in this function.
     }
-  }, [tasks]);
+  }, [editDeleteToggle]);
 
 // Associated states: totalTasks, completedTasks, p1Count ~ p4Count.
 const calculateTaskCounts = (tasks) => {
@@ -222,10 +233,13 @@ const calculateTaskCounts = (tasks) => {
     } else {
       setCompletedTasks(completedTasks - 1);
     }
+    //let increase = 1;
+    setEditDeleteToggle(editDeleteToggle+1);
   };
   const onDelete = (e, id) => {
     deleteTask(id);
     setTasks(tasks.filter((task) => task._id !== id));
+    setEditDeleteToggle(editDeleteToggle+1);
   };
   const onPrioritySorted = () => {
     setIsPrioritySorted(!isPrioritySorted);
