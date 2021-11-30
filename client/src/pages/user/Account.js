@@ -37,6 +37,7 @@ export default function Account( props ) {
 
     const { currentUser } = useAuth();
     const [isEditing, setIsEditing] = useState(true);
+    const [showConfirm, setShowConfirm] = useState(false);
     const { name, email } = inputs;
     const [notificationTime, setNotificationTime] = useState('');
     const headers = [
@@ -104,13 +105,12 @@ export default function Account( props ) {
         }
       
 
-      setUser(userOfEmail.data);
-      setInputs({
-        ...inputs,
-        name: user.userName,
-        email: user.email,
-        password: user.password,
-      });
+      editUser(user);
+      console.log(user);
+      setIsEditing(!isEditing);
+      console.log(user);
+  
+      history.push("/");
     }
   
   const handleNotificationTimeChange = (e) => {
