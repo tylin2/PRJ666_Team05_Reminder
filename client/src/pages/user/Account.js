@@ -102,7 +102,7 @@ export default function Account( props ) {
             notificationTime: notificationTime
 
         }
-      );
+      
 
       setUser(userOfEmail.data);
       setInputs({
@@ -111,28 +111,7 @@ export default function Account( props ) {
         email: user.email,
         password: user.password,
       });
-    } catch (e) {
-      setError(e);
-      console.log(e);
     }
-    setLoading(false);
-  };
-
-
-  const onEdit = (e) => {
-    e.preventDefault();
-
-    const user = {
-      userName: inputs.name,
-    };
-
-    editUser(user);
-    console.log(user);
-    setIsEditing(!isEditing);
-    console.log(user);
-
-    history.push("/");
-  };
   
   const handleNotificationTimeChange = (e) => {
         setNotificationTime(e.target.value)
