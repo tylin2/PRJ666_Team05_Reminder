@@ -94,11 +94,11 @@ exports.allUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const { email, userName } = req.body;
+    const { email, userName, notificationTime } = req.body;
 
     const user = await User.findOneAndUpdate(
       { email: req.params.email },
-      { email: email, userName: userName },
+      { email: email, userName: userName, notificationTime:notificationTime},
       { new: true }
     );
 

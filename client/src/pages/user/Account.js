@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import firebase from "firebase";
+
+import React, { useState, useEffect, useReducer } from "react";
+import axios from 'axios';
+import firebase from 'firebase';
+
 import { CSVLink } from "react-csv";
 import { getAuth, reauthenticateWithCredential } from "firebase/auth";
 import { useHistory } from "react-router-dom";
@@ -19,49 +21,86 @@ import styles from "./Signup.module.scss";
 import EditUser from "./EditUser.js";
 import { constrainPoint } from "@fullcalendar/common";
 
-export default function Account(props) {
-  // const onComplete = (e, id) => {
-  //     //setCheck(e.target.checked);
-  //     const task = {
-  //       isCompleted: e.target.checked,
-  //     };
-  //     editTask(task, id);
-  //     setTasks(
-  //       tasks.map((task) =>
-  //         task._id === id ? { ...task, isCompleted: e.target.checked } : task
-  //       )
-  //     );
-  //   };
+import "bootstrap/dist/css/bootstrap.css";
 
-  const idToken = window.localStorage.getItem("token");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const history = useHistory();
-  const [user, setUser] = useState([]);
-  const [inputs, setInputs] = useState({
-    name: "",
-    email: "",
-  });
+export default function Account( props ) {
 
-  const { currentUser, logout, getCredential } = useAuth();
-  const [isEditing, setIsEditing] = useState(true);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const { name, email, password } = inputs;
+    const idToken = window.localStorage.getItem("token")
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const history = useHistory();
+    const [user, setUser] = useState([]);    
+    const [inputs, setInputs] = useState({
+        name: '',
+        email: '',
+    })
 
-  useEffect(() => {
-    getUser(props);
-  }, []);
+    const { currentUser } = useAuth();
+    const [isEditing, setIsEditing] = useState(true);
+    const { name, email } = inputs;
+    const [notificationTime, setNotificationTime] = useState('');
+    const headers = [
+        { label: "Subject", key: "name" },
+        { label: "Start date", key: "dueDate" },
+        { label: "Descript", key: "descript" }
+    ];
+    const [taskData, setTaskData] = useState([]);
 
-  const getUser = async (props) => {
-    try {
-      setError(null);
-      setLoading(true);
-      const userOfEmail = await axios.get(
-        "http://localhost:8080/api/current-user/" + currentUser.email,
-        {
-          headers: {
-            Authorization: "Bearer " + idToken,
-          },
+
+    useEffect(() => {            
+        getUser(props);                                
+    },[])   
+    
+    const getUser = async (props) => {        
+        
+        try {
+            setError(null);
+            setLoading(true);
+            setTaskData([]);       
+            const userOfEmail = await axios.get(
+                'http://localhost:8080/api/current-user/' + currentUser.email, {
+                    headers: {
+                      Authorization: 'Bearer ' + idToken,
+                    },
+                }
+            )
+            setUser(userOfEmail.data)
+            setInputs({
+                ...inputs,
+                name: user.userName,
+                email: user.email
+            })
+            setNotificationTime(userOfEmail.data.notificationTime)
+
+            const tasksOfuser = await axios.get(
+                "http://localhost:8080/api/tasks-of-user/" + currentUser.email,
+                {
+                  headers: {
+                    Authorization: "Bearer " + idToken,
+                  },
+                }
+            );            
+            var tasklist = []
+            tasksOfuser.data.map(task => {
+                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,Descript: task.Descript})
+            })
+            console.log(tasklist)            
+            setTaskData(taskData.concat(tasklist)) 
+            
+        }catch(e) {
+            setError(e)
+            console.log(e)
+        }        
+        setLoading(false)
+    }
+
+    const onEdit = (e) => {
+        e.preventDefault();
+        
+        const user = {
+            userName: inputs.name,
+            notificationTime: notificationTime
+
         }
       );
 
@@ -79,6 +118,7 @@ export default function Account(props) {
     setLoading(false);
   };
 
+
   const onEdit = (e) => {
     e.preventDefault();
 
@@ -93,6 +133,11 @@ export default function Account(props) {
 
     history.push("/");
   };
+  
+  const handleNotificationTimeChange = (e) => {
+        setNotificationTime(e.target.value)
+        console.log('notificationTime: ' + e.target.value)
+   }
 
   const onCancel = (e) => {
     setIsEditing(!isEditing);
@@ -164,6 +209,7 @@ export default function Account(props) {
           headers: {
             Authorization: "Bearer " + idToken,
           },
+
         }
       );
 
@@ -174,6 +220,7 @@ export default function Account(props) {
     }
     setLoading(false);
   };
+
 
   return (
     <>
@@ -192,6 +239,7 @@ export default function Account(props) {
               onChange={onChange}
               onCancel={onCancel}
               existUser={user}
+              handleNotificationTimeChange={handleNotificationTimeChange}
             />
           ) : (
             <>
@@ -200,20 +248,9 @@ export default function Account(props) {
               <ListGroup.Item action href="/forgotPass">
                 Reset Password
               </ListGroup.Item>
-              <ListGroup.Item>
-                Set Notification Time
-                <DropdownButton
-                  id="dropdown-basic-button"
-                  title="Dropdown button"
-                  onSelect={"6"}
-                >
-                  <Dropdown.Item eventKey="6">06:00</Dropdown.Item>
-                  <Dropdown.Item eventKey="12">12:00</Dropdown.Item>
-                  <Dropdown.Item eventKey="21">21:00</Dropdown.Item>
-                  <Dropdown.Item eventKey="0">00:00</Dropdown.Item>
-                </DropdownButton>
-              </ListGroup.Item>
-              <ListGroup.Item>Export Tasks to CSV</ListGroup.Item>
+              
+               <ListGroup.Item action href= "/forgotPass">Reset Password</ListGroup.Item>
+
               <ListGroup.Item onClick={() => setIsEditing(!isEditing)}>
                 Edit User Information
               </ListGroup.Item>
@@ -234,6 +271,7 @@ export default function Account(props) {
                   Deleting account will permanently remove your data. If you
                   want to, &nbsp;  <span className={styles.reLoginMessage}>Re-login </span>and click
                   confirm.
+                  
                 </ListGroup.Item>
               )}
               {showConfirm && (
@@ -271,6 +309,7 @@ export default function Account(props) {
                 </Button>
               )}
             </>
+
           )}
         </Card.Body>
       </Card>
