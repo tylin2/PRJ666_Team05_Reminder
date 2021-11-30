@@ -35,6 +35,9 @@ const taskSchema = new Schema(
         priority: {
             type: String,
             enum: ['P1', 'P2', 'P3', 'P4']
+        },
+        notification: {
+            type: Boolean
         }
     },
     { timestamps: true }

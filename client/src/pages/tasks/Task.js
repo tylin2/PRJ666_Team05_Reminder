@@ -13,13 +13,7 @@ function Tasks() {
   const [error, setError] = useState(null);
   const [numOfCompleted, setNumOfCompleted] = useState(false);
   const [isPrioritySorted, setIsPrioritySorted] = useState(false);
-  /*const [taskCounter, setTaskCounter] = useState({
-    priority1: 0,
-    priority2: 0,
-    priority3: 0,
-    priority4: 0,
-    completed: 0,
-  });*/
+
   /**
    * onComplete
    * * What this function does

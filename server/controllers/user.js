@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Project = require("../models/project");
+const Task = require("../models/task");
 
 exports.createOrUpdateUser = async (req, res) => {
   const { email, userName, password } = req.body;
@@ -18,7 +20,7 @@ exports.createOrUpdateUser = async (req, res) => {
       const newUser = await new User({
         email,
         userName: email.split("@")[0],
-        password
+        password,
       }).save();
       res.json(newUser);
     }
@@ -53,7 +55,6 @@ exports.createOrUpdateUser = async (req, res) => {
 //   }
 // };
 
-
 exports.currentUser = async (req, res) => {
   try {
     User.findOne({ email: req.params.email }).exec((err, user) => {
@@ -71,7 +72,6 @@ exports.currentUser = async (req, res) => {
     );
   }
 };
-
 
 // get all users
 exports.allUser = async (req, res) => {
@@ -93,7 +93,6 @@ exports.allUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-
   try {
     const { email, userName, notificationTime } = req.body;
 
@@ -108,6 +107,28 @@ exports.updateUser = async (req, res) => {
     res.status(404).send("The user was not found -- see the console log");
     console.log(
       "*************DB errors: controllers.user.updateUser*************"
+    );
+    console.log(error.message);
+    console.log(
+      "****************************************************************"
+    );
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const tasks = await Task.deleteMany({ user: req.params.email });
+    const projects = await Project.deleteMany({ createBy: req.params.email });
+    const userDeleted = await User.deleteOne({ email: req.params.email });
+    res.send({
+      "deleted projects count": projects,
+      "deleted tasks count": tasks,
+      "deleted users count": userDeleted,
+    });
+  } catch (error) {
+    res.status(400).send("Fail to get users -- see the console log");
+    console.log(
+      "*************DB errors: controllers.user.deleteUser*************"
     );
     console.log(error.message);
     console.log(

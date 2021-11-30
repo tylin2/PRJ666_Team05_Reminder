@@ -44,18 +44,18 @@ export default function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
-  //?? Should I consider removing token from local storage within useEffect?
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       //https://firebase.google.com/docs/reference/js/auth.auth.md#authonauthstatechanged
       setCurrentUser(user);
       console.log(user); //need to check if react uses this effect after loggin in.
-      setLoading(false);
-      
+      setLoading(false);//!<--      
     });
-
+    //setLoading(false); //!<--
     return unsubscribe;
   }, []);
+
 
   const value = {
     currentUser,
@@ -66,7 +66,7 @@ export default function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     setToken,
-    token
+    token,
   };
 
   return (
