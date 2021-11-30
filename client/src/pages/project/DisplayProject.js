@@ -4,7 +4,7 @@ import DisplayProjectComp from "./DisplayProjectComp";
 import TaskItem from "../tasks/taskItem";
 import TaskList2 from "../tasks/taskList2";
 import EditProject from "./EditProject";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { BiSortDown } from "react-icons/bi";
@@ -35,9 +35,64 @@ export default function DisplayProject(props) {
   const [p3Count, setP3Count] = useState(0);
   const [p4Count, setP4Count] = useState(0);
 
+
   useEffect(() => {
-    getProject(props);
-  }, []);
+    if(tasks.length == 0){
+      getProject(props);
+    }else{
+      console.log(`in the useEffect else block`)
+      calculateTaskCounts(tasks);//I should not change tasks in this function.
+    }
+  }, [tasks]);
+
+// Associated states: totalTasks, completedTasks, p1Count ~ p4Count.
+const calculateTaskCounts = (tasks) => {
+  let count = 0;
+  let totalCount = 0;
+  let p1counter = 0;
+  let p2counter = 0;
+  let p3counter = 0;
+  let p4counter = 0;
+
+  //setTotalTasks(Number(tasks.length));
+  tasks.forEach(task=>{
+    ++totalCount;
+    if (task.isCompleted == true) {
+      count = count + 1;      
+    } else {
+      switch (task.priority) {
+        case "P1":
+          ++p1counter;
+          //setP1Count(p1counter);
+          break;
+        case "P2":
+          ++p2counter;          
+          //setP2Count(p2counter);
+          break;
+        case "P3":
+          ++p3counter;          
+          //setP3Count(p3counter);
+          break;
+        case "P4":
+          ++p4counter;          
+          //setP4Count(p4counter);
+          break;
+        default:
+      }
+    }
+  });
+  setTotalTasks(totalCount);
+  setCompletedTasks(count);
+  setP1Count(p1counter);
+  setP2Count(p2counter);
+  setP3Count(p3counter);
+  setP4Count(p4counter);
+
+  console.log(`p1: ${p1Count}`);
+  console.log(`p2: ${p2Count}`);
+  console.log(`p3: ${p3Count}`);
+  console.log(`p4: ${p4Count}`);
+}
 
   const getProject = async (props) => {
     try {
@@ -96,22 +151,26 @@ export default function DisplayProject(props) {
           switch (task.priority) {
             case "P1":
               ++p1counter;
-              setP1Count(p1counter);
+              //setP1Count(p1counter);
               break;
             case "P2":
-              ++p2counter;
-              setP2Count(p2counter);
+              ++p2counter;              
+              //setP2Count(p2counter);
               break;
             case "P3":
-              ++p3counter;
-              setP3Count(p3counter);
+              ++p3counter;              
+              //setP3Count(p3counter);
               break;
             case "P4":
-              ++p4counter;
-              setP4Count(p4counter);
+              ++p4counter;              
+              //setP4Count(p4counter);
               break;
             default:
           }
+          setP1Count(p1counter);
+          setP2Count(p2counter);
+          setP3Count(p3counter);
+          setP4Count(p4counter);
         }
       });
     } catch (e) {
@@ -157,6 +216,7 @@ export default function DisplayProject(props) {
         task._id === id ? { ...task, isCompleted: e.target.checked } : task
       )
     );
+    
     if (e.target.checked) {
       setCompletedTasks(completedTasks + 1);
     } else {
@@ -251,6 +311,36 @@ export default function DisplayProject(props) {
     setLoading(false);
   };
 
+
+  // let p1counter = 0;
+  // let p2counter = 0;
+  // let p3counter = 0;
+  // let p4counter = 0;
+  // tasks.forEach(t=>{
+  //   if(t.isCompleted === false) {
+  //     switch (t.priority) {
+  //       case "P1":
+  //         ++p1counter;
+  //         //setP1Count(p1counter);
+  //         break;
+  //       case "P2":
+  //         ++p2counter;
+  //         //setP2Count(p2counter);
+  //         break;
+  //       case "P3":
+  //         ++p3counter;
+  //         //setP3Count(p3counter);
+  //         break;
+  //       case "P4":
+  //         ++p4counter;
+  //         //setP4Count(p4counter);
+  //         break;
+  //       default:
+  //     }
+  //   }
+  // });
+
+
   return (
     <>
       <br />
@@ -325,7 +415,7 @@ export default function DisplayProject(props) {
                     }
                   })}
 
-              {isPrioritySorted && p1Count > 0 && (
+              {isPrioritySorted && p1Count > 0 && (                 
                 <div className={styles.textBox}>
                   <h5 className={styles.alignLeft}>{p1Count}</h5>
                   <h5 className={styles.P1_alignCenter}>Priority 1</h5>
@@ -349,7 +439,7 @@ export default function DisplayProject(props) {
                     }
                   })}
 
-              {isPrioritySorted && p2Count > 0 && (
+              {isPrioritySorted && p2Count > 0 && (                 
                 <div className={styles.textBox}>
                   <h5 className={styles.alignLeft}>{p2Count}</h5>
                   <h5 className={styles.P2_alignCenter}>Priority 2</h5>
@@ -397,7 +487,7 @@ export default function DisplayProject(props) {
                     }
                   })}
 
-              {isPrioritySorted && p4Count > 0 && (
+              {isPrioritySorted && p4Count > 0 && (                 
                 <div className={styles.textBox}>
                   <h5 className={styles.alignLeft}>{p4Count}</h5>
                   <h5 className={styles.P4_alignCenter}>Priority 4</h5>
