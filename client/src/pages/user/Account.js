@@ -84,7 +84,7 @@ export default function Account( props ) {
             );            
             var tasklist = []
             tasksOfuser.data.map(task => {
-                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,Descript: task.descript})
+                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,descript: task.descript})
             })
             console.log(tasklist)            
             setTaskData(taskData.concat(tasklist)) 
