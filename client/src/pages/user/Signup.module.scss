@@ -1,14 +1,22 @@
 @import "../../base";
 
-.card{
-    margin-left: 37.5%;      
-    margin-right: 30%;
-    width: auto;
+.card {
+  margin-left: 37.5%;
+  margin-right: 30%;
+  width: auto;
 }
 
 .accountCard {
-    margin-left: 5%;
-    margin-right: 5%;
-    width: auto;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: auto;
 }
 
+.deleteMessage {
+  //`color: red ;
+  font-weight: bold;
+}
+
+.reLoginMessage {
+  color: red !important;
+}

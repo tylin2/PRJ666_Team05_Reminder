@@ -3,19 +3,20 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { 
+const {
   createProject,
-  findProjectsOf_aUser, 
+  findProjectsOf_aUser,
   listProject,
   findProjectbyId,
   deleteProject,
-  updateProject
+  updateProject,
 } = require("./controllers/project");
 const {
   createOrUpdateUser,
   currentUser,
   allUser,
   updateUser,
+  deleteUser,
 } = require("./controllers/user");
 const {
   findTasksOf_aUser,
@@ -24,17 +25,17 @@ const {
   deleteTask,
   updateTask,
   findTaskbyId,
-  findTasksOf_aProject
+  findTasksOf_aProject,
 } = require("./controllers/task");
 const { authCheck } = require("./middleware/auth");
-const path = require('path')
+const path = require("path");
 
 const time_set_function = require("./functions/sendgrid/timer");
 dotenv.config();
 
 // app
 const app = express();
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 
 //db
 mongoose
@@ -65,6 +66,7 @@ app.post(`/api/create-or-update-user`, createOrUpdateUser);
 // app.get(`/api/current-user`, authCheck, currentUser);
 app.get(`/api/current-user/:email`, authCheck, currentUser);
 app.get(`/api/all-user`, authCheck, allUser);
+app.delete(`/api/delete-user/:email`, authCheck, deleteUser);
 app.put(`/api/update-user/:email`, authCheck, updateUser);
 
 // server for project model
