@@ -22,6 +22,7 @@ import EditUser from "./EditUser.js";
 import { constrainPoint } from "@fullcalendar/common";
 
 import "bootstrap/dist/css/bootstrap.css";
+ 
 
 export default function Account( props ) {
 
@@ -83,7 +84,7 @@ export default function Account( props ) {
             );            
             var tasklist = []
             tasksOfuser.data.map(task => {
-                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,Descript: task.Descript})
+                tasklist.push({name: task.name, dueDate: `${task.dueDate.split("T")[0]}`,Descript: task.descript})
             })
             console.log(tasklist)            
             setTaskData(taskData.concat(tasklist)) 
@@ -203,6 +204,7 @@ export default function Account( props ) {
 
   return (
     <>
+    <br />
       <Card style={{ width: "90rem" }} className={styles.accountCard}>
         {isEditing ? (
           <h2 className="text-center mb-4">Account Service</h2>
@@ -228,7 +230,12 @@ export default function Account( props ) {
                 Reset Password
               </ListGroup.Item>
               
-               <ListGroup.Item action href= "/forgotPass">Reset Password</ListGroup.Item>
+               <ListGroup.Item> <CSVLink 
+                                    filename="The_Reminder.csv" 
+                                    headers={headers}
+                                    data={taskData}
+                                    className = {styles.csvlink}>Export to CSV </ CSVLink>
+                                    </ListGroup.Item>
 
               <ListGroup.Item onClick={() => setIsEditing(!isEditing)}>
                 Edit User Information
