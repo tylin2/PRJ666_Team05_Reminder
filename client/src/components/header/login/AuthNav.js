@@ -12,7 +12,7 @@ const AuthNav = () => {
     }
   }, []);
 
-  return <div>{isAuth ? <Account /> : <Login />}</div>;
+  return <>{isAuth ? <Account /> : <Login />}</>;
 };
 
 

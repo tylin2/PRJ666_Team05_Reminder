@@ -134,10 +134,10 @@ function App() {
             style={{ height: "3.25rem", marginLeft: "2rem" }}
           />
         </a>
-        <Form>
+        {/* <Form>
           {" "}
           <Input placeholder="Search by anything..." />
-        </Form>
+        </Form> */}
         <AuthNav />
       </Header>
       <Body>{authBody}</Body>
