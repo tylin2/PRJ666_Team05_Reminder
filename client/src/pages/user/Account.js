@@ -230,14 +230,14 @@ export default function Account( props ) {
                 Reset Password
               </ListGroup.Item>
               
-               <ListGroup.Item> <CSVLink 
+               <ListGroup.Item action> <CSVLink 
                                     filename="The_Reminder.csv" 
                                     headers={headers}
                                     data={taskData}
                                     className = {styles.csvlink}>Export to CSV </ CSVLink>
                                     </ListGroup.Item>
 
-              <ListGroup.Item onClick={() => setIsEditing(!isEditing)}>
+              <ListGroup.Item action onClick={() => setIsEditing(!isEditing)}>
                 Edit User Information
               </ListGroup.Item>
               <ListGroup.Item
