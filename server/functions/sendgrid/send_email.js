@@ -4,10 +4,11 @@ require("dotenv").config({ path: "../../.env" });
 
 const URL_IMG = `http://localhost:8080/images`;
 
-const send_email_function = async (tasks) => {
+const send_email_function = async (collection) => {
   const users = [];
   const user_task_sets = {};
 
+  tasks = collection.tasks;
   tasks.forEach((task, index, arr) => {
     var isExist = false;
     users.forEach((user) => {
@@ -187,14 +188,41 @@ const send_email_function = async (tasks) => {
                 `,
       };
 
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      var index;
+      var hour;
+
+      collection.email_task_sets.forEach((e, i) => {
+        if (e.email == user) {
+          index = i;
+        }
+      });
+
+      if (collection.email_task_sets[index].notification == "00:00") {
+        hour = 0;
+      }
+      if (collection.email_task_sets[index].notification == "09:00") {
+        hour = 9;
+      }
+      if (collection.email_task_sets[index].notification == "12:00") {
+        hour = 12;
+      }
+      if (collection.email_task_sets[index].notification == "21:00") {
+        hour = 21;
+      }
+
+      //'March 13, 08 00:00'
+      const current = new Date();
+
+      if (hour === current.getHours()) {
+        sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email sent");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     });
   }
 };

@@ -10,6 +10,7 @@ exports.call_api_to_check_due_date = async (end_of_week) => {
         { dueDate: { $gte: new Date() } },
         { dueDate: { $lte: end_of_week } },
         { notification: true },
+        { isCompleted: false },
       ],
     }).exec();
     if (!tasks) {
@@ -25,7 +26,30 @@ exports.call_api_to_check_due_date = async (end_of_week) => {
       );
     }
 
-    return tasks;
+    const emails = [];
+    const email_task_sets = [];
+
+    tasks.forEach((task) => {
+      if (!emails.includes(task.user)) {
+        emails.push(task.user);
+        email_task_sets.push({ email: task.user });
+      }
+    });
+
+    const user = await User.find({
+      email: {
+        $in: [...emails],
+      },
+    }).exec();
+
+    email_task_sets.forEach((e) => {
+      user.forEach((u) => {
+        if (e.email === u.email) {
+          e.notification = u.notificationTime;
+        }
+      });
+    });
+    return { email_task_sets, tasks };
   } catch (error) {
     res
       .status(400)

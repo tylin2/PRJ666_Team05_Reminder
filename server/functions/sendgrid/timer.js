@@ -21,7 +21,7 @@ const time_set_function = () => {
       const now = new Date();
         const end = new Date();
 
-        // 7 days later
+        // testing
         end.setUTCDate(now.getUTCDate() + 7);
         console.log("call_api_to_check_due_date")
         call_api_to_check_due_date(end).then((tasks) => {
@@ -40,7 +40,7 @@ const time_set_function = () => {
         call_api_to_check_due_date(end).then((tasks) => {
           send_email_function(tasks);
         });
-      }, 86400000);
+      }, 7200000);
     }, rest_total_time * 1000);
   }
 };
