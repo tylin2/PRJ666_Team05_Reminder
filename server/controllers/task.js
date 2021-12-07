@@ -49,6 +49,7 @@ exports.call_api_to_check_due_date = async (end_of_week) => {
         }
       });
     });
+
     return { email_task_sets, tasks };
   } catch (error) {
     res

@@ -9,12 +9,12 @@ const send_email_function = async (collection) => {
   const user_task_sets = {};
 
   tasks = collection.tasks;
-  tasks.forEach((task, index, arr) => {
+
+  tasks.forEach((task, index) => {
     var isExist = false;
     users.forEach((user) => {
       if (user == task.user) {
         isExist = true;
-        arr.length = index + 1;
       }
     });
     if (!isExist) users.push(task.user);
@@ -56,20 +56,17 @@ const send_email_function = async (collection) => {
     const tasks_string = task_array.join("");
     sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`);
 
-    console.log(user_task_sets[key]);
-
-    users.forEach((user) => {
-      const msg = {
-        to: `${key}`, // Change to your recipient
-        from: "klee214@myseneca.ca", // Change to your verified sender
-        subject: "DEMO",
-        // I guess you can use bootstrap as well
-        // Please save image files into the public->images folder.
-        // Once you start the server, the image file will be hosted :
-        // http://localhost:8080/images/img.jpg like that and you can use the image...
-        // I just used external image file in google for now.
-        // Once you make it pretty html file, I will make this portion as a function and move it to another script file
-        html: `
+    const msg = {
+      to: `${key}`, // Change to your recipient
+      from: "klee214@myseneca.ca", // Change to your verified sender
+      subject: "DEMO",
+      // I guess you can use bootstrap as well
+      // Please save image files into the public->images folder.
+      // Once you start the server, the image file will be hosted :
+      // http://localhost:8080/images/img.jpg like that and you can use the image...
+      // I just used external image file in google for now.
+      // Once you make it pretty html file, I will make this portion as a function and move it to another script file
+      html: `
                 <!DOCTYPE html>
                 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
                 <head>
@@ -186,44 +183,42 @@ const send_email_function = async (collection) => {
                   </table>
                 </body>
                 `,
-      };
+    };
 
-      var index;
-      var hour;
+    var index;
+    var hour;
 
-      collection.email_task_sets.forEach((e, i) => {
-        if (e.email == user) {
-          index = i;
-        }
-      });
-
-      if (collection.email_task_sets[index].notification == "00:00") {
-        hour = 0;
-      }
-      if (collection.email_task_sets[index].notification == "09:00") {
-        hour = 9;
-      }
-      if (collection.email_task_sets[index].notification == "12:00") {
-        hour = 12;
-      }
-      if (collection.email_task_sets[index].notification == "21:00") {
-        hour = 21;
-      }
-
-      //'March 13, 08 00:00'
-      const current = new Date();
-
-      if (hour === current.getHours()) {
-        sgMail
-          .send(msg)
-          .then(() => {
-            console.log("Email sent");
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+    collection.email_task_sets.forEach((e, i) => {
+      if (e.email == key) {
+        index = i;
       }
     });
+
+    if (collection.email_task_sets[index].notification == "00:00") {
+      hour = 0;
+    }
+    if (collection.email_task_sets[index].notification == "09:00") {
+      hour = 9;
+    }
+    if (collection.email_task_sets[index].notification == "12:00") {
+      hour = 12;
+    }
+    if (collection.email_task_sets[index].notification == "21:00") {
+      hour = 21;
+    }
+
+    //'March 13, 08 00:00'
+    const current = new Date();
+    if (hour === current.getHours()) {
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
 };
 

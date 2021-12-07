@@ -3,7 +3,7 @@ const send_email_function = require("./send_email");
 
 require("dotenv").config({ path: "../../.env" });
 
-const time_set_function = () => {
+const time_set_function = async () => {
   const now = new Date("July 20, 69 23:59:59");
 
   const hours = now.getHours();
@@ -24,9 +24,9 @@ const time_set_function = () => {
         // testing
         end.setUTCDate(now.getUTCDate() + 7);
         console.log("call_api_to_check_due_date")
-        call_api_to_check_due_date(end).then((tasks) => {
-          send_email_function(tasks);
-        });
+
+        const tasks = await call_api_to_check_due_date(end)
+        send_email_function(tasks);
 
     // make sure this will run tomorrow morning, not right now
     const run_email_send_timer = setTimeout(() => {
