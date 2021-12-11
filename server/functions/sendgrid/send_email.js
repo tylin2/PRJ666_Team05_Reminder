@@ -63,7 +63,7 @@ const send_email_function = async (collection) => {
       // I guess you can use bootstrap as well
       // Please save image files into the public->images folder.
       // Once you start the server, the image file will be hosted :
-      // http://http://localhost:8080/images/img.jpg like that and you can use the image...
+      // http:///api//images/img.jpg like that and you can use the image...
       // I just used external image file in google for now.
       // Once you make it pretty html file, I will make this portion as a function and move it to another script file
       html: `

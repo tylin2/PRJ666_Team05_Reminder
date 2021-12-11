@@ -60,7 +60,7 @@ export default function Account( props ) {
             setLoading(true);
             setTaskData([]);       
             const userOfEmail = await axios.get(
-                'http://localhost:8080/api/current-user/' + currentUser.email, {
+                '/api//api/current-user/' + currentUser.email, {
                     headers: {
                       Authorization: 'Bearer ' + idToken,
                     },
@@ -75,7 +75,7 @@ export default function Account( props ) {
             setNotificationTime(userOfEmail.data.notificationTime)
 
             const tasksOfuser = await axios.get(
-                "http://localhost:8080/api/tasks-of-user/" + currentUser.email,
+                "/api//api/tasks-of-user/" + currentUser.email,
                 {
                   headers: {
                     Authorization: "Bearer " + idToken,
@@ -167,7 +167,7 @@ export default function Account( props ) {
   const deleteUser = async () => {
     try {
       await axios.delete(
-        "http://localhost:8080/api/delete-user/" + currentUser.email,
+        "/api//api/delete-user/" + currentUser.email,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -183,7 +183,7 @@ export default function Account( props ) {
   const editUser = async (props) => {
     try {
       const updatedUser = await axios.put(
-        "http://localhost:8080/api/update-user/" + currentUser.email,
+        "/api//api/update-user/" + currentUser.email,
         props,
         {
           headers: {

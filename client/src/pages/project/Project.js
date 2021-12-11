@@ -23,7 +23,7 @@ export default function Projects() {
             const idToken = window.localStorage.getItem("token")
             const userEmail = currentUser.email
             const projectsOfuser = await axios.get(
-                'http://localhost:8080/api/projects-of-user/' + userEmail, {
+                '/api//api/projects-of-user/' + userEmail, {
                     headers: {
                       Authorization: 'Bearer ' + idToken,
                     },
