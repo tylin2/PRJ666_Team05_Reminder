@@ -1,7 +1,7 @@
 import axios from 'axios';
 import firebase from 'firebase';
 
-const url = 'http://localhost:8080/api/create-or-update-user';
+const url = '/api/create-or-update-user';
 
 const createToken = async () => {
     const user = firebase.auth().currentUser;

@@ -35,7 +35,7 @@ export default function CreateProject() {
             const userEmail = currentUser.email
 
             const response = await axios.post(
-                'http://localhost:8080/api/create-project/' + userEmail,
+                '/api/create-project/' + userEmail,
                 project,
                 {
                  

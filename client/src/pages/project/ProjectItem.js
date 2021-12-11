@@ -21,7 +21,7 @@ export default function ProjectItem ( {project} ) {
         setCompletedTasks(0);
 
         const tasksOfproject = await axios.get(
-            'http://localhost:8080/api/tasks-of-project/' + project._id, {
+            '/api/tasks-of-project/' + project._id, {
                 headers: {
                   Authorization: 'Bearer ' + idToken,
                 },

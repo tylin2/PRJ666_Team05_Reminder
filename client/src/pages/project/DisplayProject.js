@@ -113,7 +113,7 @@ const calculateTaskCounts = (tasks) => {
       setTotalTasks(0);
       setCompletedTasks(0);
       const projectOfid = await axios.get(
-        "http://localhost:8080/api/display-project/" + id,
+        "/api/display-project/" + id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -130,7 +130,7 @@ const calculateTaskCounts = (tasks) => {
         descript: projectOfid.data.descript,
       });
       const tasksOfproject = await axios.get(
-        "http://localhost:8080/api/tasks-of-project/" + id,
+        "/api/tasks-of-project/" + id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -194,7 +194,7 @@ const calculateTaskCounts = (tasks) => {
   const deleteProject = async (props) => {
     try {
       const projectOfid = await axios.delete(
-        "http://localhost:8080/api/delete-project/" + id,
+        "/api/delete-project/" + id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -248,7 +248,7 @@ const calculateTaskCounts = (tasks) => {
     setError(null);
     try {
       const taskOfid = await axios.delete(
-        "http://localhost:8080/api/delete-task/" + task_id,
+        "/api/delete-task/" + task_id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -267,7 +267,7 @@ const calculateTaskCounts = (tasks) => {
       //setTasks([null]);
       //setLoading(true);
       const updatedTask = await axios.put(
-        "http://localhost:8080/api/update-task/" + id,
+        "/api/update-task/" + id,
         task,
         {
           headers: {
@@ -309,7 +309,7 @@ const calculateTaskCounts = (tasks) => {
   const editProject = async (props) => {
     try {
       const updatedProject = await axios.put(
-        "http://localhost:8080/api/update-project/" + id,
+        "/api/update-project/" + id,
         props,
         {
           headers: {

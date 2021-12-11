@@ -2,7 +2,7 @@ const sgMail = require("@sendgrid/mail");
 
 require("dotenv").config({ path: "../../.env" });
 
-const URL_IMG = `http://localhost:8080/images`;
+const URL_IMG = `https://the-reminder-app.herokuapp.com/images`;
 
 const send_email_function = async (collection) => {
   const users = [];
@@ -98,7 +98,7 @@ const send_email_function = async (collection) => {
                                     <tr>
                                         <td align="center" style="padding:40px 0 30px 0;background:#70bbd9;">
             
-                                            <a href="http://localhost:8080"><img src="${URL_IMG}/logo.png" alt="" width="300" style="height:auto;display:block;" />
+                                            <a href="https://the-reminder-app.herokuapp.com/"><img src="${URL_IMG}/logo.png" alt="" width="300" style="height:auto;display:block;" />
             
                                         </td>
                                     </tr>
@@ -138,7 +138,7 @@ const send_email_function = async (collection) => {
             
                                                 <tr>
                                                     <td style="padding:0;">
-                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;"><a href="http://localhost:8080">Go back to The Reminder App</a></p>
+                                                        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;"><a href="https://the-reminder-app.herokuapp.com/">Go back to The Reminder App</a></p>
                                                     </td>
                                                 </tr>
             
@@ -153,7 +153,7 @@ const send_email_function = async (collection) => {
                                                     <tr>
                                                         <td style="padding:0;width:50%;" align="left">
                                                             <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                                                                &reg; PRJ666, Group 5 2021<br/><a href="http://localhost:8080" style="color:#ffffff;text-decoration:underline;">Reminder App</a>
+                                                                &reg; PRJ666, Group 5 2021<br/><a href="https://the-reminder-app.herokuapp.com/" style="color:#ffffff;text-decoration:underline;">Reminder App</a>
                                                             </p>
                                                         </td>
                                                         <td style="padding:0;width:50%;" align="right">
