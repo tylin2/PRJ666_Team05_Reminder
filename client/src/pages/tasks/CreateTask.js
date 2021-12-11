@@ -57,7 +57,7 @@ export default function CreateTask() {
       const userEmail = currentUser.email;
 
       const response = await axios.post(
-        "/api//api/create-task/" + userEmail,
+        "/api/create-task/" + userEmail,
         task,
         {
           headers: {

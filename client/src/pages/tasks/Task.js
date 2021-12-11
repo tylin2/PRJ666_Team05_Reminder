@@ -46,7 +46,7 @@ function Tasks() {
     setError(null);
     try {
       const taskOfid = await axios.delete(
-        "/api//api/delete-task/" + task_id,
+        "/api/delete-task/" + task_id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -66,7 +66,7 @@ function Tasks() {
       //setTasks([null]);
       //setLoading(true);
       const updatedTask = await axios.put(
-        "/api//api/update-task/" + id,
+        "/api/update-task/" + id,
         task,
         {
           headers: {
@@ -91,7 +91,7 @@ function Tasks() {
       const idToken = window.localStorage.getItem("token");
       const userEmail = currentUser.email;
       const tasksOfuser = await axios.get(
-        "/api//api/tasks-of-user/" + userEmail,
+        "/api/tasks-of-user/" + userEmail,
         {
           headers: {
             Authorization: "Bearer " + idToken,
