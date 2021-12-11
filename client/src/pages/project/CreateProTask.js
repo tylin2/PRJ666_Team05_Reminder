@@ -51,7 +51,7 @@ export default function CreateProTask( props ) {
             const userEmail = currentUser.email
 
             const response = await axios.post(
-                '8080/api/create-task/' + userEmail,
+                '/api/create-task/' + userEmail,
                 task,
                 {
                  
