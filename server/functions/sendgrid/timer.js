@@ -21,6 +21,16 @@ const time_set_function = async () => {
 
     // make sure this will run tomorrow morning, not right now
     const run_email_send_timer = setTimeout(() => {
+      const now = new Date();
+      const end = new Date();
+
+      // 7 days later
+      end.setUTCDate(now.getUTCDate() + 7);
+      console.log("call_api_to_check_due_date");
+      call_api_to_check_due_date(end).then((tasks) => {
+        send_email_function(tasks);
+      });
+      
       const send_email = setInterval(() => {
         const now = new Date();
         const end = new Date();
