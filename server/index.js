@@ -37,10 +37,6 @@ dotenv.config();
 const app = express();
 app.use(express.static(__dirname + "/public"));
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
- });
-
 //db
 mongoose
   .connect(`${process.env.DATABASE_URL}`)
@@ -90,4 +86,8 @@ app.put(`/api/update-task/:id`, authCheck, updateTask);
 app.get(`/api/tasks-of-user/:email`, authCheck, findTasksOf_aUser);
 app.get(`/api/tasks-of-project/:project`, authCheck, findTasksOf_aProject);
 
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+ });
 //app.put(`/api/update-task-of-user/:email`, authCheck, updateTaskOf_aUser);
