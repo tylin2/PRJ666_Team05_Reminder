@@ -28,7 +28,7 @@ export default function Calendar() {
             const idToken = window.localStorage.getItem("token")
             const userEmail = currentUser.email
             const tasksOfuser = await axios.get(
-                '/api/tasks-of-user/' + userEmail, {
+                'http://localhost:8080/api/tasks-of-user/' + userEmail, {
                     headers: {
                       Authorization: 'Bearer ' + idToken,
                     },

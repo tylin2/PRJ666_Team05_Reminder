@@ -96,7 +96,7 @@ export default function DisplayTask(props) {
       setTasks([null]);
       setLoading(true);
       const updatedTask = await axios.put(
-        "/api/update-task/" + id,
+        "http://localhost:8080/api/update-task/" + id,
         task,
         {
           headers: {
@@ -118,7 +118,7 @@ export default function DisplayTask(props) {
       setTasks([null]);
       setLoading(true);
       const taskOfid = await axios.get(
-        "/api/display-task/" + id,
+        "http://localhost:8080/api/display-task/" + id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
@@ -148,7 +148,7 @@ export default function DisplayTask(props) {
   const deleteTask = async (props) => {
     try {
       const taskOfid = await axios.delete(
-        "/api/delete-task/" + id,
+        "http://localhost:8080/api/delete-task/" + id,
         {
           headers: {
             Authorization: "Bearer " + idToken,
